@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+lang = "language-code"，如 lang="zh-cn"
+-->
+<html lang="en">
+
+<head>
+    <!-- meta 标签供搜索引擎使用
+    charset 字符集
+    name  "keywords" 指定该网页的关键字，用搜索引擎搜索关键字时会匹配网页的关键字， <meta name="keywords" content="前端，CSS">
+          "description" 指定该网页的主要描述，作为网页的摘要，content 表示摘要内容  <meta name="description" content="这是一个前端学习网站">
+          "http-equiv" 最大的用处是可以重定向网页，如3s后将页面重定向到百度 <meta http-equiv="refresh" content="3;url=https://www.baidu.com">
+    -->
+    <meta charset="UTF-8">
+    <!--
+  title 元素中的内容会出现在标签页、浏览历史记录和书签里。一般要求唯一、简短的描述性文字。title 元素在搜索引擎确定网页排名中有很大的权重。
+    -->
+    <title>网页结构</title>
+</head>
+<body>
+<!--
+h1 到 h6 标题
+header 元素标记页面的导航区（页眉），经常配合 nav 元素（标记重要的导航区链接）使用
+main 元素标记页面的主体区域，一个页面只有一个
+article 元素标记主体区域的内容。包括任意数量的段落、列表、音频、视频和图像等
+section 元素标记页面中的具有相似主题的一组内容。类似 div，但 div 没有任何语义
+aside 元素标记和主体内容没有强相关性的侧边栏
+footer 元素标记页脚
+div 元素表示通用容器，包含块级内容，没有任何语义。当以上元素的语义都不符合时，考虑 div
+-->
+
+<header role="banner">
+    <nav role="navigation">
+        <ul>
+            <li>
+                <a>链接一</a>
+            </li>
+            <li>
+                <a>链接二</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main role="main">
+    <h1>文章的大标题</h1>
+    <article>
+        <section>
+            <h2>第一章</h2>
+            <p>第一个段落</p>
+        </section>
+        <section>
+            <h2>第二章</h2>
+            <p>第一个段落</p>
+        </section>
+
+    </article>
+</main>
+<aside role="complementary">
+    <h1>补充内容</h1>
+</aside>
+<footer>
+    &copy;版权所有
+</footer>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+    <style>
+        /*
+        创建表单
+        form 元素，元素之间是组成表单的说明标签，控件和按钮
+        form 元素里 action 属性设定访问者提交表单后服务器上进行处理的脚本的 URL，method 属性为客户端向服务器的请求方法
+
+        组织表单元素
+        fieldset 和 legend 都是可选的
+        用 fieldset 将相关的元素组合到一起，用 legend 元素为每个 fieldset 元素提供一个标题，有时可用 h1~h6 代替
+        legend 必须是 fieldset 的第一个元素
+        用 div 和 p 分隔表单元素
+
+        创建文本框
+        <label for="idlabel">labelname</label> 是让用户识别文本框的标签
+        <input type="text" name="dataname" id="idlabel" value="default" placeholder="hinttext" required="required" autofocus="autofocus" size="n" maxlength="n" />
+            type="text"，text 代表文本框，而不是搜索框、邮件框、电话框等
+            name="dataname"，dataname 是用于让服务器的脚本识别输入数据的文本
+            id="idlabel"，idlabel 和 label 元素中的 for 属性值一致
+            value="default"，控件的默认值
+            placeholder="hinttext"，控件最初显示的数据，当文本框获得焦点后，这些文本将消失
+            required="required"，仅在控件有值的情况下才能提交表单
+            autofocus="autofocus"，第一个拥有此属性值的控件会在页面加载后获得焦点
+            size="n"，定义文本框宽度，以字符为单位，默认为 20
+            maxlength="n"，文本框允许输入的最大字符数
+            autocomplete="off"，不保存用户输入文本
+            pattern="正则表达式"，验证输入内容
+            formnovalidate="formnovalidate"，覆盖表单的 novalidate 属性。关闭自动验证
+            readonly="readonly"，规定该控件为只读
+            disabled="disabled"，当 input 元素加载时禁用它
+
+        为控件添加说明标签
+        标签是说明表单控件用途的文本
+        label 元素中的 for 属性值与一个表单控件的 id 值相同，则该标签与该控件关联起来
+
+        创建密码框
+        密码框与文本框唯一的区别在于密码框输入的文本会用圆点或星号隐藏
+        <input type="password" ...... />
+
+        创建电子邮件框、电话框、搜索框和 URL 框
+        HTML5 新增
+        type="email"，浏览器会自动验证，确保符合电子邮件格式，formnovalidate 属性可以关闭自动验证
+        type="tel"，
+        type="search"，
+        type="url"，浏览器自动验证，URL 必须以 http:// 或 https:// 开头
+
+        创建单选按钮
+        type="radio"，同一组单选按钮只有一个能被选中
+        name="radioset"，同一组单选按钮的 name 属性必须相同
+        value="data"，单选按钮被选中时发送给服务器的数据
+        checked="checked"，让该单选按钮在页面加载后处于激活状态，只能对一组单选按钮中的一个设置
+
+        创建复选框
+        type="checkbox"，同一组复选框，可以同时选中任意数量
+        name="boxset"，同一组复选框的 name 属性必须相同
+        value="data"，复选框被选中时发送给服务器的数据
+        checked="checked"，让该单选按钮在页面加载后处于激活状态
+
+        创建文本区域
+        给用户评论或填写问题的空间
+        <textarea id="idlabel" name="dataname cols="n" rows="n">文本区域的默认值</textarea>
+            cols="n"，文本区域的宽度
+            rows="n"，文本区域的高度
+            文本区域的默认值为 textarea 元素的内容，且没有 value 属性
+
+        创建选择框
+        为用户提供一组选项
+        <select name="dataname" id="idlabel" size="n" multiple="multiple>
+            <optgroup label="labelname">
+                <option value="optiondata" selected="selected" >选项名称</option>
+                ......
+            </optgroup>
+            ......
+        </>select>
+        通常在 select 元素中设置 name 属性，option 元素中设置 value
+        用 optgroup 元素将多个 option 分成一组
+        size="n"，选择框的高度（以行为单位），除非设置 size 属性，否则用户必须选中菜单中某个选项
+        multiple="multiple，允许用户选择一个以上选项
+        value="optiondata"，选项被选中后发送给服务器的数据，若省略 value 属性，option 元素中的内容就是 value 属性值
+
+        让用户上传文件
+        form 元素 enctype 属性规定在发送到服务器之前如何对表单数据编码，需要上传文件时 enctype="multipart/form-data"
+        type="file"
+
+        创建隐藏控件
+        类似于不可见的文本框，用于储存表单中的数据
+        type="hidden"
+
+        创建提交按钮
+        <input type="submit" value="submit-msg" />
+            type="submit"，创建普通带文本的按钮
+            value="submit-msg"，出现在提交按钮上的文本
+        <input type="image" src="image.url" width="180" height="90" alt="description"/>
+            type="image"，创建带图像的按钮
+            src="image.url"，图像相对于网页的位置
+            alt="description"，无法显示图片时出现的文本
+            width 和 height 可选的，定义按钮中的图像大小
+
+        或使用 button 元素创建提交按钮
+        <button type="submit">submit-msg</>button>
+
+        重置按钮
+        将表单数据还原为页面加载时的样子
+        type="reset"
+
+        禁用表单元素
+        对某个控件定义 disabled="disabled"
+
+        根据表单状态设置其样式的伪类
+        :focus，表示获得焦点的控件
+        :checked，表示选中的单选框或复选框
+        :disabled，表示具有 disabled 属性的控件
+        :enabled，与 :disabled 相反
+        :required，表示具有 required 属性的控件
+        :optional，与 :required 相反
+        :invalid，值与 pattern 属性不匹配，或值不通过电子邮件框的自动验证，不通过 URL 框的自动验证，或有 required 属性但值为空的控件
+        :valid，与 :invalid 相反
+        */
+    </style>
+</head>
+<body>
+<h1>创建新账户</h1>
+<form method="post" action="show-data.php">
+    <!--各种表单元元素-->
+    <fieldset>
+        <h2 class="hdr-account">账户</h2>
+        <div class="fields">
+            <p class="row">
+                <label for="first-name">名</label>
+                <input type="text" id="first-name" name="first_name" class="field-large" required aria-required="true"
+                       pattern="\d{3}"/>
+            </p>
+            <p class="row">
+                <label for="last-name">姓氏</label>
+                <input type="text" id="last-name" name="last_name" class="field-large"/>
+            </p>
+            <p class="row">
+                <label for="email">邮箱</label>
+                <input type="email" id="email" name="email" placeholder="yourname@example.com" class="field-large"/>
+            </p>
+            <div class="row">
+                <label for="website">网站链接</label>
+                <input type="url" id="website" name="website" class="field-large" placeholder="http://www.example.com"
+                       formnovalidate/>
+                <p class="instructions">有自己的网站或博客？请输出地址，以<kbd>http://</kbd>或<kbd>https://</kbd>开始</p>
+            </div>
+            <p class="row">
+                <label for="phone">电话号码</label>
+                <input type="tel" id="phone" name="phone" class="field-large" placeholder="xxx-xxx-xxxx"
+                       pattern="\d{3}-\d{3}-\d{4}">
+            </p>
+            <p class="row">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password"/>
+            </p>
+            <p class="row">
+                <label for="password2">再次确认</label>
+                <input type="password" id="password2" name="password2"/>
+            </p>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h2 class="hdr-address">地址</h2>
+        <div claa="fields">
+            <p class="row">
+                <label for="street-address">现居地</label>
+                <input type="text" id="street-address" name="street_address" class="large-field">
+            </p>
+            <p class="row">
+                <label for="state">省份</label>
+                <select id="state" name="state" >
+                    <option value="beijing">北京</option>
+                    <option value="beijing">上海</option>
+                    <option value="beijing">湖南</option>
+                    <option value="beijing">湖北</option>
+                    <option value="beijing">广东</option>
+                    <option value="beijing">广西</option>
+                    <option value="beijing">内蒙古</option>
+                    <option value="beijing">新疆</option>
+                    <option value="beijing">西藏</option>
+                    <option value="beijing">重庆</option>
+                    <option value="beijing">四川</option>
+                    <option value="beijing">福建</option>
+                    <option value="beijing">江西</option>
+                    <option value="beijing">浙江</option>
+                    <option value="beijing">安徽</option>
+                    <option value="beijing">河南</option>
+                    <option value="beijing">河北</option>
+                    <option value="beijing">陕西</option>
+                    <option value="beijing">山西</option>
+                    <option value="beijing">吉利</option>
+                    <option value="beijing">辽宁</option>
+                    <option value="beijing">黑龙江</option>
+                    <option value="beijing">宁夏</option>
+                    <option value="beijing">青海</option>
+                    <option value="beijing">海南</option>
+                    <option value="beijing">山东</option>
+                </select>
+            </p>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h2 class="hdr-public-profile">公开资料</h2>
+
+        <div class="row">
+            <fieldset class="radios">
+                <legend>性别：</legend>
+                <input type="radio" id="gender-male" name="gender" value="male"/>
+                <label for="gender-male">男性</label>
+
+                <input type="radio" id="gender-female" name="gender" value="female"/>
+                <label for="gender-female">女性</label>
+            </fieldset>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h2 class="hdr-emails">邮箱</h2>
+        <div class="fields checkboxes">
+            <p class="row">
+                <input type="checkbox" id="email-ok-msg1" name="email_sigup" value="users-emails1">
+                <label for="email-ok-msg1">有事请联系我1</label>
+            </p>
+            <p class="row">
+                <input type="checkbox" id="email-ok-msg2" name="email_sigup" value="users-emails2">
+                <label for="email-ok-msg2">有事请联系我2</label>
+            </p>
+        </div>
+        <label for="comment">评论</label>
+        <textarea id="comment" name="comment" cols="40" rows="5" class="field-large">默认值</textarea>
+    </fieldset>
+    <!--提交按钮-->
+    <input type="submit" value="创建账户" class="btn"/>
+
+    <!--重置按钮-->
+    <input type="reset" value="重置" class="reset"/>
+</form>
+<br>
+<form method="get" action="search-results.php" role="search">
+    <label for="search">搜索</label>
+    <input type="search" id="search" name="search" size="30" placeholder="在xxx上搜索，或输入一个网址">
+    <input type="image" width="20" height="20" src="../Figure/ufo.jpg" alt="百度一下">
+</form>
+<br>
+<form method="post" action="show-data.php" enctype="multipart/form-data">
+    <label for="picture">照片</label>
+    <input type="file" id="picture" name="picture"/>
+    <p class="instructions">图片不超过 700K，支持 JPG, GIF, PNG格式</p>
+</form>
+</body>
+</html>

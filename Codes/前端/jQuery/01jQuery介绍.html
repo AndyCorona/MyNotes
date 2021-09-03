@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery介绍</title>
+    <script>
+        /*
+        链式调用：jQuery().xxxxx().xxxxx().xxxxx()
+        读写合一：读写操作用同一个函数
+        一、jQuery 函数
+        jQuery 库直接向外暴露的就是 jQuery 函数 $|jQuery
+
+            1.1 作为函数使用
+            $(param)
+
+            1) 参数为函数时，当页面加载完成后，执行此回调函数
+            2) 参数为选择器字符串时，查找所有匹配的的元素，并把它们封装为 jQuery 对象
+            3) 参数为 DOM 对象时，将 DOM 对象封装为 jQuery 对象
+            4) 参数为 HTML 元素字符串时，创建 DOM 对象并封装成 jQuery 对象
+
+            1.2 作为对象使用
+            $.xxx()
+
+            $.each() 隐式遍历数组或对象
+            $.trim() 去除字符串两端空格，已废弃，用原生的 String.prototype.trim() 方法
+            $.type(obj) 获取数据类型，已废弃，用原生的 typeof
+            $.isArray(obj) 判断是否为数组，已废弃，用原生的 Array.isArray
+            $.isFunction(obj) 判断是否为函数，已废弃，用原生的 typeof x === "function"
+            $.parseJSON(json) 将 json 字符串解析为 JS 对象|数组，已废弃，用原生的 JSON.parse(json)
+
+        二、jQuery 对象
+        jQuery 函数执行完毕返回一个 jQuery 对象，如 $()
+        jQuery 对象内部是 DOM 对象的类数组（可能只有一个对象）
+        jQuery 对象的变量名前一般会加上 $
+        $obj.xxx()
+
+        length / size() 返回包含的 DOM 对象个数
+        [index] / get(index) 返回指定位置的 DOM 对象
+        each(callback) 遍历数组
+        index(callback) 返回其在数组中的索引
+
+
+
+
+
+
+
+        */
+
+
+    </script>
+
+</head>
+<body>
+
+<p>
+    <input type="submit" id="submit" name="submit" value="test">
+</p>
+<p>
+    <input type="text" id="text1">
+</p>
+<p>
+    <input type="text" id="text2">
+</p>
+
+</body>
+<script type="text/javascript" src=jquery-3.6.0.js></script>
+<script type="text/javascript">
+
+    $(function () { //注册文档加载完成后的监听器
+        $('#submit').click(function () { //注册按钮 click 事件的监听器
+            alert(this.value)
+        })
+    })
+
+
+</script>
+</html>

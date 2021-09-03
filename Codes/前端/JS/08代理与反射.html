@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代理与反射</title>
+    <script>
+        /*
+        一、代理基础
+        代理是目标对象的抽象，既可以直接操作目标对象，也可以通过代理对象操作目标对象
+
+            1.1 创建空代理
+            通过 nex Proxy(target,handler) 创建代理对象，传入目标对象和处理程序对象
+
+
+            let target = {name: "Andy"}; //目标对象
+            let handler = {}; //处理程序对象
+            const proxy = new Proxy(target, handler); //代理对象
+
+            console.log(target.name == proxy.name); //true
+            console.log(Proxy.prototype); //undefined，Proxy() 构造函数没有原型对象
+            console.log(proxy.__proto__ === Object.prototype); //true，代理对象指向 Object() 原型对象
+
+            1.2 定义捕获器
+            对代理对象执行的具体操作，被抽象成 13 种预定义的基本操作。执行具体操作时会触发相应的基本操作（或者说基本操作捕获了相应的具体操作）
+            捕获器是定义在处理程序对象中的一种基本操作，一个处理对象程序中可以定义任意个捕获器
+            每当在代理对象上直接或间接调用基本操作（捕获器）时，会执行基本操作中定义的代码，从而进行拦s截与修改
+
+            const target = {name: "Andy"}
+            const handler = { //处理程序对象中定义了 get() 捕获器
+                get() { //执行获取属性值的具体操作时会触发 get() 捕获器
+                    return "reject!" //触发 get() 捕获器时返回 "reject"
+                }}
+
+            const proxy = new Proxy(target, handler);
+
+            console.log(target.name); //"Andy"，成功通过目标对象获取属性值
+            console.log(proxy.name); //"reject!"，通过 proxy.property 形式获取属性值时触发 get() 捕获器
+            console.log(proxy["name"]); //"reject!"，通过 proxy[property] 形式获取属性值时触发 get() 捕获器
+            console.log(Object.create(proxy)["name"]); //"reject!"，通过 Object.create(proxy)[property] 形式获取属性值时触发 get() 捕获器
+
+            1.3 捕获器参数和反射 API
+            所有捕获器都可以访问相应的参数，基于这些参数可以重建被捕获的具体操作。如 get() 捕获器会接收到三个参数：目标对象，获取的属性和代理对象
+
+            const target = {name: "Andy"};
+            const handler = {
+                get: function (trapTarget, property, trapProxy) {        <=>        get (trapTarget, property, trapProxy) {
+                    console.log(target === trapTarget); //true
+                    console.log(property); //name
+                    console.log(proxy == trapProxy); //true
+                    return trapTarget[property]; //重建获取属性值的操作
+                }}
+
+            const proxy = new Proxy(target, handler);
+            proxy.name; //触发 get() 捕获器
+
+            不需要手动重建被捕获的具体操作，调用 Reflect 全局对象上的的同名方法即可
+
+            const target = { name: "Andy"}
+            const handler = {
+                get() {
+                    return Reflect.get(...arguments) //Reflect.get() 方法返回被捕获的具体操作，接收的参数和同名捕获器相同
+                }}
+
+            const proxy = new Proxy(target, handler);
+            console.log(proxy.name); //"Andy"
+
+            1.4 捕获器不变式
+            捕获器不变式因捕获器不同而异，但都是为了防止捕获器出现过于反常的行为
+            如目标对象有一个不可配置且不可修改的属性，若通过 get() 捕获器后返回一个新值，会报错
+
+            1.5 可撤销代理
+            new Proxy() 创建的普通代理与目标对象存在的联系会一直持续到该代理对象被销毁。
+            若要主动撤销代理对象与目标对象之间的联系，通过 Proxy.revocable() 方法创建可撤销代理对象
+            撤销的操作是不可逆的
+
+            const target = {name: "Andy"}
+            const handler = {}
+            const {proxy, revoke} = Proxy.revocable(target, handler); //创建可撤销代理对象和撤销函数
+            console.log(proxy.name); //"Andy"
+            revoke(); //撤销代理对象与目标对象的联系
+            console.log(proxy.name); //报错
+
+        二、代理捕获器与反射方法
+        代理可以捕获 13 种基本操作，这些基本操作有各自不同的反射 API 方法、参数、关联的具体操作和不变式
+        代理对象上执行的任何一种具体操作，可能触发多个捕获器，但只有一个捕获器能被调用。
+        在目标对象上执行的具体操作，不会触发任何捕获器
+
+            1) get()
+            get() 捕获器会在获取属性值时被调用
+
+            ①返回值
+            返回值无限制
+
+            ②拦截的操作
+            proxy.property
+            proxy[property]
+            Object.create(proxy)[property]
+            Reflect.get(proxy,property,receiver)
+
+            ③参数
+            target：目标对象
+            property：要获取的属性名
+            proxy：代理对象
+
+            ④捕获器不变式
+            若目标对象的属性为不可配置（[[Enumerable]] 为 false）且不可更改（[[Writable]] 为 false），则捕获器必须返回相同的属性值
+            若目标对象的属性不可配置且没有获取函数（[[Get]] 为 undefined），则捕获器返回值必须为 undefined
+
+            2) set()
+            get() 捕获器会在设置属性值时被调用
+
+            ①返回值
+            返回 true 表示成功，false 表示失败，在严格模式下，返回 false 会报错
+
+            ②拦截的操作
+            proxy.property = value
+            proxy[property] = value
+            Object.create(proxy)[property] = value
+            Reflect.set(proxy,property,value,receiver)
+
+            ③参数
+            target：目标对象
+            property：要设置的属性名
+            value：要设置的属性值
+            proxy：代理对象
+
+            ④捕获器不变式
+            若目标对象的属性为不可配置（[[Enumerable]] 为 false）且不可更改（[[Writable]] 为 false），则捕获器不能修改属性值
+            若目标对象的属性不可配置且没有设置函数（[[Set]] 为 undefined），则捕获器不能修改属性值
+
+            3) has()
+            has() 捕获器会在使用 in 操作符时被调用
+
+            ①返回值
+            只能返回布尔值，表示属性是否存在。返回非布尔值会转型为布尔值
+
+            ②拦截的操作
+            property in proxy
+            property in Object.create(proxy)
+            with(proxy){(property);}
+            Reflect.has(proxy,property)
+
+            ③参数
+            target：目标对象
+            property：目标对象上是否存在的属性名
+
+            ④捕获器不变式
+            若目标对象存在该属性且该属性不可配置，捕获器必须返回 true
+            若目标对象存在该属性且目标对象不可拓展（Object.preventExtensions()），捕获器必须返回 true
+
+            4) defineProperty()
+            defineProperty() 捕获器会在定义属性时被调用
+
+            ①返回值
+            必须返回布尔值，表示是否成功定义属性，返回非布尔值会转型为布尔值
+
+            ②拦截的操作
+            Object.defineProperty(proxy,property,descriptor)
+            Reflect.defineProperty(proxy,property,descriptor)
+
+            ③参数
+            target：目标对象
+            property：要定义的属性名
+            descriptor：包含可选的内部属性的对象
+
+            ④捕获器不变式
+            若目标对象不可拓展，则无法定义属性
+            若目标对象有一个可配置的属性，则不能添加同名的不可配置属性。
+            若目标对象有一个不可配置的属性，则不能添加同名的可配置属性。
+
+            5) getOwnPropertyDescriptor()
+            getOwnPropertyDescriptor() 捕获器会在获取自身属性（非原型对象上的属性）的内部属性时被调用
+
+            ①返回值
+            必须返回对象，或者内部属性不存在时返回 undefined
+
+            ②拦截的操作
+            Object.getOwnPropertyDescriptor(proxy,property)
+            Reflect.getOwnPropertyDescriptor(proxy,property)
+
+            ③参数
+            target：目标对象
+            property：要获取内部属性的属性名
+
+            ④捕获器不变式
+            若自身存在该属性且该属性不可配置，则捕获器必须返回一个表示该属性存在的对象
+            若自身存在该属性且该属性可配置，则捕获器必须返回表示该属性可配置的对象
+            若自身存在该属性且该对象不可扩展，则捕获器必须返回一个表示该属性存在的对象
+            若自身不存在该属性且该对象不可扩展，则捕获器必须返回 undefined 表示该属性不存在
+            若自身不存在该属性，则捕获器不能返回表示该属性可配置的对象
+
+            6) deleteProperty()
+            deleteProperty() 捕获器会在 delete 操作中被调用
+
+            ①返回值
+            必须返回布尔值，表示是否成功删除属性，返回非布尔值会转型为布尔值
+
+            ②拦截的操作
+            delete proxy.property
+            delete proxy[property]
+            Reflect.deleteProperty(proxy,property)
+
+            ③参数
+            target：目标对象
+            property：要删除的属性名
+
+            ④捕获器不变式
+            若自有的属性存在且不可配置，则捕获器不能删除该属性
+
+            7)ownKeys()
+            ownKeys() 捕获器会在获取该对象自身的所有可枚举属性字符串数组时被调用
+
+            ①返回值
+            必须返回该对象自身的所有可枚举属性数组（以字符串或符号形式）
+
+            ②拦截的操作
+            Object.getOwnPropertyNames(proxy)
+            Object.getOwnPropertySymbols(proxy)
+            Object.keys(proxy)
+            Reflect.ownKeys(proxy)
+
+            ③参数
+            target：目标对象
+
+            ④捕获器不变式
+            返回的可枚举属性字符串数组必须包含所有不可配置的属性
+
+            8) getPrototypeOf()
+            getPrototypeOf() 捕获器会在获取原型对象时被调用
+
+            ①返回值
+            必须返回对象或 null
+
+            ②拦截的操作
+            Object.getPrototypeOf(proxy)
+            Reflect.getPrototypeOf(proxy)
+            proxy.__proto__
+            Object.prototype.isPrototypeOf(proxy)
+            proxy instanceof Object
+
+            ③参数
+            target：目标对象
+
+            ④捕获器不变式
+
+            9) setPrototypeOf()
+            setPrototypeOf() 捕获器会在设置原型对象时被调用
+
+            ①返回值
+            必须返回布尔值，表示是否成功设置原型对象，返回非布尔值会转型为布尔值
+
+            ②拦截的操作
+            Object.setPrototypeOf(proxy,prototype)
+            Reflect.setPrototypeOf(proxy,prototype)
+
+            ③参数
+            target：目标对象
+            prototype：设置目标对象的原型对象，顶级原型对象为 null
+
+            ④捕获器不变式
+
+            10) isExtensible()
+            isExtensible() 捕获器会在获取对象是否可拓展时被调用
+
+            ①返回值
+            必须返回布尔值，表示目标对象是否可扩展，返回非布尔值会转型为布尔值
+
+            ②拦截的操作
+            Object.isExtensible(proxy)
+            Reflect.isExtensible(proxy)
+
+            ③参数
+            target：目标对象
+
+            ④捕获器不变式
+            若目标对象可拓展，必须返回 true
+            若目标对象不可拓展，必须返回 false
+
+            11) preventExtensions()
+            preventExtensions() 捕获器会在获取对象是否不可拓展时被调用
+
+            ①返回值
+            必须返回布尔值，表示目标对象是否不可扩展，返回非布尔值会转型为布尔值
+
+            ②拦截的操作
+            Object.preventExtensions(proxy)
+            Reflect.preventExtensions(proxy)
+
+            ③参数
+            target：目标对象
+
+            ④捕获器不变式
+            若对象已经不可拓展，捕获器必须返回 true
+
+            12) apply()
+            apply() 捕获器会在调用函数时被调用
+
+            ①返回值
+            返回值无限制
+
+            ②拦截的操作
+            proxy(...argumentsList)
+            Function.prototype.call(proxy(),thisArgument,argumentsList)
+            Function.prototype.apply(proxy(),thisArgument,argumentsList)
+            Reflect.apply(proxy,thisArgument,argumentsList)
+
+            ③参数
+            target：目标对象
+            thisArg：调用函数时的 this 参数
+            argumentsList：调用函数时的参数列表
+
+            ④捕获器不变式
+            目标对象和代理对象必须是函数对象
+
+            13) construct()
+            construct() 捕获器会在创建对象时被调用
+
+            ①返回值
+            必须返回一个对象
+
+            ②拦截的操作
+            new proxy(...argumentsList)
+            Reflect.construct(target, argumentsList, newTarget)
+
+            ③参数
+            target：目标构造函数
+            argumentsList：传入目标构造函数的参数列表
+            newTarget：最初被调用的构造函数
+
+            ④捕获器不变式
+            target 和 newTarget 必须可以用作构造函数
+
+        三、代理模式
+
+            3.1 监控属性
+
+            const Person = {name: "Andy"}
+
+            const handler = {
+                get(person, property, proxy) {
+                    console.log(`Get ${property}`); //在获取属性前输出监控日志
+                    return Reflect.get(...arguments)
+                },
+                set(person, property, value, proxy) {
+                    console.log(`Set ${property}:${value}`); //在设置属性前输出监控日志
+                    return Reflect.set(...arguments);
+                }}
+
+            const proxy = new Proxy(Person, handler);
+
+            proxy.name; //"Get name"
+            proxy.name = "Jane"; //"Set name:Jane"
+
+            3.2 隐藏属性
+
+            const Person = {name: "Andy", age: 28, id: 1}
+
+            const handler = {
+                get(person, property, proxy) {
+                    if (property == "id") { //属性名为 id 时返回undefined
+                        return undefined
+                    } else { //属性名不为 id 时返回对应属性值
+                        return Reflect.get(...arguments)}},}
+
+            const proxy = new Proxy(Person, handler);
+
+            console.log(proxy.id); //undefined
+            console.log(proxy.name); //"Andy"
+        */
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

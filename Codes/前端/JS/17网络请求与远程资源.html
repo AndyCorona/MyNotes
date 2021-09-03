@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网络请求与远程资源</title>
+    <script>
+        /*
+        一、XMLHttpRequest 对象
+        let xhr = new XMLHttpRequest();
+
+        二、使用 XHR
+
+        1) open() 方法为发送请求做好准备，接收三个参数
+               ① 请求方法："get" 或 "post" 等
+               ② 请求的 URL，只能访问同源 URL，（域名、端口、协议与页面都相同），否则抛安全错误
+               ③ 请求是否异步的布尔值
+
+            xhr.open("get", "http://localhost:63342", false);
+
+        2) send() 方法发送定义好的请求，接收一个参数，为请求体
+
+        3) 获得响应后，XHR 对象的一些属性会被填充上数据
+               ① responseText，响应体文本
+               ② responseXML，如果响应的内容类型是 "text/xml" 或 "application/xml"，那就是包含响应数据的 XML DOM 文档
+               ③ status，响应的 HTTP 状态码
+               ④ statusText，响应的 HTTP 状态描述
+
+               if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+                   alert("成功");
+               } else {
+                   alert("失败");
+               }
+
+        4) XHR 对象的 readyState 属性表示当前处在请求/响应的哪个阶段
+        每次 readyState 从一个值变成另一个值，都会触发 readystatechange 事件
+        在收到响应之前，调用 abort() 方法取消请求，此时应该取消对 XHR 对象的引用，不推荐重用 XHR 对象
+
+        0：未初始化（Uninitialized）。表示尚未调用 open()方法
+        1：已打开（Open）。表示已调用 open()方法，尚未调用 send()方法
+        2：已发送（Sent）。表示已调用 send()方法，尚未收到响应
+        3：接收中（Receiving）。表示已经收到部分响应
+        4：完成（Complete）。表示已经收到所有响应，可以使用了
+
+        xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status <= 200 && xhr.status < 300 || xhr.status == 304) {
+                console.log(xhr.responseText);
+            } else {
+                console.log("失败")
+            }}}
+
+        三、HTTP 头部
+
+        1) XHR 对象会通过一些方法暴露与请求和响应相关的头部字段
+        默认情况下，XHR 请求会发送以下头部字段，有些浏览器允许重写默认头部，有些浏览器则不允许
+
+            ① Accept：浏览器可以处理的内容类型
+            ② Accept-Charset：浏览器可以显示的字符集
+            ③ Accept-Encoding：浏览器可以处理的压缩编码类型
+            ④ Accept-Language：浏览器使用的语言
+            ⑤ Connection：浏览器与服务器的连接类型
+            ⑥ Cookie：页面中设置的 Cookie
+            ⑦ Host：发送请求的页面所在的域
+            ⑧ Referer：发送请求的页面的 URI
+            ⑨ User-Agent：浏览器的用户代理字符串
+
+        2) 在 open() 之后，send() 之前，调用 setRequestHeader() 可以为请求添加额外的 HTTP 头部字段
+
+        xhr.open("get", "http://localhost:63342", false);
+        xhr.setRequestHeader("myHeader","myValue")
+        xhr.send(null);
+
+        3) getAllResponseHeaders() 和 getAllResponseHeaders() 用于获取指定响应头部或全部响应头部字符串
+
+        四、GET 请求
+        */
+
+
+    </script>
+</head>
+<body>
+
+</body>
+<script>
+    let xhr = new XMLHttpRequest();
+
+
+
+</script>
+</html>

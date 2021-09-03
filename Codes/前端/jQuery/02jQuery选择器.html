@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 选择器</title>
+    <script>
+        /*
+        一、基本选择器
+        通过元素名、id值、类名、交集和并集选择器获取指定元素
+        css() 方法体现了 jQuery 的读写合一
+        $color = $("#div1").css("color"); //rgb(0, 0, 0)，获取 id = "#div1" 元素的 color 属性
+        $("div").css("color", "red"); //获取所有 div 元素，设置其 color 属性
+        $(".box").css({"background": "blue", "color": "white"}) //获取 class = "box" 的元素，设置其 background 属性和 color 属性
+        $("div,span"); //获取所有 div 元素和 span 元素
+        $("div.box"); //获取 class = "box" 的 div 元素
+
+        二、层次选择器
+        通过 CSS 选择器查找子元素、后代元素或同胞元素
+
+        $("ul span"); //获取 ul 父元素下的所有 span 子元素
+        $("ul>span"); //获取 ul 元素下的所有 span 元素（后代元素）
+        $(".box + li"); //获取 class = "box" 元素的下一个 li 同胞元素
+        $("ul ~ .box"); //获取 ul 元素后所有 class = "box" 的同胞元素
+
+        三、过滤选择器
+        将基本选择器、层次选择器获取的元素进一步过滤，类似 CSS 中的伪类选择器
+
+        $("div:first"); //获取第一个 div 元素
+        $(".box:last"); //获取最后一个 class = "box" 的元素
+        $("div:not(.box)"); //获取所有 class ≠ "box" 的 div 元素
+        $("li:lt(3):gt(0)"); //获取索引小于 3 的元素，再获取索引大于 0 的元素。结果是获得第二个和第三个的元素
+        从上面的例子可知，多个过滤选择器是依次执行的，而不是同时执行
+        $("li:contains('AAA')"); //获取元素内容包含 AAA 的 li 元素
+        $("li:hidden"); //获取隐藏的 li 元素
+        $("li[title]"); //获取有 title 属性的 li 元素
+        $("li[title='hello']"); //获取所有 title = "hello" 的 li 元素
+
+        四、表单选择器
+
+        $(":text:disabled"); //获取所有 type = "text" 不可用的 input 元素
+        $(":checkbox:checked"); //获取所有 type = "checkbox" 且选中的 input 元素
+        $("option:selected"); //获取所有选中的 option 元素
+
+
+        */
+
+
+    </script>
+</head>
+<body>
+<div id="div1" class="box">div1(class="box")</div>
+<div id="div2" class="box">div2(class="box")</div>
+<div id="div3">div3</div>
+<span class="box">span(class="box")</span>
+<br/>
+
+<ul>
+    <li>aaAAAAA</li>
+    <li title="hello">BBBBB(title="hello")</li>
+    <li class="box">CCCCC(class="box")</li>
+    <li title="hello">DDDDD(title="hello")</li>
+</ul>
+
+</body>
+<script type="text/javascript" src='jquery-3.6.0.js'></script>
+<script>
+
+
+</script>
+</html>

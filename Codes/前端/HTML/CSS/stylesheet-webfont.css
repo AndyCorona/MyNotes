@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'sf_wasabiregular'; /*可更改，在 CSS 中使用*/
+    src: url('SF_Wasabi-webfont.eot');
+    src: url('SF_Wasabi-webfont.eot?#iefix') format('embedded-opentype'),
+    url('SF_Wasabi-webfont.woff2') format('woff2'),
+    url('../WebFont/SF_Wasabi-webfont.woff') format('woff'),
+    url('../WebFont/SF_Wasabi-webfont.ttf') format('truetype'),
+    url('SF_Wasabi-webfont.svg#sf_wasabiregular') format('svg');
+    font-weight: normal; /*非粗体版本设置为 normal*/
+    font-style: normal; /*非斜体版本设置为 normal*/
+
+}
+
+

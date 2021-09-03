@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变量、作用域、内存</title>
+
+    <script>
+        /*
+        一、原始值与引用值
+        当把一个值赋给变量时，JavaScript 引擎必须确定是原始值还是引用值
+        Undefine、Null、Boolean、Number、String、Symbol 类型的都是原始值，Object 的是引用值
+
+            1.1 动态属性
+            引用值可以随时添加、修改和删除其属性和方法
+
+            let person = new Object();
+            person.age = 29;
+            console.log(person.age); //29
+
+            原始值没有属性和方法
+
+            let age=29;
+            age.name ="age";
+            console.log(age.name); //undefined
+
+            原始值可以通过原始字面量或 new 关键字初始化
+
+            let name1 = "andy";
+            let name2 = new String("andy"); //类似 java 中的包装类
+
+            name1.age = 26;
+            name2.age = 27;
+
+            console.log(name1.age); //undefined
+            console.log(name2.age); //27
+
+            console.log(typeof name1); //string
+            console.log(typeof name2); //object
+
+            1.2 复制值
+            和 java 一样，原始值复制后，两个值互相独立，互补干扰。引用值复制的是指针
+
+            1.3 传递参数
+            和 java 一样，所有函数的参数都是按值传递。
+            值传递：函数外的值会被复制到函数内的一个局部变量中
+            引用传递：函数外的值在内存中的位置会被复制到函数内的一个局部变量中
+
+            1.4 确定类型
+            和 java 一样，用 instanceof 关键字
+
+            let example = [1, 2];
+            console.log(example instanceof Array); //true
+
+        二、执行上下文（作用域）
+        任何变量都存在于某个作用域中，作用域决定了变量的生命周期
+        作用域分为全局作用域、函数作用域、块作用域
+        每个作用域都包括三个属性
+            变量对象：保存和提供当前作用域需要的变量和函数
+            作用域链：保证变量和函数有序地访问
+            this：为函数提供执行对象
+
+            2.1 全局作用域
+            变量对象（VO）就是全局对象（global），在浏览器端即 window 对象。在进入任何作用域之前就已经创建一个全局对象，它的属性在程序任何地方都能访问到
+            全局对象创建阶段将 Math、String、Date、parseInt 等函数作为自身方法，全局属性作为自身属性
+
+            global = {
+            Math: <...>
+            Date: <...>
+            window: global  // 引用自身}
+
+            2.2 函数作用域
+            函数创建时，就创建了变量对象，但无法访问
+
+            VO = {
+            arguments: Arguments,
+            variables: undefine,
+            functionName: <Function reference>
+            }
+
+            全局作用域中没有函数参数列表 arguments，一个类数组对象
+            arguments: {
+                callee: 谁调用本函数
+                length: 真正传递的参数个数
+                properties-indexes: 以字符串形式按参数列表从左到右排列函数的参数值
+            }
+
+            函数执行时，变量对象变为活动对象，执行代码，活动对象中的值被赋值
+
+            2.3 块作用域
+            级作用域由最近的一对包含花括号{}界定
+
+            2.4 标识符查找
+            搜索开始于作用域链前端，以给定的名称搜索对应的标识符。如果在局部上下文中找到该标识符，则搜索停止，变量确定；
+            如果没有找到变量名，则继续沿作用域链搜索。这个过程一直持续到搜索至全局上下文的变量对象。如果仍然没有找到标识符，则说明其未声明
+
+        三、垃圾回收
+        和 java 类似
+        两种垃圾回收策略
+            标记清理：变量进入上下文，加标记，离开上下文，去标记。垃圾回收程序运行时，把内存所有变量标记，然后在上下文的变量去标记，所有剩下的被标记即可回收
+            引用计数：对每个值都记录它被引用的次数。引用值赋给一个变量，该值引用数+1，反之-1。当引用值为 0 时，清理该值。
+        */
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

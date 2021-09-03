@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>视频、音频和其他多媒体</title>
+    <style>
+        /*
+        视频文件格式
+        .ogg, .mp4, .webm
+        .ogg, .mp3, .wav
+        */
+
+        /*
+        添加单个视频/音频
+        video/audio 元素
+            src="video.url"，指定视频文件的 URL
+            contorls，为视频添加控件，每个浏览器都有一套默认的控件
+            autoplay，设置自动播放，但对 chrome 和 firefox 浏览器无效
+            muted，让视频静音
+            loop，让视频循环
+            preload=[auto|none|metdata]，定义浏览器加载多少视频内容
+                默认值为 auto，浏览器自行决定
+                none，不主动加载该视频，直到用户播放它
+                metadata，仅主动加载视频元数据（如长度，尺寸等），直到用户播放它
+
+            video 元素特有，poster="image.url"，指定页面加载后视频的封面，默认封面为视频第一帧
+            video 元素特有，width，视频宽度，通常默认为 300
+            video 元素特有，height，视频高度，通常默认为 150
+
+
+        添加多种来源的视频/音频
+        source 元素用于定义一个以上的媒体元素
+            src="video.url"，指定视频文件的 URL
+            type="video/[ogg|mp4|webm]"，指定视频类型，帮助浏览器决定是否能播放该视频
+            media="[only|not] [screen|print|......] [and] [feature: value]"，为视频来源指定媒体查询
+        浏览器发现 video 元素，先检查是否定义 src 属性。若无，逐个检查 video 里的 source 元素，直到找到一个可以播放的来源，并忽略剩余的来源
+        */
+    </style>
+</head>
+<body>
+<video src="../Video/game.mp4" controls autoplay poster="../Figure/blue-sky.jpg"></video>
+<video src="../Video/game.mp4" preload="metadata" controls></video>
+<audio src="../Audio/14108.mp3" controls autoplay></audio>
+<!--有良好兼容性的 video 元素-->
+<video width="369" height="208" controls>
+    <source src="../Video/game.mp4" type="video/mp4">
+    <source src="../Video/game.webm" type="video/webm">
+    <p>您的浏览器不支持此格式的视频</p> <!--对既不支持 video 元素又不支持 source 元素的浏览器的备用文本-->
+</video>
+
+<audio controls>
+    <source src="../Audio/14108.mp3" type="audio/mp3">
+    <source src="../Audio/14108.ogg" type="audio/ogg">
+    <p>您的浏览器不支持此格式的音频</p>
+</audio>
+</body>
+</html>

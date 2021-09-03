@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        div {
+            background-color: red;
+            height: 200px;
+            width: 200px;
+        }
+    </style>
+    <title>BOM</title>
+    <script>
+        /*
+        BOM 提供了与网页无关的浏览器功能对象，其核心是 window 对象
+
+        一、window 对象
+        window 对象表示浏览器的实例，代表了浏览器窗口和页面可见的区域。网页中定义的所有对象、变量和函数都以 window 作为其 Global 对象
+
+            1.1 全局作用域
+            所有通过 var 声明的所有全局变量和函数都会成为 window 对象的属性和方法
+
+            var age = 28; //全局变量
+            console.log(window.age); //28
+            function getAge() { //全局方法
+                return this.age;
+            }
+            console.log(getAge()); //28
+            console.log(window.getAge()); //28
+
+            1.2 窗口关系
+            window.top 是最上层窗口
+            window.parent 是当前窗口的父窗口
+            window.self 始终指向 window 对象
+
+            1.3 窗口位置与像素比
+            window.screenLeft 是窗口相对应于屏幕左侧的 CSS 像素距离
+            window.screenTop 是窗口相对应于屏幕上侧的 CSS 像素距离
+            window.moveTo(x,y) 将窗口移动到绝对位置 x,y 处
+            window.moveBy(x,y) 将窗口移动 x,y 距离
+            以上四个方法可能被浏览器部分或全部禁用
+
+            1.4 窗口大小
+            window.innerHeight 是页面视口的高度
+            window.innerWidth 是页面视口的宽度
+            window.outerHeight 是浏览器窗口的高度
+            window.outerWidth 是浏览器窗口的宽度
+            window.resizeTo(x,y) 调整浏览器窗口为 (x,y) 大小
+            window.resizeBy(x,y) 调正了 (x,y) 的浏览器窗口
+            以上两个方法可能被浏览器部分或全部禁用
+
+
+            1.5 视口位置
+            当页面超过浏览器窗口大小时，会出现横向或纵向滚动条
+            window.scrollX 是页面在 X 轴（左上角为原点）的滚动距离
+            window.scrollY 是页面在 Y 轴（左上角为原点）的滚动距离
+            window.scrollTo(x,y) 将页面滚动到 (x,y) 坐标位置
+            window.scrollBy(x,y) 将页面滚动 (x,y) 距离
+
+            1.6 导航与打开新窗口
+            window.open(url?: string, target?: string, features?: string, replace?: boolean) 返回对新建窗口的引用
+            有些浏览器不允许缩放或移动主窗口，允许缩放或移动通过 window.open() 打开的新窗口
+            现代浏览器都内置了弹窗屏蔽程序阻止弹窗，会导致 window.open() 返回 null
+
+            url：要加载的 URL
+            target：新窗口的名字。若已存在对应名字的窗口，则会在此窗口打开 URL
+            features：指定新窗口包含的特性。若不是新窗口，则忽略此参数
+                height：新窗口高度，不能小于 100
+                width：新窗口的宽度，不能小于 100
+                left：新窗口的 x 轴坐标，不能是负值
+                top：新窗口的 y 轴坐标，不能是负值
+                location："yes"或"no" 表示是否显示地址栏。默认值取决于浏览器
+                Menubar："yes"或"no" 表示是否显示菜单栏。默认为"no"
+                resizable："yes"或"no" 表示是否可以拖动改变新窗口大小。默认为"no"
+                scrollbars："yes"或"no" 表示是否可以在内容过长时滚动。默认为"no"
+                status："yes"或"no" 表示是否显示状态栏。默认值取决于浏览器
+                toolbar："yes"或"no" 表示是否显示工具栏。默认为"no"
+
+            const frame = window.open("http://www.baidu.com", "Frame", "height = 500, width = 500"); //创建新窗口，返回 window 对象
+            console.log(frame.opener === window); //true
+            frame.close(); //关闭新建的窗口
+            console.log(frame.closed); //true
+
+            1.7 定时器
+            JavaScript 维护了一个任务队列。若为空队列，定时器添加进队列的任务会立即执行，否则需要排队执行
+            setTimeout() 指定一段时间后将任务添加到队列，返回一个标识 ID 用于取消该任务
+            setInterval() 每隔一段时间将任务添加到队列直到页面卸载，返回一个标识 ID 用于取消该任务
+            clearTimeout(ID)
+            clearInterval(ID)
+
+            let num = 0;
+            function fun() { //传入 setInterval 的回调函数
+                num++;
+                if (num >= 500) {
+                    clearInterval(ID); //满足条件时，取消定时任务
+                    alert("done!")
+                }}
+            const ID = setInterval(fun, 20);
+
+            ================================
+
+            let num = 0;
+            function fun() { //传入 setTimeout 的回调函数
+                num++;
+                if (num >= 500) {
+                    alert("done!");
+                } else {
+                    setTimeout(fun, 20);}} //递归调用另一个 setTimeout() 定时任务直到满足条件
+
+            setTimeout(fun, 20);
+
+            1.8 系统对话框
+            alert()、prompt() 和 confirm() 可调用系统对话框，外观由操作系统或浏览器决定，无法用 CSS 设置
+            弹出对话框时，会阻塞线程。对话框消失后，才继续执行后面的代码
+            alert("hello") 警告框，只有一个确定按钮
+            confirm("hello") 确认框，有确认和取消按钮。用户点击确认按钮 返回 true，否则返回 false
+            prompt("yes","default-value") 提示框，用户点击确认按钮返回文本框中的值，否则返回 null
+            find() 查找对话框
+            print() 打印对话框
+
+        二、location 对象
+        location 对象提供了当前窗口中 URL 信息，既是 window 的属性，也是 document 的属性
+
+        console.log(location.hash); //URL 散列值（URL #号后的零或多个字符）
+        console.log(location.host); //服务器名及端口号，localhost:63342
+        console.log(location.hostname); //服务器名，localhost
+        console.log(location.href); //当前页面的完整 URL，http://localhost:63342/javaWeb/JS/10BOM.html?_ijt=e5783ch21ooql2phll0bjfne16
+        console.log(location.pathname); ///URL 中的路径和文件名，javaWeb/JS/10BOM.html
+        console.log(location.port); //请求的段口号，63342
+        console.log(location.protocol); //使用的协议，http:
+        console.log(location.search); //查询字符串（以 ? 开头），?_ijt=e5783ch21ooql2phll0bjfne16
+        console.log(location.username); //域名前指定用户，undefined
+        console.log(location.password); //域名前指定密码，undefined
+        console.log(location.origin); //URL 源地址，http://localhost:63342
+
+            2.1 查询字符串
+            location.search 返回总的查询字符串，不便访问每个查询参数
+            URLSerachParams 提供了一组标准的 API来访问和修改查询每个查询参数。
+
+            let queryString = "?q=javascript&num=10&name='Andy'";
+            const obj = new URLSearchParams(queryString);
+            console.log(obj.toString()); //q=javascript&num=10&name=%27Andy%27
+            console.log(obj.has("q")); //true
+            console.log(obj.get("q")) //javascript
+
+            for(let params of obj){ //遍历查询字符串
+                console.log(`${params[0]}:${params[1]}`);}
+            //q:javascript
+            //num:10
+            //name:'Andy'
+
+            2.2 修改地址
+            页面转到新的 URL，同时在浏览器历史记录中增加一条记录
+
+            location.assign("https://www.baidu.com");
+            window.location = "https://www.baidu.com";
+            location.href = "https://www.baidu.com";
+            location.replace("https://www.baidu.com");
+
+        三、navigator 对象
+        navigator 对象的属性用于确定浏览器的类型
+
+        activeVrDisplays 返回数组，包含 ispresenting 属性为 true 的 VRDisplay 实例
+        appCodeName 即使在非 Mozilla 浏览器中也会返回"Mozilla"
+        appName 浏览器全名
+        appVersion 浏览器版本。通常与实际的浏览器版本不一致
+        battery 返回暴露 Battery Status API 的 BatteryManager 对象
+        buildId 浏览器的构建编号
+        connection 返回暴露 Network Information API 的 NetworkInformation 对象
+        cookieEnabled 返回布尔值，表示是否启用了 cookie
+        credentials 返回暴露 Credentials Management API 的 CredentialsContainer 对象
+        deviceMemory 返回单位为 GB 的设备内存容量
+        doNotTrack 返回用户的“不跟踪”（do-not-track）设置
+        geolocation 返回暴露 Geolocation API 的 Geolocation 对象
+        getVRDisplays() 返回数组，包含可用的每个 VRDisplay 实例
+        getUserMedia() 返回与可用媒体设备硬件关联的流
+        hardwareConcurrency 返回设备的处理器核心数量
+        javaEnabled 返回布尔值，表示浏览器是否启用了 Java
+        language 返回浏览器的主语言
+        languages 返回浏览器偏好的语言数组
+        locks 返回暴露 Web Locks API 的 LockManager 对象
+        mediaCapabilities 返回暴露 Media Capabilities API 的 MediaCapabilities 对象
+        mediaDevices 返回可用的媒体设备
+        maxTouchPoints 返回设备触摸屏支持的最大触点数
+        mimeTypes 返回浏览器中注册的 MIME 类型数组
+        onLine 返回布尔值，表示浏览器是否联网
+        oscpu 返回浏览器运行设备的操作系统和（或）CPU
+        permissions 返回暴露 Permissions API 的 Permissions 对象
+        platform 返回浏览器运行的系统平台
+        plugins 返回浏览器安装的插件数组。在 IE 中，这个数组包含页面中所有<embed>元素
+        product 返回产品名称（通常是"Gecko"）
+        productSub 返回产品的额外信息（通常是 Gecko 的版本）
+        registerProtocolHandler() 将一个网站注册为特定协议的处理程序
+        requestMediaKeySystemAccess() 返回一个期约，解决为 MediaKeySystemAccess 对象
+        sendBeacon() 异步传输一些小数据
+        serviceWorker 返回用来与 ServiceWorker 实例交互的 ServiceWorkerContainer
+        share() 返回当前平台的原生共享机制
+        storage 返回暴露 Storage API 的 StorageManager 对象
+        userAgent 返回浏览器的用户代理字符串
+        vendor 返回浏览器的厂商名称
+        vendorSub 返回浏览器厂商的更多信息
+        vibrate() 触发设备振动
+        webdriver 返回浏览器当前是否被自动化程序控制
+
+            3.1 检测插件
+            navigator.plugins 可用于检测浏览器安装的插件
+
+            for (let plugin of navigator.plugins) {
+                console.log(plugin.name); //插件名称
+                console.log(plugin.description); //插件的描述
+                console.log(plugin.filename); //插件文件名
+                console.log(plugin.length);} //由当前插件处理的 MIME 类型数量
+
+            3.2 注册处理程序
+            navigator.registerProtocolHandler() 可以把一个网站注册为处理某种特定类型信息应用程序，将 Web 应用程序注册为像桌面软件一样的默认应用程序
+
+        四、screen 对象
+        获取客户端显示器信息
+
+        availHeight 屏幕像素高度减去系统组件高度（只读）
+        availLeft 没有被系统组件占用的屏幕的最左侧像素（只读）
+        availTop 没有被系统组件占用的屏幕的最顶端像素（只读）
+        availWidth 屏幕像素宽度减去系统组件宽度（只读）
+        colorDepth 表示屏幕颜色的位数；多数系统是 32（只读）
+        height 屏幕像素高度
+        left 当前屏幕左边的像素距离
+        pixelDepth 屏幕的位深（只读）
+        top 当前屏幕顶端的像素距离
+        width 屏幕像素宽度
+        orientation 返回 Screen Orientation API 中屏幕的朝向
+
+        五、history 对象
+        history 对象表示当前窗口使用的历史记录。出于安全考虑，这个对象不会暴露用户访问过的 URL，但可以通过它前进或后退页面
+
+            5.1 导航
+            go() 方法前进和后退网页
+                go(1) 前进一页
+                go(2) 前进两页
+                go(-1) 后退一页
+            history.back() 后退一页
+            history.forward() 前进一页
+            history.length 表示当前网页的历史记录条数，起始网页 history.length 等于 1
+
+            5.2 历史状态管理
+            随着 ajax 等无刷新加载技术的发展，页面刷新次数降低，无法通过刷新返回上一个状态
+
+
+
+
+        */
+
+    </script>
+</head>
+<body>
+<div>
+</div>
+
+</body>
+</html>

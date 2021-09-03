@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+<!--
+./ 代表当前文件所在目录，默认情况下为 ./
+../ 代表上层目录
+/ 代表 web 服务器上的根目录
+
+链接由目标和标签组成，example 元素标记链接，<example href="目标">标签</example>
+目标可以是万维网上的任何文件，电子邮件地址，电话号码，其他网页的链接等
+标签可以是文本和图像
+
+HTML5 中 example 元素为块级链接，意味着标签内可以包含段落、列表、文章和区块。（其他链接、音频、视频、表单元素、iframe等不行）
+rel 属性有预定值， rel=”external" 起到增强语义的作用，表明该链接指向外部网站的链接
+target 属性指定是否打开新窗口，默认值 _self，点击超链接不打开新窗口，_blank 表示点击超链接打开新窗口
+
+
+
+-->
+
+
+<a href="https://www.baidu.com" rel="external">百度</a>
+<a href="javascript:;"></a> <!--点击后没有作用的超链接，用 javascript:; 作为占位符-->
+
+<a href="01基础知识.html">本地文件</a>
+<a href="../Video/game.mp4">其他目录的文件</a>
+
+<a href="https://xxx/com"><p id="first">第一段</p></a> <!--在希望跳转至的元素的开始标签创建锚，id="anchor-name"-->
+<a href="#first">点击链接，跳转至第一段</a> <!--创建链接到当前网页的锚的链接，<example href="#anchor-name"></example> -->
+<a href="04图像.html#anchor-name">点击链接，跳转至其他网页的锚</a> <!--创建链接到其他网页的锚的链接</example> -->
+<a href="https://www.baidu.com/directory/page.html#anchor-name">点击链接，跳转至其他服务器上的锚 </a>
+
+<a href="../Figure/beach.jpg">沙滩高清图</a>
+<a href="../Audio/14108.mp3">火车到站提示音</a>
+<a href="mailto:812134***@gmail.com">发送邮件给我</a> <!--垃圾邮件机器人可能会抓取网页上的这些邮件地址，不要暴露真实邮件地址-->
+<a href="tel:+86xxxxxxxxxxx">呼叫我的电话</a>
+
+<a href="https://www.qq.com" target="_blank">腾讯网</a>
+<a href="#">回到顶部</a>
+
+
+
+
+

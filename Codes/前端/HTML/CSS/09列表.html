@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表</title>
+    <style>
+        /*
+        所有列表都由父元素和子元素构成，父元素用于指定要创建的列表类型，子元素用于指定要创建的列表项目类型
+            有序列表，父元素为 ol，子元素 li 为列表项
+            无序列表，父元素为 ul，子元素 li 为列表项
+            描述列表，父元素为 dl，子元素 dt 和 dd 为术语和描述
+
+        选择标记
+        可以对 ol、ul、li 应用
+        list-style-type: [none|disc|circle|square|decimal|upper-alpha|lower-alpha|upper-roman|lower-roman|......]
+        */
+        ol, ul { /*将标记设置为小写罗马数字*/
+            list-style-type: lower-roman;
+        }
+
+        /*
+        使用自定义的标记
+        先取消默认标记，然后在 li 列表项里添加背景图片
+        默认的标记默认情况下在列表项外面，自定义标记在列表项里面，可通过 list-style-position 控制标记的位置
+        list-style-image 也可以自定义标记，但不同浏览器的显示效果不同，且更难控制标记的位置
+        */
+        ul {
+            list-style-type: none;
+            margin-left: 0; /*取消列表项外边距缩进*/
+            padding-left: 0; /*取消列表项内边距缩进*/
+        }
+
+        ul > li {
+            background: url("../Figure/correct.png") no-repeat 0 0;
+            padding-left: 21px; /*推开文本，为标记腾出位置*/
+            line-height: 1.7; /*增大行高，从而可以容纳整个标记*/
+            margin-bottom: 0.5em;
+        }
+
+        /*
+        选择列表起始编号
+        ol 的 start="n"，n 为列表初始值
+        li 的 value="n"，n 为该列表项的值，后续的列表项据此重新计算
+        */
+
+        /*
+        控制标记的位置
+        默认情况下，列表项从其父元素左侧进行缩进，标记位于整个文本块的外面，也可以位于文本块内
+        list-style-position:[inside|outside]，默认值为outside，可应用于 ol、ul 和 li
+        */
+        ul {
+            list-style-position: inside;
+        }
+
+        ul:first-child {
+            list-style-position: outside;
+        }
+
+        /*
+        同时设置所有列表样式属性
+        list-style: list-style-type, list-style-position, list-style-image
+        */
+
+        /*
+        创建嵌套列表
+        */
+        li li {
+            font-size: 1em; /*防止嵌套列表中字体越来越小*/
+        }
+
+        /*
+        创建描述列表
+        术语与定义，问题与答案，以及其他任何键值对可以用描述列表表示
+        dl 表示键
+        dt 表示值
+        dl 与 dt 之间可以是一对一、一对多、多对一、多对多的关系
+        */
+    </style>
+</head>
+<body>
+<ol start="3"> <!--初始编号为 3-->
+    <li>第一步</li>
+    <li value="10">第二步</li> <!--此列表项编号为 10，下一列表项编号为 11-->
+    <li>第三步</li>
+</ol>
+<ul>
+    <li>天气</li>
+    <li>风速</li>
+    <li>温度</li>
+</ul>
+
+<ul>
+    <li>
+        <ol>
+            <li>第一章-是什么</li>
+            <li>第一章-为什么</li>
+            <li>第一章-怎么做</li>
+        </ol>
+    </li>
+    <li>
+        <ol>
+            <li>第二章-是什么</li>
+            <li>第二章-为什么</li>
+            <li>第二章-怎么做</li>
+        </ol>
+    </li>
+    <li>
+        <ol>
+            <li>第三章-是什么</li>
+            <li>第三章-为什么</li>
+            <li>第三章-怎么做</li>
+        </ol>
+    </li>
+</ul>
+<dl>
+    <dt>生物</dt>
+    <dd>期中考：98</dd>
+    <dd>期末考：92</dd>
+    <dt>化学</dt>
+    <dd>92</dd>
+    <dt>物理</dt>
+    <dd>90</dd>
+</dl>
+</body>
+</html>

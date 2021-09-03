@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数</title>
+    <script>
+        /*
+        函数实际上是对象，函数名就是变量，指向函数对象。每个函数都是 Function 类型的对象。
+        一、定义函数
+        有四种方式创建函数
+
+        function sum(num1,num2){return num1+num2} //函数声明
+        let sum = function (num1,num2){return num1+num2}; //函数表达式
+        let sum = (num1,num2) => {return num1+num2}; //箭头函数，类似 java的 λ 表达式
+        let sum = new Function("num1", "num2", "return num1+num2"); //Function 构造函数，不推荐
+
+        所有函数对象都会暴露一个只读的 name 属性
+
+        console.log(sum1.name); //sum1
+        console.log(sum2.name); //sum2
+        console.log(sum3.name); //sum3
+        console.log(sum4.name); //anonymous
+
+        二、箭头函数
+        任何可以使用函数表达式的地方，都可以使用箭头函数
+        若只有一个参数，可以省略小括号。若没有参数或有多个参数，必须用小括号包含参数
+        若函数体只有一条语句，可以省略大括号和 return。若函数体有多条语句，必须有大括号
+        箭头函数不能使用 arguments、super 和 new.target，不能用作构造函数，没有 prototype 属性
+
+        let sum1 = () => "sum"; //没有参数和一条语句的情况
+        let sum2 = num1 => { //一个参数和多条语句的情况
+            console.log("sum2")
+            return Math.random()}
+        let sum3 = (num1, num2) => num1 + num2; //两个参数和一条语句的情况
+
+        三、函数名
+        函数名就是指向函数对象的指针
+
+        let num = () => Number.MIN_VALUE;
+        console.log(num); //() => Number.MIN_VALUE，使用不带括号的函数名会访问函数对象
+        console.log(num()) //5e-324，使用带括号的函数名会执行对应函数
+
+        四、理解参数
+        不管函数定义的形参有多少，都可以传入任意个实参，在函数作用域访问 arguments 对象可以获得传进函数的所有实参
+        arguments 对象是一个类数组对象（但不是 Array 的对象，没有数组的 API，但有索引 和 length 属性）
+
+        function Fun(num1) { //只定义了一个形参，但可以传入任意个实参
+            console.log(`Got ${arguments.length} arguments: ${arguments[0]},${arguments[1]},${arguments[2]},${arguments[3]}`)
+        }
+
+        Fun(); //Got 0 arguments: undefined,undefined,undefined,undefined，传入 0 个实参
+        Fun("hello"); //Got 1 arguments: hello,undefined,undefined,undefined，传入 1 个实参
+        Fun(1, 2); //Got 2 arguments: 1,2,undefined,undefined，传入 2 个实参
+        Fun(1, "hello", 2); //Got 3 arguments: 1,hello,2,undefined，传入 3 个实参
+
+        可以通过 arguments 对象修改（传入或未传入）实参值，但在严格模式下不行
+        只要未传入相应位置的实参，通过形参名只能获取到默认值（undefined 或其他显式定义的默认值）
+        只有传入相应位置的实参，形参默认值失效，才能通过对应位置的形参名获取实参值（可能就是传入的实参值，也可能是被 arguments[n] 修改过的实参值）
+
+        function Fun(num1, num2) {
+            arguments[0] = 10; //修改第一个实参值
+            arguments[1] = 20;//修改第二个实参值
+            console.log(`num1: ${num1}, num2: ${num2}`); //通过形参名获取实参值
+        }
+
+        Fun(); //num1: undefined, num2: undefined，未传入实参，形参名无法获取 arguments 修改的实参值
+        Fun("hello"); //num1: 10, num2: undefined，传入一个实参，第一个形参名可以获取被 arguments[0] 修改后的实参值
+        Fun("hello", "world"); //num1: 10, num2: 20，传入两个实参，形参名可以获取被 arguments[0] 和 arguments[1] 修改后的实参值
+
+        箭头函数没有 arguments 对象，但可以把箭头函数包装在外层函数中，获取外层函数的 arguments 对象
+
+        const fun = () => {
+            console.log(arguments[0])
+        };
+        fun(1); //报错
+        ==============================
+        function Fun() { //外层函数
+            const fun = () => { //箭头函数
+                console.log(arguments[0]) //获取外层函数的 arguments 对象
+            };
+            fun(); //执行箭头函数
+        }
+        Fun("done"); //"done
+
+        四、没有重载
+        ECMAScript 函数没有签名（接收参数的类型和数量），无法构成重载，定义同名函数，后定义会覆盖先定义
+
+        五、默认参数值
+        未给一个形参传入实参时，该形参默认值为 undefined，可以显式定义一个形参的默认值
+
+        function Fun(num1,num2="you"){ //num1 默认值为 undefined，num2 默认值为 "you"
+            console.log(`num1:${num1}, num2:${num2}`);
+        }
+
+        Fun(); //num1:undefined, num2:you
+        Fun("me"); //num1:me, num2:you
+        Fun("me","my"); //num1:me, num2:my
+
+        六、扩展与收集参数
+        1) 扩展参数
+        扩展操作符将可迭代对象拆分成一个参数列表，作为实参逐个传进函数
+
+        function sum() { //此函数累加传入的实参
+            let sum = 0;
+            for (let i = 0; i < arguments.length; i++) {
+                sum += arguments[i];}
+            return sum;}
+
+        let values = [1, 2, 3, 4];
+        console.log(sum(...values)); //10，使用扩展操作符传入参数
+        console.log(sum(1, ...values)); //11，使用扩展操作符时，不影响传入其他值
+        console.log(sum(1, ...values, ...[1, 2, 3])); //17
+
+        2) 收集参数
+        扩展操作符可以用在函数的形参，类似 java 的可变形参
+
+        function sum(firstValues, ...values) {//...values 代表不确定个数的形参，其后不能有其他形参
+            console.log(values);}
+
+        sum(1); //[]
+        sum(1, 2); //[2]
+        sum(1, 2, 3); //[2,3]
+
+        七、函数声明与函数表达式
+        在执行任何代码之前，JavaScript 引擎会先读取所有函数声明，把发现的函数声明提升到源代码树的顶部，称为函数声明提升
+
+        console.log(sum(10,10)); //20，正常执行，已经定义了 sum() 函数
+        function sum(num1,num2){ //函数声明提升到顶部
+            return num1+num2;
+        }
+
+        console.log(sum(10,10)); //报错，未定义 sum() 函数
+        let sum = function (num1,num2){//执行该行代码时才定义 sum() 函数
+            return num1+num2;
+        }
+
+        八、回调函数
+        函数名就是变量，任何可以使用变量的地方都能使用函数名
+        若 A 函数作为参数传递给 B 函数，此 A 函数称为回调函数
+
+        function callSomeFunction(someFunction, someArgument) {
+            return someFunction(someArgument);
+        }
+
+        九、函数内部
+        函数内部存在 arguments、this 两个特殊对象 和 caller、new.target 属性
+
+            9.1 arguments 对象
+            arguments 对象是一个类数组对象，包含调用函数时传入的所有实参。只有用 function 关键字定义的函数才有 arguments 对象，所以箭头函数没有 arguments 对象
+            arguments[0] 返回第一个位置的实参，以此类推
+            arguments.length 返回接受到的实参个数
+            arguments.callee 返回 arguments 所在对象的指针
+
+
+            function Fun() {
+                console.log(arguments.callee); //ƒ Fun(){......}
+                console.log(arguments[0]); //"Andy"
+                console.log(arguments.length);} //1
+            Fun("Andy");
+
+            9.2 this 对象
+            this 在标准函数（function 关键字定义的）和箭头函数中有不同的行为
+            1) 标准函数
+            this 的值可变，等于执行该函数的对象
+
+            window.color = "red"; //window 对象
+            let object = { //object 对象
+                color: "blue"}
+
+            function printColor() { //printColor() 函数
+                console.log(this.color);} //this 的值等于执行该函数的对象
+
+            printColor(); //"red"，在全局作用域中，window 执行 printColor() 函数
+            object.printColor = printColor;
+            object.printColor(); //"blue"，object 执行 printColor() 函数
+
+            2) 箭头函数
+            this 的值不可变，等于定义该函数时所在作用域的对象
+
+            window.color = "red"; //window 对象
+            let object = { //object 对象
+                color: "blue"}
+
+            let printColor = () => console.log(this.color); //printColor() 箭头函数定义在全局作用域，this 的值等于 window
+
+            printColor(); //"red"
+            object.printColor = printColor;
+            object.printColor(); //"red"
+
+            9.3 caller
+            返回调用当前函数的函数指针
+
+            9.4 new.target
+            若函数正常执行，返回 undefined，若通过 new 调用函数，返回该函数的指针
+
+            function Fun() { console.log(new.target);}
+            new Fun(); //ƒ Fun() {......}
+            Fun(); //undefined
+
+        十、函数属性与方法
+        每个函数都有两个属性：length 和 prototype
+        length 属性返回函数的定义的形参个数
+
+        function Fun(num1, num2) {}
+        console.log(Fun.length); //2
+
+        每个函数都有三个方法：call()、apply() 和 bind()
+        call() 和 apply() 都可以指定函数调用时的 this 值
+        call() 只能挨个传入参数，apply() 能传入参数数组
+        bind() 和 call()、apply() 类似，但会返回一个绑定了指定的 this 值的函数，执行此函数时，this 不会改变
+
+        window.color = "red"; //window 对象
+        let object = { color: "blue"}
+
+        function printColor() { console.log(this.color);}
+
+        printColor.call(object, 1, 2, 3); //"blue"，将 this 指定为 object
+        printColor.apply(object, [1, 2, 3]); //"blue"，将 this 指定为 object
+        let bindFun = printColor.bind(object, 1, 2, 3); //返回的 bindFun 函数的 this 值始终为 object
+        bindFun(); //"blue"，this 值绑定为 object
+
+        十一、闭包
+        函数和函数内部能访问到的变量的总和
+        闭包的副作用是内部函数对外部函数仍然有引用，内部函数被销毁后才销毁外部函数的活动对象
+
+        function foo() { //为了隐藏变量，将函数和变量放在 foo 外部函数里
+            let local = 1; //局部变量
+            let that = this;
+            let args = arguments;
+
+            function bar() {//在外部函数内定义一个内部函数
+                console.log(local);
+                console.log(that); //间接通过变零访问外部函数的 this 值
+                console.log(args);//间接通过变零访问外部函数的 arguments 值
+            }
+
+            return bar; // 返回 bar 函数让外界使用，否则闭包无意义
+        }
+
+        let temp = foo();
+        temp();
+        temp = null; //解除对函数的引用
+
+        十二、立即调用的匿名函数
+        声明函数后立即执行，执行完就可以被销毁
+
+        (function () {
+            var i = 0;
+            //块级作用域
+        })();
+        console.log(i); //报错
+
+        十三、私有变量
+        任何定义在函数或块中的变量，在函数或块的外部无法访问
+        变量包括函数参数、局部变量和函数内部定义的其他函数
+        闭包的一个作用就是隐藏变量，让外界无法直接访问变量
+
+        function Person() { //创建构造函数
+            let name = "Andy"; //定义私有变量
+
+            function printHello() { //定义私有变量
+                console.log("hello");}
+
+            this.getName = function () { //特权方法，供外部访问函数的私有变量
+                return name;}
+
+            this.setName = function (value) { //特权方法，供外部访问函数的私有变量
+                name = value;
+            }}
+
+        let person = new Person();
+        console.log(person.getName()); //"Andy"
+        person.setName("Jane");
+        console.log(person.getName()) //"Jane"
+
+        =====================================
+
+        (function () { //立即执行的匿名函数
+            let name = ""; //定义私有变量
+
+            Person = function () { //创建全局构造函数
+            }
+
+            Person.prototype.setName = function (value) { //在其原型上定义共享方法
+                name = value;
+            }
+            Person.prototype.getName = function () {
+                return name;
+            }
+        })();
+
+        person = new Person();
+        person.setName("Andy");
+        console.log(person.getName()); //"Andy"
+
+        */
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

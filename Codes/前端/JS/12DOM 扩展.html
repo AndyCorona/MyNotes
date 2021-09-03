@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 扩展</title>
+    <script>
+        /*
+        为了支持更多功能，W3C 将一些已经成为事实标准的专有扩展编制成为规范
+
+        一、Selectors API
+        规定了浏览器原生支持的 CSS 查询 API，相比于社区的一些 JavaScript 库，在性能上有很大的提升
+        核心是 querySelector() 和 querySelectorAll() 方法，Document 和 Element 类型上都有这两个方法
+
+            1.1 querySelector()
+            接受 CSS 选择器作为参数，返回匹配该选择器的第一个后代元素，没有匹配则返回 null
+            Document 类型会搜索整个文档，Element 类型会搜索所有后代元素
+            若传入的 CSS 选择器参数有误或不支持，会抛出异常
+
+            document.querySelector("p"); //获取 p 元素
+            document.querySelector("#myDiv"); //获取 id = "myDiv" 的元素
+            document.querySelector(".selected"); //获取 class = "selected" 的元素
+
+            1.2 querySelectorAll()
+            接受 CSS 选择器作为参数，返回匹配该选择器的所有元素的 NodeList
+            但这里返回的 NodeList 为静态的，非实时更新的
+
+            1.3 matches()
+            接受 CSS 选择器作为参数，若有元素匹配则返回 true，否则返回 false
+
+        二、元素遍历
+        firstChild 等属性返回的子节点可以是各种节点类型（元素节点、文本节点、注释节点等）
+        Element Traversal API 为 DOM 对象添加了 5 个属性，专注于 Element 类型的节点，避免其他节点的干扰
+        childElementCount 返回子元素数量（不包括文本节点和注释）
+        firstElementChild 指向第一个 Element 类型的子节点
+        lastElementChild  指向最后一个 Element 类型的子节点
+        previousElementSibling 指向前一个 Element 类型的同胞节点
+        nextElementSibling 指向后一个 Element 类型的同胞节点
+
+        三、HTML5
+
+            3.1 CSS 类扩展
+            1) getElementByClassName()
+            通过一个或多个类名获取元素
+
+            document.getElementsByClassName("pha node"); //获取 class = "pha node" 的元素，返回实时更新的 HTMLCollection
+
+            2) classList 属性
+            之前通过元素的 className 属性对类名进行添加、删除和替换，比较繁琐
+            HTML5 给所有元素新增 classList 属性，返回 DOMTokenList 类名列表
+            DOMTokenList 有以下方法
+                add(value)，向类名列表添加新值 value，若 value 已存在，则什么也不做
+                contains(value)，查询类名列表中是否有值 value
+                remove(value)，从类名列表中删除值 value
+                toggle(value)，切换值 value。若存在就删除，不存在就添加
+
+            const divNode = document.getElementsByTagName("div"); //获取所有 div 元素
+            const classList = divNode.item(0).classList; //获取第一个 div 元素的类名列表
+            console.log(classList); //DOMTokenList(3)["main", "myDiv", "name"]
+            classList.add("tag");
+            classList.toggle("name");
+            console.log(classList); //DOMTokenList(3)["main", "myDiv", "tag"]
+            console.log(divNode.item(0)); //<div class="main myDiv tag"></div>
+
+            3.2 焦点管理
+            document.activeElement 始终包含当前拥有焦点的 DOM 对象。默认情况下，页面加载完成之前 document.activeElement 为 null
+            页面加载完成之后 body 元素获得焦点。通过调用 focus() 方法可以让其他元素（如按钮、文本框等）获得焦点
+            document.hasFocus() 表示文档是否获得焦点
+
+            3.3 HTMLDocument 扩展
+
+            1) readyState 属性
+            document.readyState 有两个值
+            loading 表示文档正在加载
+            complete 表示文档加载完成
+
+            2) compatMode 属性
+            检测页面渲染模式，有两个属性值
+            CSS1Compat 表示以标准模式渲染
+            BackCompat 表示以混杂模式渲染
+
+            3) head 属性
+            document.head 可获取 head 元素
+
+            3.4 字符集属性
+            document.characterSet 可更改 meta 元素里的 charset 属性
+
+            3.5 自定义属性
+            HTML5 允许给元素指定非标准属性，但要用 data- 前缀告诉浏览器这些属性与渲染无关，也不存在语义
+            如 <div id = "myDiv" data-somePoint= "false" data-aa-bb-cc = "test"></div> 中的自定义属性 data-somePoint 等
+            通过元素 dataset 属性返回 DOMStringMap，包含元素的可读写的自定义属性
+            
+            const myDiv = document.getElementById("myDiv");
+            const somePoint = myDiv.dataset.somepoint; //data-somePoint 的属性名为 somepoint，首个 - 后的字符全部小写
+            const aabbcc = myDiv.dataset.aaBbCc; //data-aa-bb-cc 的属性名为 aaBbCc，首个 - 后的字符小写，剩余 - 后的字符首字母大写
+            console.log(somePoint); //"false"
+            console.log(aabbcc); //"test"
+
+            3.6 插入标记
+            向文档中一次性插入大量 HTML 代码时还是比较繁琐，必须创建许多节点，再把它们连接起来
+
+            1) innerHTML 属性
+            innerHTML 属性返回元素所有后代的 HTML 字符串，包括元素、注释和文本
+            不同浏览器对返回的 HTML 字符串有差别
+            赋值给 innerHTML 的值会被解析为 DOM 子树，不同浏览器有不同转换结果
+            通过 innerHTML 插入的 <script> 元素和 <style> 元素是不会执行
+
+            document.body.innerHTML = "<ul><li>first-items</li><li>second-item</li></ul>";
+
+            2) outerHTML 属性
+            outerHTML 属性返回元素自身及其所有后代的 HTML 字符串，包括元素、注释和文本
+            给 outerHTML 属性赋值后，该元素自身及其所有后代元素被移除，新的值代替该元素原来的节点位置
+
+            3) insertAdjacentHTML() 和 insertAdjacentText()
+            传入两个参数，要插入的位置和要插入的 HTML 或文本
+                "beforebegin"，插入当前元素前面，作为其前一个同胞节点
+                "afterend"，插入当前元素后面，作为其下一个同胞节点
+                "afterbegin"，插入当前元素内部，作为其第一个子节点
+                "beforeend"，插入当前元素内部，作为其最后一个子节点
+
+            document.body.insertAdjacentHTML("afterbegin", "<div>hello</div>"); //将 HTML 插入 body 元素内部，作为其第一个子节点
+            document.body.insertAdjacentText("afterbegin", "WORLD"); //将文本插入 body 元素内部，作为其第一个子节点
+
+            4) 内存与性能
+            尽可能减少对 innerHTML 等的赋值次数，减少开销
+            在使用 innerHTML、outerHTML 和 insertAdjacentHTML()之前，最好手动删除要被替换的元素上关联的事件处理程序和 JavaScript 对象
+
+            5) 跨站点脚本
+            如果页面中要使用用户提供的信息，最好隔离用户插入网页的数据，避免 XSS 攻击
+
+            3.7 scrollIntoView()
+            所有元素都有此方法，可以滚动对应元素，使其出现在视口中，类似 example 元素的锚点
+            scrollIntoView(arg?: boolean | ScrollIntoViewOptions): void;
+                第一个参数：alignToTop
+                                true 元素顶部与视口顶部对齐，默认值
+                                false 元素底部与视口底部对齐
+                第二个参数：scrollIntoViewOptions
+                                behavior：定义过渡动画，可取的值为"smooth"和"auto"，默认为"auto"
+                                block：定义垂直方向的对齐，可取的值为"start"、"center"、"end"和"nearest"，默认为 "start"
+                                inline：定义水平方向的对齐，可取的值为"start"、"center"、"end"和"nearest"，默认为 "nearest"
+
+            const myDiv = document.getElementById("special");
+            myDiv.scrollIntoView(); //相当于 myDiv.scrollIntoView(true)，将 div 元素顶部与视口顶部对齐
+            myDiv.scrollIntoView(false); //将 div 元素顶部与视口顶部对齐
+            myDiv.scrollIntoView({block: "center", behavior: "smooth"}) //给 div 元素设置垂直居中对齐，有滚动动画
+
+        四、专有扩展
+        未成标准，不是所有浏览器都实现的功能
+
+            4.1 children 属性
+            children 属性只返回元素的 Element 类型的子节点构成的 HTMLCollection
+
+            4.2 contains() 方法
+            判断一个元素是否是另一个元素的后代元素，不用再手动遍历 DOM 树进行确认
+
+            4.3  插入标记
+            1) innerText 属性
+            innerText 属性返回元素中包含的所有文本内容，按深度优先将所有文本节点的值拼接起来
+            不同浏览器对文本中的空格的处理方式不同
+            给元素的 innerText 属性赋值后，该元素的所有后代元素被移除，给该元素添加一个包含该值的文本节点
+
+            2) outerText 属性
+            outerText 属性返回元素中包含的所有文本内容，虽然包括元素自身，但元素不是文本节点，所以返回值与 innerText 相同
+            不同浏览器对文本中的空格的处理方式不同
+            给元素的 outerText 属性赋值后，该元素自身及其所有后代元素被移除，一个新的文本节点代替该元素的节点位置
+
+        */
+
+
+    </script>
+</head>
+<body>
+<div id="special"></div>
+</body>
+<script>
+</script>
+</html>

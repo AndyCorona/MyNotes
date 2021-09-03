@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用CSS进行布局</title>
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+
+        /*
+        网站设计两大类：固定宽度和响应式
+
+        盒模型：CSS 处理网页时，认为每个元素都包含在一个虚拟的盒子里
+            盒子由内容区、内边距、边框和外边距组成
+            CSS 的 width 属性默认为内容区的宽度（如300px），但浏览器却显示左右边框+左右内边距+内容区的总和（如350px），height 属性类似。
+            对元素设置 box-sizing: border-box，width 属性值=左右边框+左右内边距+内容区总和
+
+        控制元素的显示类型和可见性
+            1.显示类型
+            display: [block|inline|inline-block|none|......]
+            块级元素：在页面中独占一行，默认宽度是父元素宽度，默认高度被内容撑开，可以设置 width、height、border、padding 和 margin 属性
+            行内元素：不会独占一行，默认高度和宽度都被内容撑开，会忽略 width、height、margin-top 和 margin-bottom 属性
+            行内块元素：拥有块级元素可设置的属性，但不独占一行
+            none: 将元素及其内容隐藏，且不占据原来的位置
+            2.可见性
+            visibility: [hidden|visible|......]
+            隐藏元素时，元素及其内容所处位置为空白区域，但仍然占据文档流
+
+        文档流
+            默认情况下，元素会按照它们在 HTML 中自上而下出现的次序显示，这称为文档流
+
+        设置元素高度和宽度
+            1. width: 数值、父元素百分数或 auto
+            2. height: 数值或 auto，一般不设置高度，选择用内容自动撑开
+            其中，块级子元素内容区宽度+左右内边距+左右边框+左右外边距=父元素内容区宽度
+            若等式不成立，且所有属性都不为默认值 auto，优先调整右外边距
+            若有一个 auto，则调整 auto 的值
+            若宽度和其他设置为 auto，宽度最大
+            若宽度固定，其他值为 auto，平均分配
+
+        设置内边距
+        元素内边距区域的颜色和纹理是通过元素的背景进行设置
+        padding: 上下左右|上下 左右|上 左右 下|上 下 左 右
+
+        设置边框
+        border-style: dotted, dashed, solid, double, groove, ridge, inset, outset ......，默认值为 none
+        border-width: 4px ......
+        border-color: rgb, rgba, hsl ......，默认值为元素的 color 属性
+        border: [border-style|border-width|border-color]
+
+        设置外边距
+        外边距是元素与相邻元素之间的透明空间
+        元素相互接触的上外边距和下外边距，仅使用较大的外边距，不叠加。
+        margin: 数值、百分数 或 auto
+
+        使元素浮动
+        浮动的元素脱离文档流，不再影响祖先元素的高度，会造成父元素高度塌陷，通过 clearfix 或 overfolw 解决
+        浮动元素 display 永远变成 block，宽度和高度被内容撑开
+        float: [left|right|none|......]
+        clear: [left|right|both|none|......] 在左|右|两侧不允许浮动元素
+
+            为浮动元素的父元素添加 clearfix 解决其高度塌陷问题
+            .clearfix:before,
+            .clearfix:after {
+                content: " ";
+                display: table;
+            }
+            .clearfix:after {
+                clear: both;
+            }
+            .clearfix {
+                *zoom: 1;
+            }
+            为浮动元素的父元素添加 overflow: hidden 解决其高度塌陷问题
+
+        相对定位
+        每个元素在文档流中都有一个自然位置，相对于这个原始位置进行移动叫相对定位，周围的元素完全不受影响
+        position: relative
+        偏移方向[bottom|top|left|right] 偏移量[数值、百分数]
+
+        绝对定位
+        元素相对于 body 或其最近的已开启相对定位的祖先元素的位置。此元素会脱离文档流，但其他元素不会环绕在其周围
+        position: absolute
+        偏移方向[bottom|top|left|right] 偏移量[数值、百分数]
+
+        固定定位
+        元素固定，不随页面上下滚动
+        position: fixed
+        position 默认值为 static
+
+        相对定位、绝对定位或固定定位的重叠的元素，可以通过 z-index 指定元素层级，数值越高出现在越上层
+        没有定位的元素（position: static）出现在最底层，定位过的元素按 z-index 的值层叠
+        z-index: 12
+
+        处理溢出
+        overflow: [visible|hidden|scroll|auto|......]
+            visible: 默认值，让盒子中所有内容都可见
+            hidden: 隐藏盒子容纳不下的内容
+            scroll: 无论是否需要，都在元素上添加滚动条
+            auto: 仅在访问者访问溢出内容时添加滚动条
+
+        垂直对齐元素
+        vertical-align: [baseline|bottom|middle|top|sub|sup|......]
+
+        修改鼠标指针
+        cursor: [default|crosshair|move|wait|help|text|auto|......]
+        */
+        p {
+            display: inline;
+            /*padding: 9px 170px 9px;*/
+            background-color: red;
+        }
+
+        .social-links {
+            width: 500px;
+            margin: 0 auto;
+            border-top: 3px solid green;
+            border-bottom: 1px solid gray;
+            padding: 3px 0 4px;
+        }
+
+        .social-links li {
+            display: inline-block;
+            border-left: 1px solid grey;
+            padding: 0 2px;
+        }
+
+        .social-links li:first-child {
+            border-left: none;
+        }
+
+        .post img {
+            float: left;
+        }
+
+        footer {
+            clear: left;
+        }
+
+        .about h2 {
+            position: relative; /*默认为 static*/
+            left: 20px; /*移动前的位置在移动后位置的左边 20px*/
+            top: 10px; /*移动前的位置在移动后位置的上面 10px*/
+        }
+
+        .post-footer { /*若要相对于父元素绝对定位，父元素需开启相对定位*/
+            position: absolute;
+            top: 30px; /*距离 body 元素上边缘 30px*/
+            right: 30px; /*距离 body 元素右边缘 30px*/
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <header class="mashead" role="banner">
+        <p class="logo">
+            <a href="xxx"><img src="xxx" alt="图片"></a>
+        </p>
+        <ul class="social-sites">
+            社交图片链接
+        </ul>
+        <nav role="navigation">
+            <ul class="social-links">
+                <li>
+                    <a herf="xxx">facebook</a>
+                </li>
+                <li>
+                    <a herf="xxx">twitter</a>
+                </li>
+                <li>
+                    <a herf="xxx">baidu</a>
+                </li>
+                <li>
+                    <a herf="xxx">wechat</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main">
+
+            <section class="post">
+                <h1>记录今天发生的事</h1>
+                <img src="../Figure/beach.jpg" alt="图片1">
+                <div class="post-blurb">
+                    <p>令人难以置信</p>
+                </div>
+                <footer class="footer">
+                    <p class="post-footer">博客页脚1</p>
+                </footer>
+            </section>
+
+            <section class="post">
+                <h1>记录昨天发生的事</h1>
+                <img src="xxx" alt="图片2">
+                <div class="post-blurb">
+                    <p>令人无比兴奋</p>
+                </div>
+                <footer class="footer">
+                    <p>博客页脚2</p>
+                </footer>
+            </section>
+            <nav role="navigation">
+                <ol class="pagination">链接列表项</ol>
+            </nav>
+        </main>
+
+        <div class="sidebar">
+            <article class="about">
+                <h2>关于我</h2>
+            </article>
+            <div class="mod">
+                <h2>我的旅行</h2>
+            </div>
+
+            <aside class="mod">
+                <h2>热门文章</h2>
+                <ul class="links">
+                    链接列表项
+                </ul>
+            </aside>
+        </div>
+    </div>
+    <footer role="contentinfo" class="footer">
+        <p class="legal"><small>&copy; 2013</small>
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>

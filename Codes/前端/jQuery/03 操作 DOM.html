@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作 DOM</title>
+    <script>
+        /*
+        一、操作元素属性
+
+        $("div:first").attr("title"); //读取第一个 div 元素的 title 属性值
+        $("div").attr("name", "DIV"); //给所有 div 元素设置 name 属性，属性值为 DIV，会覆盖已存在的属性值
+        $("div").removeAttr("title"); //移除所有 div 元素的 title 属性
+        $("div").addClass("divClass"); //给所有 div 元素添加 class 属性，属性值为 divClass，不会覆盖已存在的 class 值
+        $("div").removeClass("divClass"); //移除所有 div 元素属性值为 divClass 的 class 属性
+        $("li:last").html(); //获取最后一个 li 元素的 HTML 内容，类似原生的 innerHTML()
+        $("li:first").html("<span>uu</span>"); //设置第一个 li 元素的 HTML 内容为 <span>uu</span>
+        $("input").val(); //获取所有 input 元素的 value 属性值
+        $("input").val("submit"); //将所有 input 元素的 value 属性设为 submit
+        $("input").prop("checked", true); //将所有 input 元素的 checked 属性设为 true
+        $("input").removeProp("checked"); //移除所有 input 元素的 checked 属性
+
+        attr() 一般用于操作非布尔值的属性，操作布尔值的属性可能有问题
+        prop() 一般用于操作布尔值的属性
+
+        二、操作元素样式
+            2.1 样式
+
+            const $color = $("p:first").css("color"); //获取第一个 p 元素的 color 属性值
+            console.log($color); //rgb(0, 0, 255)
+            $("p").css("color", "red"); //设置所有 p 元素的文本颜色为红色
+            $("p:eq(1)").css({color: "blue", background: "green", width: "300px", height: "30px"}); //设置第二个 p 元素的多个样式
+
+            2.2 位置
+
+            const $info = $("div:first").offset(); //获取第一个 div 元素相对于页面左上角的位置
+            console.log($info.left, $info.top); //获取相对于页面左边和顶部的位置
+            $('div:first').offset({top: 500, left: 200}); //设置第一个 div 元素相对于页面左上角的位置
+            $("div:first").position(); //获取第一个 div 元素相对于父元素左上角的位置
+
+            $(document.body).scrollTop(200); //设置页面垂直滚动条到 200 像素位置
+            $(document.body).scrollLeft(); //获取页面水平滚动条的位置
+
+            2.3 尺寸
+
+            const $p = $("p:first");
+            $p.width(100); //设置元素内容区宽度
+            $p.height(); //获取元素内容区计算高度
+            $p.innerHeight(100); //设置元素内容区+内边距的高度
+            $p.innerHeight(); //获取元素内容区+内边距的计算高度
+            $p.outerHeight(true); //获取元素内容区域+内边距+边框+外边距的计算高度，true 表示包含外边距
+            $p.outerWidth(); //获取元素内容区+内边距+边框的计算宽度
+
+        三、过滤
+        jQuery 对象通过一定条件过滤后，得到新的符合条件的 jQuery 对象
+
+        const $lis = $("ul>li"); //获取 jQuery 对象 $lis，包含 ul 元素下的所有 li 元素
+        $lis.first(); //返回第一个 li 元素的 jQuery 对象
+        $lis[0]; //返回第一项 DOM 对象
+        $lis.last(); //返回最后一个 li 元素的 jQuery 对象
+        $lis.eq(1); //返回第二个 li 元素的 jQuery 对象
+        $lis.filter("[title = 'hello']"); //返回所有 title 属性值为 hello 的 li 元素的 jQuery 对象，filter() 可传入选择器
+        $lis.not("[title = 'hello']"); //返回所有 title 属性值不为 hello 的 li 元素的 jQuery 对象，not() 可传入选择器
+        $lis.has("span"); //返回包含 span 后代元素的所有 li 元素的 jQuery 对象
+
+        四、查找
+        jQuery 对象调用一些方法能够获取其包含的 DOM 对象的祖先元素、后代元素或同胞元素构成的新的 jQuery 对象
+
+        const $lis = $("ul>li"); //获取 jQuery 对象 $lis，包含 ul 元素下的所有 li 元素
+        $lis.children("span"); //获取所有 li 元素的所有 span 子元素
+        $lis.find("span"); //获取所有 li 元素的所有 span 后代元素
+        $lis.parent(); //获取 li 元素的父元素
+        $("li:eq(2)").prev("li"); //获取第三个 li 元素的前一个 li 同胞元素的 jQuery 对象
+        $("li:eq(2)").prevAll("li"); //获取第三个 li 元素前面所有 li 同胞元素的 jQuery 对象
+        $("li:eq(2)").next("li"); //获取第三个 li 元素的后一个 li 同胞元素的 jQuery 对象
+        $("li:eq(2)").nextAll("li"); //获取第三个 li 元素后面所有 li 同胞元素的 jQuery 对象
+        $("li:eq(2)").siblings("li"); //获取第三个 li 元素的所有 li 同胞元素的 jQuery 对象
+
+        五、增删改节点
+        jQuery 对象能对其包含的 DOM 对象进行增删改节点操作
+
+        const $lis = $("li"); //获取所有 li 元素构成的 jQuery 对象
+        $lis.append("<span>append</span>"); //将子元素添加到所有 li 元素的最后面
+        $("<span>appendTo</span>").appendTo($lis);
+        $lis.prepend("<span>prepend</span>"); //将子元素添加到所有 li 元素的最前面
+        $("<span>prependTo</span>").prependTo($lis);
+        $("li>div").before("<span>before</span>"); //在 li 子元素 div 的前面添加一个子元素 span
+        $("<span>prependTo</span>").insertBefore($("li>div"));
+        $("li>div").after("<span>before</span>"); //在 li 子元素 div 的后面添加一个子元素 span
+        $("<span>prependTo</span>").insertAfter($("li>div"));
+
+        $lis.replaceWith("<span>replaceWith</span>"); //所有 li 元素被替换成 span 元素
+        $("<span>replaceWith</span>").replaceAll($lis);
+
+        $lis.empty(); //移除所有 li 元素的后代元素
+        $lis.remove(); //移除所有 li 元素
+        $lis.detach(); //移除所有 li 元素，绑定的事件、附加的数据会被保留下来，以便再次使用
+        */
+
+    </script>
+</head>
+<body>
+<p style="color: blue">蓝色</p>
+<p style="color: green">绿色</p>
+<div style="width: 100px;height:200px;background: black"></div>
+<ul>
+    <li title="hello"><span><span>1111</span></span></li>
+    <li title="h"></li>
+</ul>
+</body>
+<script type="text/javascript" src="jquery-3.6.0.js"></script>
+<script>
+
+
+</script>
+</html>
