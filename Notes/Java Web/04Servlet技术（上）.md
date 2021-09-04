@@ -1,4 +1,4 @@
-# 第三章 Servlet 技术（上）
+# 第四章 Servlet 技术（上）
 
 ### 3.1 Servlet API
 Servlet API 主要由两个 java 包组成：javax.servlet 和 javax.servlet.http。
@@ -109,4 +109,111 @@ HttpServletResponse.SC_OK 表示响应状态码 200。
 
 ### 3.9 ServletConfig 接口
 
-Servlet 接口的 init(ServletConfig config) 方法有一个
+Servlet 接口的 init(ServletConfig config) 方法有一个 ServletConfig 类型的参数。当 Servlet 容器初始化一个 Servlet 对象时，会为这个对象创建一个 ServletConfig 对象，包含 Servlet 的初始化信息。所以，Servlet 对象与 ServletConfig 对象建立联系，ServletConfig 对象与当前 Web 应用的 ServletContext 对象关联。ServletConfig 接口定义了如下方法：
+- getInitParameter(String name)：根据指定初始化参数名，返回匹配的初始化参数值。
+- getInitParameterNames()：返回一个 Enumeration 对象，包含所有初始化参数名。
+- getServletContext()：返回一个 ServletContext 对象。
+- getServletName()：返回 Servlet 名字，即 web.xml 中对应 <servlet> 的 <servlet-name> 的值。
+
+每个初始化参数是一个键值对形式。在 web.xml 中配置一个 Servlet 时，可以用 <init-param> 元素设置初始化参数。子元素 <param-name> 设置参数名，<param-value> 设置参数值。
+```xml
+<servlet>
+	<servlet-name>Font</servlet-name>
+	<servlet-class>mypack.FontServlet</servlet-class>
+	<init-param>
+		<param-name>color</param-name>
+		<param-value>blue</param-value>
+	</init-param>
+</servlet>
+```
+因为 GenericServlet 接口实现了 ServletConfig 接口，所有 HttpServlet 类或 GenericServlet 类及其子类都可以直接调用 ServletConfig 接口中的方法。 
+
+### 3.10 ServletContext 接口
+
+ServletCotext 接口是 Servlet 与 Servlet 容器之间进行通信的接口。每个 Web 应用都有唯一的 ServletContext 接口。Servlet 对象们通过 ServletContext 访问容器中的各种资源。
+
+ServletContext 接口提供几种类型的方法：
+1. **用于在 Web 应用范围内存取共享数据的方法。**
+	- setAttribute(String name, java.lang.Object object)：把一个 Java 对象与一个属性名绑定，存入 ServletContext 中。
+	- getAttributes(String name)：根据属性名获得属性值。
+	- getAttributeNames()：返回一个 Enumeration 对象，包含所有存放在 ServletContext 中的属性名。
+	- removeAttribute(String name)：移除指定属性名的参数。
+2. **访问当前 Web 资源。**
+	- getContextPath()：返回当前 Web 应用的 URL 入口。
+	- getInitParameter(String name)：根据给定参数名，返回 Web 应用范围内的匹配初始化参数值。在 web.xml 文件中，在 <web-app> 根元素下 <context-param> 元素表示应用范围内的初始化参数。
+	- getInitParameterNames()：返回一个 Enumeration 对象，包含 Web 应用范围内的所有初始化参数。
+	- getServletContextName()：返回 Web 应用名字。
+	- getRequestDispatcher(String path)：返回一个用于向其他 Web 组件转发请求的 RequestDispatcher 对象。
+3. **访问 Servlet 容器中的其他 Web 应用。** 
+	-getContext(String uripath)：根据指定 URI，返回当前 Servlet 容器中的其他 Web 应用的 ServletContext 对象。
+4. **访问 Servlet 容器的相关信息**
+	- getMajorVersion()：返回 Servlet 容器支持的 Java Servlet API 的主版本号。
+	- getMinorVersion()：返回 Servlet 容器支持的 Java Servlet API 的次版本号。
+	- getServerInfo()：返回 Servlet 容器的名字和版本。
+5. **访问服务器端的文件系统资源**
+	- getRealPath(String path)：根据指定的虚拟路径，返回文件系统中的真实路径。
+	- getResource(String path)：返回指定路径的资源。
+	- getResourceAsStream(String path)：返回一个读取指定资源的输入流。
+	- getMimeType(String file)：返回指定文件的 MIME 类型。
+6. **输出日志**
+	- log(String msg)：向 Servlet 的日志文件中写日志。
+	- log(String message, java.lang.Throwable throwable)：向 Servlet 的日志文件写错误日志，以及异常的堆栈信息。
+
+在 HttpServlet 或 GenericServlet 类及其子类中都可以直接调用 getServletContext() 方法获得当前 Web 应用的 ServletContext 对象。
+
+### 3.11 Java Web 应用的生命周期
+
+Web 应用的生命周期由 Servlet 容器来控制，包括三个阶段：
+1. 启动阶段：加载 Web 应用的有关数据，创建 ServletContext 对象，初始化 Filter 和一些 Servlet
+2. 运行时阶段：为客户端提供服务
+3. 终止阶段：释放 Web 应用所占用的各种资源
+
+#### 3.11.1 启动阶段
+
+Servlet 容器在启动 Web 应用时，会完成以下操作：
+- 把 web.xml 文件中的数据加载到内存中。
+- 为 Web 应用创建一个 ServletContext 对象。
+- 初始化所有 Filter。
+- 初始化在 Web 应用启动时就需要加载的 Servlet。
+
+#### 3.11.2 运行时阶段
+
+所有 Servlet 都处于待命状态，随时可以响应客户端的特定请求，提供相应服务。若客户端请求的 Servlet 还不存在，Servlet 容器会先加载并初始化 Servlet，然后再调用它的 service() 方法。
+
+#### 3.11.3 终止阶段
+
+Servlet 容器终止 Web 应用时，会完成以下操作：
+- 销毁 Web 应用中所有处于运行时状态的 Servlet。
+- 销毁 Web 应用中所有处于运行时状态的 Filter。
+- 销毁所有与 Web 应用相关的对象，如 ServletContext 对象，并释放 Web 应用所占用的资源。
+
+#### 3.11.4 用 Tomcat 管理平台管理 Web 应用
+
+修改 <CATALINA_HOME>/conf/tomcat-users.xml 文件，加入一个 <user> 元素。
+```xml
+<tomcat-users>
+	<role rolename="manager-gui" />
+	<user username="likezhen" password="admin1234" roles="manager-gui" /> #账户名 likezhen，密码 admin1234
+</tomcat-users>
+```
+启动 Tomcat，打开 http://localhost:8080/manager/html，弹出验证窗口，输入账号密码，即可进入管理平台，执行启动、终止、重启、卸载 Web 应用等操作。 
+
+### 3.12 Servlet 的生命周期
+
+Web 应用的生命周期由 Servlet 容器控制，Servlet 作为 Web 应用的最核心组件，其生命周期也由 Servlet 容器控制。Servlet 生命周期和 Web 应用一样，分成三个阶段。其中，初始化和销毁只会发生一次，因此 init() 和 destory() 方法只会被 Servlet 容器调用一次，而 service() 方法可能会被调用多次，取决于客户端请求访问 Servlet 的次数。
+
+#### 3.12.1 初始化阶段
+
+Servlet 初始化阶段包括四个步骤：
+- Servlet 容器加载 Servlet 类，把它的 .class 文件数据加载到内存中。
+- Servlet 容器创建 ServletConfig 对象，与当前 Web 应用的 ServletContext 对象关联。
+- Servlet 容器创建 Servlet 对象。
+- Servlet 容器调用 Servlet 对象的 init(ServletConfig config) 方法，建立 Servlet 对象与 ServletConfig 对象的联系。Servlet 对象调用 getServletContext() 方法就能获得当前 Web 应用的 ServletContext 对象。
+
+#### 3.12.2 运行时阶段
+
+在运行时阶段，Servlet 可以随时响应客户端的请求。Servlet 容器接收要求访问特定 Servlet 的请求，创建针对这个请求的 ServletRequest 对象和 ServletResponse 对象，调用相应 Servlet 对象的 service(ServletRequest req, ServletResponse res) 方法。当 Servlet 容器把响应结果发送给客户后，Servlet 容器会销毁 ServeletRequest 对象和 ServletResponse 对象。
+
+#### 3.12.3 销毁阶段
+
+当 Web 应用被终止时，Servlet 容器会先调用 Web 应用中所有 Servlet 对象的 destory() 方法，释放 Servlet 占用的资源（如关闭文件输出输入流，关闭数据库连接等），再销毁这些 Servlet 对象和 ServletConfig 对象。

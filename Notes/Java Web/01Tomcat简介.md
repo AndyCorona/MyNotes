@@ -30,21 +30,6 @@ Tomcat 本身由一系列可配置的组件构成。核心组件是 Servlet 容�
 	</Service>
 </Server>
 ```
-在以上 XML 文件中，每一个元素都代表一种 Tomcat 组件，这些元素分为四类
-1. 顶层类元素
-<Server> 和 <Service> 元素位于整个配置文件顶层。
-2. 连接器元素
-<Connector> 元素代表介于客户与服务器之间的通信接口，将客户请求发给服务器，将服务器响应发送给客户。
-3. 容器类元素
-处理客户请求并生成响应结果的组件，有四种容器类元素，分别为 <Engine>, <Host>, <Context>, <Cluster> 元素。Engine 组件为特定的 Service 组件处理所有客户请求，Host 组件为特定的虚拟主机处理所有客户请求。Context 组件为特定的 Web 应用处理所有客户请求，Cluster 组件为 Tomcat 集群服务。
-4. 嵌套类元素
-如 <Valve> 和 <Realm> 等元素。
-
-<Server> 代表整个 Servlet 容器，它是 Tomcat 的顶层元素，可以包含多个 <Service> 元素。
-<Service> 元素包含一个 <Engine> 元素和多个 <Connector> 元素，多个 <Connector> 元素贡献那个一个 <Engine> 元素。
-<Engine> 元素处理同一个 <Service> 中所有 <Connector> 元素接收到的客户请求。
-<Host> 元素定义虚拟主机，一个 <Engine> 元素包含多个 <Host> 元素。
-<Context> 元素代表运行在虚拟主机上的单个 Web 应用。一个 <Host> 上可包含多个 <Context>。
 Tomcat 的 server.xml 中已经配置了 <Server>、<Service>、<Connector>、<Engine>、<Host> 等组件。
 ```xml
 

@@ -140,21 +140,6 @@ Servlet 容器在加载和启动 Web 应用时会读取它的 web.xml 文件。�
     </welcome-file-list>
 </web-app>
 ```
-<servlet> 元素为 Servlet 类定义一个名字，它的子元素说明如下。
-
-| 子元素            | 说明                                                         |
-| ----------------- | ------------------------------------------------------------ |
-| <servlet-name>    | 指定 Servlet 类的名字                                        |
-| <servlet-class>   | Servlet 类的完整类名                                         |
-| <init-param>      | 定义 Servlet 的初始化参数。可以存在多个 <init-param>。在 Servlet 类中通过 getInitParam(String name) 方法访问初始化参数 |
-| <load-on-startup> | 指定当 Servlet 容器启动时，加载各个 Servlet 的顺序。值大于等于零时，Servlet 容器先加载数值小的 Servlet。如果此值为负值或未定义，客户端首次访问这个 Servlet 时容器才加载它 |
-
-<servlet-maapping> 元素用来设定客户访问某个 Servlet 的 URL。它的子元素说明如下。
-
-| 子元素       | 说明                                                         |
-| ------------ | ------------------------------------------------------------ |
-| servlet-name | 应该和 <servlet> 元素中的 <servlet-name> 一样                |
-| url-pattern  | 指定访问此 Servlet 的 URL。给出相对于整个 Web 应用的 URL 路径 |
 
 ### 2.4 在 Tomcat 中发布 Web 应用
 1. 把 Web 应用的所有文件复制到 Servlet 容器的特定目录下。
@@ -188,6 +173,5 @@ jar cvf D:\helloapp.war * #压缩命令
 jar xvf D:\helloapp.war #解压命令
 ```
 将 WAR 包放入 webapps 目录下，Tomcat 启动后，会把所有 WAR 文件展开为开放式结构。
-如果需要更灵活地发布 Web 应用，需要为 Web 应用配置 Tomcat 的 <Context> 元素。<Context> 元素代表在虚拟主机 <Host> 上的单个 Web 应用。
-
+如果需要更灵活地发布 Web 应用，需要为 Web 应用配置 Tomcat 的 <Context> 元素。
 
