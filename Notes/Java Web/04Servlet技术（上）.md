@@ -62,6 +62,7 @@ ServletRequest 接口提供了一系列用于读取客户端请求数据的方�
 - getMethod()：返回 HTTP 请求方式。
 - getRequestURI()：返回 HTTP 请求头第一行的 URI。
 - getQueryString()：返回 HTTP 请求的查询字符串（请求参数）。
+- getParts()：返回包含多个 Part 对象的集合。
 
 ### 3.7 ServletResponse 接口
 
@@ -152,7 +153,7 @@ ServletContext 接口提供几种类型的方法：
 	- getServerInfo()：返回 Servlet 容器的名字和版本。
 5. **访问服务器端的文件系统资源**
 	- getRealPath(String path)：根据指定的虚拟路径，返回文件系统中的真实路径。
-	- getResource(String path)：返回指定路径的资源。
+	- getResource(String path)：返回指定路径的资源 URL。
 	- getResourceAsStream(String path)：返回一个读取指定资源的输入流。
 	- getMimeType(String file)：返回指定文件的 MIME 类型。
 6. **输出日志**
