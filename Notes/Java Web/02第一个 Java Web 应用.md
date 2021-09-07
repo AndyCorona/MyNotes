@@ -111,9 +111,9 @@ public class DispatcherServlet extends GenericServlet {
 
 #### 2.3.4 创建 web.xml 文件
 Servlet 容器在加载和启动 Web 应用时会读取它的 web.xml 文件。在 web.xml 文件可包含如下配置信息：
-- Servlet 的定义
-- Servlet 的初始化参数
-- Servlet 及 JSP 的映射
+- Servlet 对象 的定义
+- Servlet 对象 的初始化参数
+- Servlet 对象 及 JSP 的映射
 - 安全域配置参数
 - welcome 文件清单
 - 资源引用
@@ -126,14 +126,15 @@ Servlet 容器在加载和启动 Web 应用时会读取它的 web.xml 文件。�
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    # 通过 DispatcherServlet 类创建一个 dispatcher 对象
     <servlet>
         <servlet-name>dispatcher</servlet-name> 指定 DispatcherServlet 名为 dispatcher
         <servlet-class>com.likzhen.helloapp.DispatcherServlet</servlet-class> 
     </servlet>
-    
+    # 访问 dispatcher Servlet 对象的 URL 为 http://localhost:8080/helloapp/dispatcher
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/dispatcher</url-pattern> 通过 http://localhost:8080/helloapp/dispatcher 就可以访问 dispatcher
+        <url-pattern>/dispatcher</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.html</welcome-file>
@@ -144,7 +145,7 @@ Servlet 容器在加载和启动 Web 应用时会读取它的 web.xml 文件。�
 ### 2.4 在 Tomcat 中发布 Web 应用
 1. 把 Web 应用的所有文件复制到 Servlet 容器的特定目录下。
 2. 各种 Servlet 容器都会从 Web 应用的 web.xml 配置文件中读取有关 Web 组件的配置信息。
-3. 许多 Servlet 还允许其他额外的配置，这与 Oracle 的 Servlet 规范无关。
+3. 许多 Servlet 容器还允许其他额外的配置，这与 Oracle 的 Servlet 规范无关。
 
 #### 2.4.1 Tomcat 目录结构
 

@@ -7,14 +7,14 @@ javax.servlet.http 包中定义了与 HTTP 协议相关的 HttpServlet 类、Htt
 
 ### 3.2 Servlet 接口
 
-所有 Servlet 类都必须实现 javax.servlet.Servlet 接口。此接口定义了 5 个方法，其中有 3 个由 Servlet 容器调用，容器会在 Servlet 生命周期的不同阶段调用特定方法：
+所有 Servlet 类都必须实现 javax.servlet.Servlet 接口。此接口定义了 5 个方法，其中有 3 个由 Servlet 容器调用，容器会在 Servlet 对象生命周期的不同阶段调用特定方法：
 1. init(ServletConfig config) 方法负责初始化 Servlet 对象。容器在创建好 Servlet 对象之后，就会调用该方法。
 2. service(ServletRequest req, ServletResponse res) 方法负责响应客户的请求，为客户提供相应的服务。容器接收到客户端要求访问特定 Servlet 对象的请求时，就会调用该 Servlet 对象的 service 方法。
 3. destory() 方法负责释放 Servlet 对象占用的资源。当 Servlet 对象结束生命周期时，容器会调用此方法。
 
-还有 2 个返回 Servlet 信息的方法。Web 应用中的代码可以调用 Servlet 的这两个方法。
-1. getServletConfig() 返回一个 ServletConfig 对象，该对象包含 Servlet 初始化参数信息。
-2. getServletInfo() 返回一个字符串包含 Servlet 的创建者、版本和版权等信息。
+还有 2 个返回 Servlet 信息的方法。Web 应用中的代码可以调用 Servlet 对象 的这两个方法。
+1. getServletConfig() 返回一个 ServletConfig 对象，该对象包含 Servlet 对象的初始化参数信息。
+2. getServletInfo() 返回一个字符串包含 Servlet 对象的创建者、版本和版权等信息。
 
 在 Servlet API 中，javax.servlet.GenericServlet 抽象类实现了 Servlet 接口，javax.servlet.http.HttpServlet 抽象类是 GenericServlet 的子类。当用户开发自己的 Servlet 类时，可以选在 GenericSerlvet 或 HTTPServlet 抽象类。
 
@@ -29,13 +29,13 @@ GeneticServlet 抽象类实现了 Servlet、ServletConfig 和 Serializable 接�
 - 如果客户与服务器之间采用 HTTP1.1 协议通信，则返回错误HttpServletResponse.SC_METHOD_NOT_ALLOWED(响应状态码 405)
 - 如果客户端与服务器之间不是采用 HTTP1.1 协议通信，返回错误 HttpServletResponse.SC_BAD_REQUEST(响应状态码 400)
 
-对于 HttpServlet 类的具体子类，一般会针对客户端的请求方法，重写 HttpServlet 中对应的 doXXX() 方法。
+对于 HttpServlet 类的具体子类，一般会针对客户端的请求方法，重写 HttpServlet 类中对应的 doXXX() 方法。
 
 ### 3.5 ServletRequest 接口
 
-Servlet 接口的 service(ServletRequest req, ServletResponse res) 方法中有一个 ServletRequest 类型的参数，表示来自客户端的请求。当 Servlet 容器接收客户端访问特定 Servlet
-的请求时，容器先解析客户端的原始请求数据，把它包装成一个 ServletRequest 对象，并传入 service() 方法中。
+Servlet 接口的 service(ServletRequest req, ServletResponse res) 方法中有一个 ServletRequest 类型的参数，表示来自客户端的请求。当 Servlet 容器接收客户端访问特定 Servlet 对象的请求时，容器先解析客户端的原始请求数据，把它包装成一个 ServletRequest 对象，并传入 service() 方法中。
 ServletRequest 接口提供了一系列用于读取客户端请求数据的方法：
+
 - getContentLength()：返回请求正文长度。若长度未知，返回-1。
 - getContentType()：返回请求正文的 MIME 类型，若类型未知，返回 null。
 - getInputStream()：返回用于读取请求正文的输入流。
@@ -87,7 +87,7 @@ ServletResponse 接口定义了一系列与生成响应结果相关的方法：
 2. Servlet 调用 ServletResponse 对象的 flushBuffer() 方法。
 3. Servlet 调用 ServletOutputStream 或 PrintWriter 对象的 flush() 或 close() 方法。
 
-在 Tomcat 中，如果 Servlet 的 service() 方法没有调用 ServletOutputStream 或 PrintWriter 的 close() 方法。在调用完 service() 方法后，会关闭 ServletOutputStream 或 PrintWriter 对象，确保 Servlet 输出的所有数据提交给客户端。
+在 Tomcat 中，如果 Servlet 对象的 service() 方法没有调用 ServletOutputStream 或 PrintWriter 的 close() 方法。在调用完 service() 方法后，会关闭 ServletOutputStream 或 PrintWriter 对象，确保 Servlet 输出的所有数据提交给客户端。
 
 ### 3.8 HttpServletResponse 接口
 
@@ -114,9 +114,9 @@ Servlet 接口的 init(ServletConfig config) 方法有一个 ServletConfig 类�
 - getInitParameter(String name)：根据指定初始化参数名，返回匹配的初始化参数值。
 - getInitParameterNames()：返回一个 Enumeration 对象，包含所有初始化参数名。
 - getServletContext()：返回一个 ServletContext 对象。
-- getServletName()：返回 Servlet 名字，即 web.xml 中对应 <servlet> 的 <servlet-name> 的值。
+- getServletName()：返回 Servlet 对象名字，即 web.xml 中对应 <servlet> 的 <servlet-name> 的值。
 
-每个初始化参数是一个键值对形式。在 web.xml 中配置一个 Servlet 时，可以用 <init-param> 元素设置初始化参数。子元素 <param-name> 设置参数名，<param-value> 设置参数值。
+每个初始化参数是一个键值对形式。在 web.xml 中配置一个 Servlet 对象时，可以用 <init-param> 元素设置初始化参数。子元素 <param-name> 设置参数名，<param-value> 设置参数值。
 ```xml
 <servlet>
 	<servlet-name>Font</servlet-name>
@@ -165,7 +165,7 @@ ServletContext 接口提供几种类型的方法：
 ### 3.11 Java Web 应用的生命周期
 
 Web 应用的生命周期由 Servlet 容器来控制，包括三个阶段：
-1. 启动阶段：加载 Web 应用的有关数据，创建 ServletContext 对象，初始化 Filter 和一些 Servlet
+1. 启动阶段：加载 Web 应用的有关数据，创建 ServletContext 对象，初始化 Filter 和一些 Servlet 对象
 2. 运行时阶段：为客户端提供服务
 3. 终止阶段：释放 Web 应用所占用的各种资源
 
@@ -175,16 +175,16 @@ Servlet 容器在启动 Web 应用时，会完成以下操作：
 - 把 web.xml 文件中的数据加载到内存中。
 - 为 Web 应用创建一个 ServletContext 对象。
 - 初始化所有 Filter。
-- 初始化在 Web 应用启动时就需要加载的 Servlet。
+- 初始化在 Web 应用启动时就需要加载的 Servlet 对象。
 
 #### 3.11.2 运行时阶段
 
-所有 Servlet 都处于待命状态，随时可以响应客户端的特定请求，提供相应服务。若客户端请求的 Servlet 还不存在，Servlet 容器会先加载并初始化 Servlet，然后再调用它的 service() 方法。
+所有 Servlet 对象都处于待命状态，随时可以响应客户端的特定请求，提供相应服务。若客户端请求的 Servlet 对象还不存在，Servlet 容器会先加载并初始化 Servlet 对象，然后再调用它的 service() 方法。
 
 #### 3.11.3 终止阶段
 
 Servlet 容器终止 Web 应用时，会完成以下操作：
-- 销毁 Web 应用中所有处于运行时状态的 Servlet。
+- 销毁 Web 应用中所有处于运行时状态的 Servlet 对象。
 - 销毁 Web 应用中所有处于运行时状态的 Filter。
 - 销毁所有与 Web 应用相关的对象，如 ServletContext 对象，并释放 Web 应用所占用的资源。
 
@@ -199,13 +199,13 @@ Servlet 容器终止 Web 应用时，会完成以下操作：
 ```
 启动 Tomcat，打开 http://localhost:8080/manager/html，弹出验证窗口，输入账号密码，即可进入管理平台，执行启动、终止、重启、卸载 Web 应用等操作。 
 
-### 3.12 Servlet 的生命周期
+### 3.12 Servlet 对象的生命周期
 
-Web 应用的生命周期由 Servlet 容器控制，Servlet 作为 Web 应用的最核心组件，其生命周期也由 Servlet 容器控制。Servlet 生命周期和 Web 应用一样，分成三个阶段。其中，初始化和销毁只会发生一次，因此 init() 和 destory() 方法只会被 Servlet 容器调用一次，而 service() 方法可能会被调用多次，取决于客户端请求访问 Servlet 的次数。
+Web 应用的生命周期由 Servlet 容器控制，Servlet 对象作为 Web 应用的最核心组件，其生命周期也由 Servlet 容器控制。Servlet 对象的生命周期和 Web 应用一样，分成三个阶段。其中，初始化和销毁只会发生一次，因此 init() 和 destory() 方法只会被 Servlet 容器调用一次，而 service() 方法可能会被调用多次，取决于客户端请求访问 Servlet 对象的次数。
 
 #### 3.12.1 初始化阶段
 
-Servlet 初始化阶段包括四个步骤：
+Servlet 对象初始化阶段包括四个步骤：
 - Servlet 容器加载 Servlet 类，把它的 .class 文件数据加载到内存中。
 - Servlet 容器创建 ServletConfig 对象，与当前 Web 应用的 ServletContext 对象关联。
 - Servlet 容器创建 Servlet 对象。
@@ -213,8 +213,46 @@ Servlet 初始化阶段包括四个步骤：
 
 #### 3.12.2 运行时阶段
 
-在运行时阶段，Servlet 可以随时响应客户端的请求。Servlet 容器接收要求访问特定 Servlet 的请求，创建针对这个请求的 ServletRequest 对象和 ServletResponse 对象，调用相应 Servlet 对象的 service(ServletRequest req, ServletResponse res) 方法。当 Servlet 容器把响应结果发送给客户后，Servlet 容器会销毁 ServeletRequest 对象和 ServletResponse 对象。
+在运行时阶段，Servlet 对象可以随时响应客户端的请求。Servlet 容器接收要求访问特定 Servlet 对象的请求，创建针对这个请求的 ServletRequest 对象和 ServletResponse 对象，调用相应 Servlet 对象的 service(ServletRequest req, ServletResponse res) 方法。当 Servlet 容器把响应结果发送给客户后，Servlet 容器会销毁 ServeletRequest 对象和 ServletResponse 对象。
 
 #### 3.12.3 销毁阶段
 
 当 Web 应用被终止时，Servlet 容器会先调用 Web 应用中所有 Servlet 对象的 destory() 方法，释放 Servlet 占用的资源（如关闭文件输出输入流，关闭数据库连接等），再销毁这些 Servlet 对象和 ServletConfig 对象。
+
+### 3.13 Servlet 的服务方法抛出异常
+
+Servlet 接口的 service() 方法抛出两个异常：
+- ServletException：表示当 Servlet 进行常规操作时出现的异常。
+- IOException：表示当 Servlet 进行 I/O 操作时出现的异常。
+
+ServletException 有一个子类 UnavailableException，表示无法访问当前 Servlet 的异常。如果 Servlet 由于内存不足或无法访问第三方服务器等情况时可以抛出这种异常。抛出的异常由 Servlet 容器捕获，捕获之后向客户端发送相应的错误信息。
+
+
+
+没有报错
+
+![正常情况](04Servlet技术（上）.assets/image-20210907125148752.png)
+
+
+
+抛出 ServletException 异常
+
+![报错](04Servlet技术（上）.assets/image-20210907125230237.png)
+
+
+
+抛出 2 秒内不能访问该 Servlet 的异常
+
+![等待2秒再处理](04Servlet技术（上）.assets/image-20210907125318170.png)
+
+
+
+抛出不访问该 Servlet 的异常，除非重启 Web 应用
+
+![永不处理](04Servlet技术（上）.assets/image-20210907125337092.png)
+
+### 3.14 Web 应用范围与请求范围
+
+**Web 应用范围**与 ServletContext 对象的生命周期对应。Web 应用范围内的共享数据作为 ServletContext 对象的属性，通过 set|getAttribute() 来存取共享数据。Web 组件共享同一个 ServletContext 对象，就能共享 Web 应用范围内的共享数据。
+**请求范围**与 ServletRequest 对象和 ServletResponse 对象的生命周期对应。Servlet 容器每接收到一个客户请求，就会创建一个 ServletRequest 对象和 ServletResponse 对象，并传入 service() 方法中。待容器把本次请求的响应结果返回给客户时，ServletRequest 对象和 ServletResponse 对象就被销毁。请求范围内的共享数据作为 ServletRequest 对象的属性，通过 set|getAttribute() 来存取共享数据。当存在转发或包含时，Web 组件共享同一个 ServletRequest 对象和 ServletResponse 对象，就能共享请求范围内的共享数据。
+

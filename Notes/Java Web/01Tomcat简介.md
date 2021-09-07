@@ -4,15 +4,15 @@
 
 为了能让 Web 服务器与 Web 应用之间协作，应该制定 Web 服务器与 Web 应用通讯的标准接口。Servlet 是其中最主要的一个接口。Servlet 规范把能够发布和运行 Java Web 应用的 Web 服务器称为 Servlet 容器。
 
-Tomcat 完全由 Java 编写，是 Apache 开源软件组织的一个软件项目。Servlet 规范规定 Servlet 容器响应客户请求访问特定 Servlet 的流程如下：
-1. 客户发出访问特定 Servlet 的请求。
+Tomcat 完全由 Java 编写，是 Apache 开源软件组织的一个软件项目。Servlet 规范规定 Servlet 容器响应客户请求访问特定 Servlet 对象 的流程如下：
+1. 客户发出访问特定 Servlet 对象 的请求。
 2. Servlet 容器接收到请求，对其解析。
 3. Servlet 容器创建一个 ServletRequest 对象，包含请求信息。
 4. Servlet 容器创建一个 ServletResponse 对象。
-5. .Servlet 容器调用客户所请求的 Servlet 的 service() 方法，把 ServletRequest 和 ServletResponse 对象作为参数传入。
+5. .Servlet 容器调用客户所请求的 Servlet 对象 的 service() 方法，把 ServletRequest 和 ServletResponse 对象作为参数传入。
 6. Servlet 从 ServletRequest 对象获得请求信息。
 7. Servlet 用 ServletResponse 对象生成响应结果。
-8. Servlet 容器把 Servlet 生成的响应结果发给客户端。
+8. Servlet 容器把 Servlet 对象 生成的响应结果发给客户端。
 
 ### 1.2 Tomcat 组成
 

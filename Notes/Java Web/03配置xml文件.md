@@ -165,8 +165,8 @@ web.xml 是 Web 应用的配置文件，与 Tomcat 容器完全独立。简要�
 3. <discription>：Web 应用的描述
 4. <filter>：定义过滤器
 5. <filter-mapping>：为过滤器指定 URL 映射
-6. <servlet>：定义 Servlet
-7. <servlet-mapping>：为 Servlet 指定 URL 映射
+6. <servlet>：定义 Servlet 对象
+7. <servlet-mapping>：为 Servlet 对象 指定 URL 映射
 8. <session-config>：配置 HTTP 会话
 9. <welcome-file-list>：设置 Web 应用的 Welcome 文件清单
 10. <taglib>：声明引用的标签库
@@ -209,37 +209,42 @@ web.xml 是 Web 应用的配置文件，与 Tomcat 容器完全独立。简要�
 
 #### 3.2.2 配置 Servlet
 
-<servlet> 元素为 Servlet 类定义一个名字，它的子元素如下。
+<servlet> 元素为 Servlet 对象定义一个名字，它的子元素如下。
+
 | 子元素            | 说明                                                         |
 | ----------------- | :----------------------------------------------------------- |
-| <servlet-name>    | 指定 Servlet 类的名字                                        |
-| <servlet-class>   | Servlet 类的完整类名                                         |
-| <init-param>      | 定义 Servlet 的初始化参数。可以存在多个 <init-param>。在 Servlet 类中通过 getInitParam(String name) 方法访问初始化参数 |
-| <load-on-startup> | 指定当 Servlet 容器启动时，加载各个 Servlet 的顺序。值大于等于零时，Servlet 容器先加载数值小的 Servlet。如果此值为负值或未定义，客户端首次访问这个 Servlet 时容器才加载它 |
+| <servlet-name>    | 指定 Servlet 对象的名字                                      |
+| <servlet-class>   | Servlet 对象的完整类名                                       |
+| <init-param>      | 定义 Servlet 对象 的初始化参数。可以存在多个 <init-param>。在 Servlet 对象 中通过 getInitParam(String name) 方法访问初始化参数 |
+| <load-on-startup> | 指定当 Servlet 容器启动时，加载各个 Servlet 对象 的顺序。值大于等于零时，Servlet 容器先加载数值小的 Servlet 对象。如果此值为负值或未定义，客户端首次访问这个 Servlet 对象 时容器才加载它 |
 
+SampleServlet 类创建两个 Servlet 对象，分别为 SampleServlet1 和 SampleServlet2。
 ```xml
 <servlet>
-	<servlet-name>SampleServlet</servlet-name>
+	<servlet-name>SampleServlet1</servlet-name>
 	<servlet-class>com.likezhen.helloapp.SampleServlet</servlet-class>
 	<init-param>
 		<param-name>color</param-name>
 		<param-value>blue</param-value>
 	</init-param>
 	<load-on-startup>1</load-on-startup>
+    
+    <servlet-name>SampleServlet2</servlet-name>
+	<servlet-class>com.likezhen.helloapp.SampleServlet</servlet-class>
 </servlet>
 ```
 
 #### 3.2.3 配置 Servlet 映射
 
-<servlet-maapping> 元素用来设定客户访问某个 Servlet 的 URL。它的子元素如下。
+<servlet-maapping> 元素用来设定客户访问某个 Servlet 对象 的 URL。它的子元素如下。
 
 | 子元素       | 说明                                                         |
 | ------------ | ------------------------------------------------------------ |
 | servlet-name | 应该和 <servlet> 元素中的 <servlet-name> 一样                |
-| url-pattern  | 指定访问此 Servlet 的 URL。给出相对于整个 Web 应用的 URL 路径 |
+| url-pattern  | 指定访问此 Servlet 对象 的 URL。给出相对于整个 Web 应用的 URL 路径 |
 
-给 SampleServlet 类指定访问 URL 为 http://localhost:8080/helloapp/sample
-​```xml
+给 SampleServlet 对象指定访问 URL 为 http://localhost:8080/helloapp/sample
+```xml
 <servlet-maapping>
 	<servlet-name>SampleServlet</servlet-name>
 	<url-pattern>/sample</url-pattern>
@@ -258,7 +263,8 @@ web.xml 是 Web 应用的配置文件，与 Tomcat 容器完全独立。简要�
 
 #### 3.2.5 配置 Welcome 文件清单
 
-当用户在浏览器中输入的 URL 不包含某个 Servlet 或 JSP 页面时，<welcome-file-list> 元素可指定显示的默认文件。
+当用户在浏览器中输入的 URL 不包含某个 Servlet 对象 或 JSP 页面时，<welcome-file-list> 元素可指定显示的默认文件。
+
 ```xml
 <welcome-file-list>
 	<welcome-file>login.jsp</welcome-file> #先返回 login.jsp 文件，若不存在，往下继续查找
@@ -688,7 +694,7 @@ web.xml 是 Web 应用的配置文件，与 Tomcat 容器完全独立。简要�
 
 #### 3.3.1 @WebServlet
 
-注解 @WebServlet 配置 Servlet，它的属性如下。 
+注解 @WebServlet 配置 Servlet 对象，它的属性如下。 
 
 | 属性           | 类型           | 描述                                                         |
 | -------------- | -------------- | ------------------------------------------------------------ |
@@ -697,11 +703,11 @@ web.xml 是 Web 应用的配置文件，与 Tomcat 容器完全独立。简要�
 | urlPatterns    | String[]       | 等价于 <url-pattern> 元素，可以触发过滤器                    |
 | loadOnStartup  | int            | 等价于 <load-on-startup> 元素                                |
 | initParams     | WebInitParam[] | 等价于 <init-param> 元素                                     |
-| asyncSupported | boolean        | 等价于 <asynx-supported> 元素，声明 Servlet 是否支持异步处理模式 |
+| asyncSupported | boolean        | 等价于 <asynx-supported> 元素，声明 Servlet 对象 是否支持异步处理模式 |
 | description    | String         | 等价于 <description> 元素                                    |
 | displayName    | String         | 等价于 <display-name> 元素                                   |
 
-这是一个 web.xml 文件，里面包含对 SampleServlet 的配置。
+这是一个 web.xml 文件，里面包含对 SampleServlet 对象的配置。
 ```xml
 <servlet>
 	<servlet-name>SampleServlet</servlet-name>
@@ -723,10 +729,11 @@ web.xml 是 Web 应用的配置文件，与 Tomcat 容器完全独立。简要�
 ```java
 @WebServlet(name = "SampleServlet",
         description = "this is sample servlet",
-        urlPatterns = "/SampleServlet",
+        urlPatterns = "/sample",
         initParams = {
             @WebInitParam(name = "color", value = "blue")
-        })
+        },
+        loadOnStartup = 1)
 public class SampleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
