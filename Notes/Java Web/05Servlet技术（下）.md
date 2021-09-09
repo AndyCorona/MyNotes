@@ -406,133 +406,223 @@ public class DispatcherServlet4 extends HttpServlet {
 
 ### 5.7 重定向
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+HTTP 协议规定了一种重定向机制。重定向运作流程如下：
+1. 用户在浏览器上输入特定的 URL，请求访问服务器的某个组件。
+2. 服务器端的组件返回一个状态代码为 302 的包含另一个 Web 组件 URL 的响应结果，让浏览器端再请求访问另一个 Web 组件。
+3. 浏览器接收到这种响应结果后，再立即自动请求访问另一个 Web 组件。
+4. 浏览器接收到来自另一个 Web 组件的响应结果。
+
+HttpServletResponse 接口的 sendRedirect(String location) 方法用于重定向。ServletResponse 接口中没有 sendRedirect() 方法。
+
+RedirectServlet 对象接收请求参数 username，根据请求参数创建 message 字符串，保存到请求范围中，重定向至 ReceiveServlet 对象。ReceiveServlet 对象无法读取请求范围中的 message 字符串，只能读取到请求参数，并将响应结果返回给客户端。
+
+```java
+//读取请求参数，重定向至 ReceiveServlet 对象
+@WebServlet(name = "RedirectServlet", value = "/redirect")
+public class RedirectServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+
+        //获取请求参数
+        String username = request.getParameter("username");
+        String message = null;
+        if (username == null) {
+            message = "Please input username";
+        } else {
+            message = "hello, " + username;
+        }
+
+        request.setAttribute("msg", message);
+
+        //向客户端的响应结果和服务器的控制台上输出信息
+        out.println("重定向之前client");
+        System.out.println("重定向之前server");
+
+//        out.close(); //在重定向之前响应结果已提交给客户端，sendRedirect() 方法会抛出 java.lang.IllegalStateException 异常
+
+        response.sendRedirect("/helloapp/sub/receive?msg=" + message);
+//        response.sendRedirect("http://www.baidu.com");
+
+        //向客户端的响应结果和服务器的控制台上输出信息
+        out.println("重定向之后client");
+        System.out.println("重定向之后server");
+    }
+}
+```
+执行 sendRedirect(String location) 方法时，将进行如下步骤（和请求转发过程类似）：
+- 清空用于存放响应正文数据的缓冲区。因此源组件生成的响应结果不会被发送到客户端，只有源组件的响应结果才会被发送到客户端。如果在重定向之前，响应结果已被提交都客户端，那么 sendRedirect() 方法会抛出 java.lang.IllegalStateException 异常。
+- 重定向至目标组件。目标组件可以是同一个服务器上同一个 Web 应用中的组件，也可以是互联网上的任意一个有效网页。
+- 源组件在 sendRedirect() 方法之后的代码依旧正常执行。
+
+请求转发过程中，源组件和目标组件共享同一个 ServletRequest 对象和 ServletResponse 对象。
+重定向过程中，源组件和目标组件不共享同一个 ServletRequest 对象和 ServletResponse 对象。
+
+### 5.8 访问 Servlet 容器内的其他 Web 应用
+
+在一个 Servlet 容器内可以运行多个 Web 应用，这些 Web 应用之间可以进行通信。每个 Web 应用有且只有一个 ServletContext 对象，对于 Web 应用 A ，只要拿到 Web 应用 B 的 ServletContext 对象，就可以和 Web 应用 B 通信。
+ServletContext 接口中的 getContext(String uripath) 方法可以获得其他 Web 应用的ServletContext 对象。在 Tomcat 中，<Context> 元素的 crossContext 属性用于设置是否允许 Web 应用之间的通信。
+- 当 crossContext 属性为 false 时，<Context> 元素对应的 Web 应用无法获得同一 Servlet 容器内其他 Web 应用的 ServletContext 对象，调用 getContext() 方法总是返回 null。
+- 当 crossContext 属性为 true 时，<Context> 元素对应的 Web 应用可以获得同一 Servlet 容器内其他 Web 应用的 ServletContext 对象，调用 getContext() 方法返回对应 Web 应用的 ServletContext 对象。
+
+在 Web 应用根目录下的 META-INF 子目录下，创建用于配置 <Context> 元素的 context.xml 文件。配置完成之后，此 Web 应用可以获得其他 Web 应用的 ServletContext 对象。
+```xml
+<Context reloadable = "true" crossContext = "true" />
+```
+
+### 5.9 并发问题
+
+在互联网中，一个 Web 应用可能被来自四面八方的用户同时访问。Servlet 容器为了保证能够响应多个用户要求访问同一个 Servlet 的 HTTP 请求，通常会为每一个请求分配一个工作线程，这些工作线程并发执行同一个 Servlet 对象的 service() 方法。可能会导致并发问题。
+解决并发问题的原则：
+- 根据实际应用需求，决定在 Servlet 类中定义的变量的作用域。每当一个线程执行 Servlet 对象的方法，会在程序栈创建方法内的局部变量。当线程执行完方法，局部变量就结束生命周期。每个线程都有自己的局部变量；但每个线程共享同一个 Servlet 对象的实例变量。
+- 多个线程同时访问共享数据而导致的并发问题，使用 Java 同步机制。
+- 不提倡使用被废弃的 javax.servlet.SingleThreadModel 接口。
+
+### 5.10 异步处理
+
+在 Servlet API 3.0 之前，Servlet 容器针对每个 HTTP 请求都会分配一个工作线程。此线程负责该请求的 I/O 操作、访问数据库和其他耗时操作，容易被长时间占用，只有当工作线程完成对当前 HTTP 请求的响应，才能释放回线程池。
+在并发量很大的情况下，线程池中的工作线程都被长时间占用，会严重影响服务器的并发访问性能。在 Servlet API 3.0 开始，引入异步处理机制和 非阻塞 I/O。
+Servlet 异步处理的机制：Servlet 从 HttpServletRequest 对象中获得一个 AsyncContext 对象，表示异步处理的上下文。AsyncContext 对象把响应当前请求的任务传给一个新的线程，由这个新线程完成对请求的处理并返回响应结果给客户端，最初的工作线程便可以释放回主线程池中。
+
+#### 5.10.1 异步处理流程
+
+1. 指明支持异步处理的 Servlet 类。
+2. 在 Servlet 类的服务方法中，调用 ServletRequest 对象的 startAsync() 方法，获得 AsyncContext 对象。它具有以下方法：
+	- setTimeout(long time)：设置异步线程处理请求任务的时间。
+	- start(java.lang.Runnable run)：启动异步线程，执行请求任务的 run() 方法。
+	- addListener(AsyncListener listener)：添加一个异步监听器。AsyncListener 接口定义了四种方法：
+		- onStartAsync(AsyncEvent event)：异步启动开始时调用监听器。
+		- onError(AsyncEvent event)：异步线程出错时调用监听器。
+		- onTimeout(AsyncEvent event)：异步线程执行超时时调用监听器。
+		- onComplete(AsyncEvent event)：异步线程结束时调用监听器。
+	- complete()：告诉 Servlet 容器请求任务已完成，返回响应结果。
+	- dispatcher(java.lang.Strnig path)：把请求分发给指定的 Web 组件。
+	- getRequest()：获得此次请求的 ServletRequest 对象。
+	- getResponse()：获得此次请求的 ServletResponse 对象。
+3. 启动一个异步线程来处理请求任务。由三种方式启动异步线程。
+4. 调用 complete() 方法，返回响应结果。
+
+```java
+//asyncSupported = true 表示该 Servlet 对象支持异步处理
+@WebServlet(name = "AsyncServlet", value = "/async", asyncSupported = true)
+public class AsyncServlet extends HttpServlet {
+    //为方式三创建线程池
+    private static ThreadPoolExecutor executor = new ThreadPoolExecutor(100, 200, 50000L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(100));
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/plain;charset=GBK");
+        AsyncContext asyncContext = request.startAsync();
+        //异步线程必须在 60 秒内完成任务
+        asyncContext.setTimeout(60 * 1000);
+        //添加异步监听器
+        asyncContext.addListener(new AsyncListener() {
+
+            @Override
+            public void onComplete(AsyncEvent event) throws IOException {
+                System.out.println("异步线程任务执行完毕");
+            }
+
+            @Override
+            public void onTimeout(AsyncEvent event) throws IOException {
+                System.out.println("异步线程执行任务已超时");
+            }
+
+            @Override
+            public void onError(AsyncEvent event) throws IOException {
+                System.out.println("异步线程执行任务出错");
+            }
+
+            @Override
+            public void onStartAsync(AsyncEvent event) throws IOException {
+                System.out.println("异步线程开始执行任务");
+            }
+        });
+		//启动异步线程的三种方式
+        //方式一，调用 AsyncContext 对象的 start() 方法
+        asyncContext.start(new AsyncTask(asyncContext));
+
+          //方式二，手动创建新线程，调用新线程的 start() 方法
+//        new Thread(new AsyncTask(asyncContext)).start();
+
+          //方式三，创建线程池
+//        executor.execute(new AsyncTask(asyncContext));
+
+        System.out.println("主线程运行结束");
+
+    }
+
+    @Override
+    public void destroy() {
+        //销毁 AsyncServlet 时关闭线程池
+        executor.shutdown();
+    }
+}
+```
+```java
+//请求任务
+public class AsyncTask implements Runnable {
+    private AsyncContext async;
+
+    public AsyncTask(AsyncContext async) {
+        this.async = async;
+    }
+
+    @Override
+    public void run() {
+        try {
+        	//模拟耗时的操作
+            Thread.sleep(2 * 1000);
+            async.getResponse().getWriter().println("花费2秒完成处理");
+            //异步线程完成请求任务
+            async.complete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### 5.10.2 非阻塞 I/O
+
+阻塞 I/O 是指当一个线程通过输入输出流执行读写操作时，如果可读或可写数据还未准备好，此线程会进入阻塞状态。只有当完成读操作或写操作时，线程才会退出读写方法，继续执行。Java 语言中，传统的输入输出操作都是阻塞 I/O 的方法。
+非阻塞 I/O 是指如果可读或可写数据还未准备好，此线程会立即退出读写方法。只有当输入输出流中由可读写数据时，线程才进行读写操作。
+从 Servlet API 3.1 开始引入非阻塞 I/O ，具体实现方式是引入两个监听器。
+ReadListener 监听器监听 ServletInputStream 输入流的行为。包含以下方法。
+	- onDataAvailable()：输入流中有可读数据时触发此方法。
+	- onAllDataRead()：输入流中所有数据读完时触发此方法。
+	- onError(Throwable t)：输入操作出现错误时触发此方法。
+	WriterListener 监听器监听 ServletOutputStream 输出流的行为。
+	- onWriterPossible()：可以向输出流写数据时触发此方法。
+	- onError(Throwable t)：输出操作出现错误时触发此方法。
+
+在支持异步处理的 Servlet 类中进行非阻塞 I/O 操作流程如下：
+1. 从 ServletRequest 对象或 ServletResponse 对象中获得输入输出流程。
+2. 为输出流注册读监听器，为输出流注册写监听器。
+3. 在读写监听器中重写监听方法。
+
+### 5.11 服务器推送
+
+传统的 HTTP 请求都是客户端主动发出，然后服务器做出响应。 HTTP/2 版本引入服务器推送。Servlet API 4 版本开始，PushBuilder 接口实现推送。它有两个主要方法：
+- path(String path)：指定待推送资源的路径。
+- push()：将 path() 方法所指定的资源推送到客户端。
+
+```java
+@WebServlet(name = "PushServlet", value = "/push")
+public class PushServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=GBK");
+        PushBuilder builder = request.newPushBuilder();
+        PrintWriter out = response.getWriter();
+        if (builder != null) {
+            builder.path("helloapp/resource/correct.png");
+            builder.push();
+            out.println("<html><body><p>以上图片来自服务器推送</p></body></html>");
+        } else {
+            out.println("<html><body><p>当前 HTTP 协议不支持服务器推送</p></body></html>");
+        }
+        out.close();
+    }
+}
+```

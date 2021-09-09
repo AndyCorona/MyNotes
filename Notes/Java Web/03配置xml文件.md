@@ -108,6 +108,14 @@ Tomcat 服务器是由一系列可配置的组件构成，这些组件可以在 
 
 <Context> 元素可以包含 <Realm>、<Valve> 和 <Resource> 等子元素。
 
+当 Tomcat 加载一个 Web 应用时，会按照以下顺序查找 Web 应用的 <Context> 元素：
+1. 在 <CATALINA_HOME>/conf/context.xml 文件查找 <Context> 元素，适合于当前 Tomcat 服务器的所有 Web 应用。
+2. 在 <CATALINA_HOME>/conf/[enginename]/[hostname]/context.xml.default 文件查找 <Context> 元素，适合于当前虚拟机的所有 Web 应用。
+3. 在 <CATALINA_HOME>/conf/[enginename]/[hostname]/[contextpath].xml 文件查找 <Context> 元素，[contextpath] 为单个 Web 应用的 URL 入口，适合单个 Web 应用。
+4. 在 Web 应用的 META-INF/context.xml 文件查找 <Context> 元素，适合当前 Web 应用。
+5. 在 <CATALINA_HOME>/conf/server.xml 文件的 <Host> 元素中查找 <Context> 子元素，适合于单个 Web 应用。
+
+
 #### 3.1.6 配置 Connector 元素
 
 <Connector> 元素由 org.apache.catalina.Connector 接口定义，负责接收客户请求，并返回响应结果。
