@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bookstore">
+    <output-path>D:/Dev/Binary/apache-tomcat-9.0.52/webapps</output-path>
+    <root id="archive" name="bookstore.war">
+      <element id="artifact" artifact-name="bookstore:war exploded" />
+    </root>
+  </artifact>
+</component>

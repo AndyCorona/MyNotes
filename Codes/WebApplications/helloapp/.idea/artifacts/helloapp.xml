@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="helloapp">
+    <output-path>D:/Dev/Binary/apache-tomcat-9.0.52/webapps</output-path>
+    <root id="archive" name="helloapp.war">
+      <element id="artifact" artifact-name="helloapp:war exploded" />
+    </root>
+  </artifact>
+</component>
