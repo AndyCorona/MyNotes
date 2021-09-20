@@ -14,8 +14,10 @@
 </head>
 <body>
 <%--获取客户端的请求参数--%>
-<p>hello, <%= request.getParameter("username")%></p>
+<p>hello, <%= request.getParameter("username")%>
+</p>
 <%--获取源组件传递过来的额外请求参数--%>
-<p>hello, <%= request.getParameter("id")%></p>
+<p>hello, <%= request.getParameter("id")%>
+</p>
 </body>
 </html>

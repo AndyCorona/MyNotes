@@ -1,4 +1,4 @@
-package com.likzhen.helloapp;
+package com.likezhen.helloapp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /*处理下载文件请求的 Servlet 类*/
-@WebServlet(name="DownloadServlet", value = "/download")
+@WebServlet(name = "DownloadServlet", value = "/download")
 public class DownloadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

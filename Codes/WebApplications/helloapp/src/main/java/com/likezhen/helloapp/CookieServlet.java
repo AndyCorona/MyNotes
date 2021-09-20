@@ -1,4 +1,4 @@
-package com.likzhen.helloapp;
+package com.likezhen.helloapp;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

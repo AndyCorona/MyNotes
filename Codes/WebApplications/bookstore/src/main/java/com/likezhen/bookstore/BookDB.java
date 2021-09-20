@@ -1,25 +1,30 @@
 package com.likezhen.bookstore;
 
-import java.sql.*;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 操作数据库的类
+ * 操作数据库的类，用数据库连接池管理和创建连接
  */
 public class BookDB {
-    private String url = "jdbc:mysql://localhost:3306/BookDB";
-    private String username = "root";
-    private String password = "123456";
-    private String driverName = "com.mysql.cj.jdbc.Driver";
+    private DataSource ds = null;
 
     public BookDB() throws Exception {
-        Class.forName(driverName);
+        InitialContext initialContext = new InitialContext();
+        if (initialContext == null)
+            throw new Exception("没有创建初始上下文对象");
+        ds = (DataSource) initialContext.lookup("java:comp/env/jdbc/BookDB");
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
+        return ds.getConnection();
     }
 
     public void closeResource(Connection con) {

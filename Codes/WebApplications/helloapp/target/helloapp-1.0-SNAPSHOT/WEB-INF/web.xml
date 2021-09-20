@@ -5,14 +5,10 @@
          version="4.0">
 
     <welcome-file-list>
-        <welcome-file>login.html</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>login</welcome-file>
     </welcome-file-list>
-    <servlet>
-        <servlet-name>hi</servlet-name>
-        <jsp-file>/source.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>hi</servlet-name>
-        <url-pattern>/hi</url-pattern>
-    </servlet-mapping>
+    <listener>
+        <listener-class>com.likezhen.helloapp.SessionListener</listener-class>
+    </listener>
 </web-app>
