@@ -11,4 +11,10 @@
     <listener>
         <listener-class>com.likezhen.helloapp.SessionListener</listener-class>
     </listener>
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/tagA</taglib-uri>
+            <taglib-location>/mytaglib.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 </web-app>

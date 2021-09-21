@@ -18,7 +18,8 @@
     }
 %>
 <p>欢迎光临，请登录</p>
-<p>SessionID: <%=session.getId()%></p>
+<p>SessionID: <%=session.getId()%>
+</p>
 
 <form name="loginForm" action="check.jsp" method="post">
     <table>

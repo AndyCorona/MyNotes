@@ -7,6 +7,7 @@
 --%>
 <%--从会话范围内获取用户名，存放到会话范围内--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="/tagA"  prefix="mm" %>
 <html>
 <head><title>验证</title></head>
 <body>
@@ -26,5 +27,6 @@
 <a href="logout.jsp">注销</a>
 <p>当前用户为：<%=name%>
 </p>
+<mm:myTag username="<%=name%>"/>
 </body>
 </html>
