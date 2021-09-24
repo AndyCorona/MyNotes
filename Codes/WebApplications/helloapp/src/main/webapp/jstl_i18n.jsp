@@ -1,4 +1,3 @@
-<%@ page import="java.sql.Date" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
@@ -74,7 +73,7 @@ minFractionDigits 属性：指定小数部分的位数下限
 var 属性：指定命名变量名
 scope：格式化后数字字符串的保存范围
 --%>
-<fmt:formatNumber var="12345" groupingUsed="false" />
+<fmt:formatNumber value="12345" groupingUsed="false"/>
 
 <%--
 解析字符串形式的数字，和格式化相反

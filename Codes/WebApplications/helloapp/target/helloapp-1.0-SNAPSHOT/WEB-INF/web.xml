@@ -5,16 +5,36 @@
          version="4.0">
 
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
         <welcome-file>login</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-    <listener>
-        <listener-class>com.likezhen.helloapp.SessionListener</listener-class>
-    </listener>
+    <!--    <listener>-->
+    <!--        <listener-class>com.likezhen.helloapp.SessionListener</listener-class>-->
+    <!--    </listener>-->
     <jsp-config>
         <taglib>
             <taglib-uri>/tagA</taglib-uri>
             <taglib-location>/mytaglib.tld</taglib-location>
         </taglib>
     </jsp-config>
+    <filter>
+        <filter-name>filter1</filter-name>
+        <filter-class>com.likezhen.helloapp.Filter1</filter-class>
+        <init-param>
+            <param-name>username</param-name>
+            <param-value>andy</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>filter1</filter-name>
+        <url-pattern>/checkout</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>filter2</filter-name>
+        <filter-class>com.likezhen.helloapp.Filter2</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filter2</filter-name>
+        <url-pattern>/checkout</url-pattern>
+    </filter-mapping>
 </web-app>
