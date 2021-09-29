@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="com.likezhen.springdemo.chapter2.Autowired.CDPlayer" c:cd-ref="idBean"></bean>
+    <util:list id="tracks">
+        <value>first track</value>
+        <value>second track</value>
+        <value>third track</value>
+    </util:list>
+    <bean class="com.likezhen.springdemo.chapter2.XmlConfig.CommonCD" c:title="secondCD" c:artist="secondBand"
+          c:tracks-ref="tracks"/>
+</beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="idBean" class="com.likezhen.springdemo.chapter2.Autowired.ConcreteCD"></bean>
+
+    <bean class="com.likezhen.springdemo.chapter2.Autowired.CDPlayer">
+        <constructor-arg ref="idBean"/>
+    </bean>
+
+    <bean class="com.likezhen.springdemo.chapter2.XmlConfig.CommonCD">
+        <constructor-arg value="secondCD"/>
+        <constructor-arg value="secondBand"/>
+        <constructor-arg>
+            <list>
+                <value>first track</value>
+                <value>second track</value>
+                <value>third track</value>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>
