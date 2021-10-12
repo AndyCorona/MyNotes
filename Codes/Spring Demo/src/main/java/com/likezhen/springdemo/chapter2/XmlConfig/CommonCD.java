@@ -13,6 +13,11 @@ public class CommonCD implements CD {
     public CommonCD() {
     }
 
+    public CommonCD(String title, String artist) {
+        this.title = title;
+        this.artist = artist;
+    }
+
     public CommonCD(String title, String artist, List<String> tracks) {
         this.title = title;
         this.artist = artist;
@@ -34,8 +39,8 @@ public class CommonCD implements CD {
     @Override
     public void play() {
         System.out.print("Playing the " + title + " by " + artist);
-        for (String track : tracks) {
-            System.out.println("Track: " + track);
-        }
+//        for (String track : tracks) {
+//            System.out.println("Track: " + track);
+//        }
     }
 }
