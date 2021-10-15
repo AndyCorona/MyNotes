@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="mylog" class="com.likezhen.springdemo.chapter4.MyLog"/>
+    <aop:config>
+        <aop:aspect ref="mylog">
+            <aop:pointcut id="markRun" expression="execution(* com.likezhen.springdemo.chapter4.MyTask.run(..))"/>
+            <aop:before pointcut-ref="markRun" method="printBefore"/>
+            <aop:after-returning pointcut-ref="markRun" method="printBefore"/>
+        </aop:aspect>
+    </aop:config>
+    <aop:aspectj-autoproxy/>
+</beans>
