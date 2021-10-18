@@ -15,10 +15,12 @@
 8. [maven 实战](https://book.douban.com/subject/5345682/)
 9. [Pro Git](https://git-scm.com/book/en/v2)
 10. [Tomcat与Java Web开发技术详解（第3版）](https://book.douban.com/subject/34780582/)
+11. [Spring实战（第4版）](https://book.douban.com/subject/26767354/)
+12. [Spring MVC学习指南（第2版）](https://book.douban.com/subject/30188611/)
 
 参考视频：
 
 1. [尚硅谷Java零基础入门教程](https://www.bilibili.com/video/BV1Kb411W75N?spm_id_from=333.999.0.0)
 2. [MySQL基础教程](https://www.bilibili.com/video/BV1xW411u7ax?spm_id_from=333.999.0.0)
 
-持续更新......
+持续更新中......
