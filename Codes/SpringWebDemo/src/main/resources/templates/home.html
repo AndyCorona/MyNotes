@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<a th:href="@{/params(id=1,name='andy')}">发送请求参数</a>
+<a th:href="@{/params(userid=1,username='andy')}">发送请求参数</a>
+
+<form th:action="@{/params}" method="post">
+    <input name="userid" value=1>
+    <input name="username" value="姓名"/>
+    <input type="submit" name="提交">
+</form>
+
+<a th:href="@{/scopes}">范围中共享数据</a>
+</body>
+</html>
+ 

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>共享数据</title>
+</head>
+<body>
+<!--获取请求范围的共享数据-->
+<p th:text="${msg}"></p>
+<p th:text="${#request.getAttribute('msg')}"></p>
+
+<!--获取会话范围的共享数据-->
+<!--<p th:text="${session.smsg}"></p>-->
+<!--<p th:text="${#session.getAttribute('smsg')}"></p>-->
+
+<!--获取应用范围的共享数据-->
+<p th:text="${application.amsg}"></p>
+<p th:text="${#servletContext.getAttribute('amsg')}"></p>
+</body>
+</html>
+ 
