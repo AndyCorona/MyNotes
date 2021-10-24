@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RESTful</title>
+</head>
+<body>
+<form method="post" th:action="@{/restful/user}">
+    用户名<input type="text" name="username">
+    id<input type="text" name="userid">
+    <input type="submit" value="修改">
+</form>
+
+<form method="post" th:action="@{/restful/user}">
+<!--增加一个隐藏域，将 post 改为 put-->
+    <input type="hidden" name="_method" value="put">
+    用户名<input type="text" name="username">
+    id<input type="text" name="userid">
+    <input type="submit" value="增加">
+</form>
+
+<form method="post" th:action="@{/restful/user}">
+<!--增加一个隐藏域，将 post 改为 put-->
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="删除">
+</form>
+</body>
+</html>
+ 
