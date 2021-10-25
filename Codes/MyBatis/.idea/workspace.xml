@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9136bbfb-1fb6-4e69-8451-a6a4821defc8" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="E:\BaiduNetdiskDownload\IntelliJ IDEA\maven" />
+        <option name="mavenHome" value="D:/Dev/Binary/apache-maven-3.8.1" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1zx4zGa2VQKPqMvmjDSpLUMv1eT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="profiler.calltree.filter" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources\com\likezhen\mybatis\mapper" />
+      <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources\jdbc" />
+      <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\test\java" />
+      <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.CountryMapperTest.testSelectOne">
+    <configuration name="CountryMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.CountryMapperTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CountryMapperTest.testSelectAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.CountryMapperTest" />
+      <option name="METHOD_NAME" value="testSelectAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CountryMapperTest.testSelectOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.CountryMapperTest" />
+      <option name="METHOD_NAME" value="testSelectOne" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CountryMapperTest.testSelectOne" />
+        <item itemvalue="JUnit.CountryMapperTest.testSelectAll" />
+        <item itemvalue="JUnit.CountryMapperTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9136bbfb-1fb6-4e69-8451-a6a4821defc8" name="Default Changelist" comment="" />
+      <created>1635076665473</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635076665473</updated>
+      <workItem from="1635076666631" duration="1262000" />
+      <workItem from="1635077965671" duration="1696000" />
+      <workItem from="1635082172920" duration="1424000" />
+      <workItem from="1635083664911" duration="12841000" />
+      <workItem from="1635172038127" duration="2212000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

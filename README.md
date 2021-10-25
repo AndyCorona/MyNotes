@@ -17,10 +17,17 @@
 10. [Tomcat与Java Web开发技术详解（第3版）](https://book.douban.com/subject/34780582/)
 11. [Spring实战（第4版）](https://book.douban.com/subject/26767354/)
 12. [Spring MVC学习指南（第2版）](https://book.douban.com/subject/30188611/)
+13. [MyBatis从入门到精通](https://book.douban.com/subject/27074809/)
+14. [MyBatis技术内幕](https://book.douban.com/subject/27087564/)
 
 参考视频：
 
 1. [尚硅谷Java零基础入门教程](https://www.bilibili.com/video/BV1Kb411W75N?spm_id_from=333.999.0.0)
 2. [MySQL基础教程](https://www.bilibili.com/video/BV1xW411u7ax?spm_id_from=333.999.0.0)
+
+官方文档：
+
+1. [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc)
+2. [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 
 持续更新中......

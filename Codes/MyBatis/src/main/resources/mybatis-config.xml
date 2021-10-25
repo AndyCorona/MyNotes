@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="jdbc/config.properties"></properties>
+
+<!--    <typeAliases>-->
+<!--        &lt;!&ndash;为一个类型起别名&ndash;&gt;-->
+<!--        <typeAlias type="com.likezhen.mybatis.model.Country" alias="Country"/>-->
+<!--        &lt;!&ndash;为一个包及其子包下所有类型起别名&ndash;&gt;-->
+<!--        <package name="com.likezhen.mybatis"/>-->
+<!--    </typeAliases>-->
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"></transactionManager>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="com/likezhen/mybatis/mapper/CountryMapper.xml"/>
+    </mappers>
+</configuration>

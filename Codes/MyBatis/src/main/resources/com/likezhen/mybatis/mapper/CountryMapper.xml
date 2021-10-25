@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.likezhen.mybatis.mapper.CountryMapper">
+    <select id="selectAll" resultType="com.likezhen.mybatis.model.Country">
+        select id, countryname, countrycode
+        from country
+    </select>
+    <select id="selectOne" resultType="com.likezhen.mybatis.model.Country">
+        select id, countryname, countrycode
+        from country
+        where id = #{id}
+    </select>
+</mapper>
