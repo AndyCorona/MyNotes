@@ -977,57 +977,77 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Plugin>caching_sha2_password</Plugin>
     </user>
     <table id="285" parent="4" name="country"/>
-    <table id="286" parent="4" name="role"/>
-    <table id="287" parent="4" name="user"/>
-    <column id="288" parent="285" name="id">
+    <table id="286" parent="4" name="cup"/>
+    <table id="287" parent="4" name="role"/>
+    <table id="288" parent="4" name="user"/>
+    <column id="289" parent="285" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="289" parent="285" name="countryname">
+    <column id="290" parent="285" name="countryname">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="290" parent="285" name="countrycode">
+    <column id="291" parent="285" name="countrycode">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="291" parent="285" name="PRIMARY">
+    <key id="292" parent="285" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="292" parent="286" name="role_id">
+    <column id="293" parent="286" name="id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="293" parent="286" name="role_name">
+    <column id="294" parent="286" name="size">
+      <Position>2</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="295" parent="286" name="color">
+      <Position>3</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <key id="296" parent="286" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="297" parent="287" name="role_id">
+      <Position>1</Position>
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
+    </column>
+    <column id="298" parent="287" name="role_name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="294" parent="286" name="PRIMARY">
+    <key id="299" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>role_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="295" parent="287" name="user_id">
+    <column id="300" parent="288" name="user_id">
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="296" parent="287" name="user_name">
+    <column id="301" parent="288" name="user_name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="297" parent="287" name="role_id">
+    <column id="302" parent="288" name="role_id">
       <Position>3</Position>
       <DataType>int|0s</DataType>
     </column>
-    <key id="298" parent="287" name="PRIMARY">
+    <key id="303" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>user_id</ColNames>
       <Primary>1</Primary>

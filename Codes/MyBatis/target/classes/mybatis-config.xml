@@ -42,5 +42,6 @@
         <mapper resource="com/likezhen/mybatis/mapper/CountryMapper.xml"/>
         <mapper resource="com/likezhen/mybatis/mapper/UserMapper.xml"/>
         <mapper resource="com/likezhen/mybatis/mapper/RoleMapper.xml"/>
+        <mapper resource="com/likezhen/mybatis/mapper/CupMapper.xml"/>
     </mappers>
 </configuration>

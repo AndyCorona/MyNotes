@@ -13,8 +13,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -39,10 +39,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="D:/Dev/BinRepo/mysql-connector-java-8.0.26.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/com/likezhen/mybatis/mapper" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.28423476" />
     <property name="settings.editor.selected.configurable" value="database.main" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources\com\likezhen\mybatis\mapper" />
+      <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\java\com\likezhen\mybatis\model" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources\com\likezhen\mybatis\mapper" />
       <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources\jdbc" />
@@ -50,8 +58,40 @@
       <recent name="E:\BaiduNetdiskDownload\IntelliJ IDEA\MyBatis\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.RoleMapperTest.testGetRoleById2">
-    <configuration name="RoleMapperTest.testGetRoleById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.CupMapperTest.testSelectByPrimaryKey">
+    <configuration name="CountryMapperTest.testDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.CountryMapperTest" />
+      <option name="METHOD_NAME" value="testDelete" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CupMapperTest.testSelectByPrimaryKey" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBatis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
+      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.CupMapperTest" />
+      <option name="METHOD_NAME" value="testSelectByPrimaryKey" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RoleMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyBatis" />
       <extension name="coverage">
         <pattern>
@@ -61,13 +101,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
       <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.RoleMapperTest" />
-      <option name="METHOD_NAME" value="testGetRoleById" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RoleMapperTest.testGetRoleById2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RoleMapperTest.testGetRoleById4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyBatis" />
       <extension name="coverage">
         <pattern>
@@ -77,13 +116,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
       <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.RoleMapperTest" />
-      <option name="METHOD_NAME" value="testGetRoleById2" />
+      <option name="METHOD_NAME" value="testGetRoleById4" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserMapperTest.testGetRoleById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserMapperTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyBatis" />
       <extension name="coverage">
         <pattern>
@@ -93,51 +132,18 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
       <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.UserMapperTest" />
-      <option name="METHOD_NAME" value="testGetRoleById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserMapperTest.testGetUserAndRoleById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyBatis" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
-      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.UserMapperTest" />
-      <option name="METHOD_NAME" value="testGetUserAndRoleById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserMapperTest.testGetUserById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyBatis" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.likezhen.mybatis.mapper.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.likezhen.mybatis.mapper" />
-      <option name="MAIN_CLASS_NAME" value="com.likezhen.mybatis.mapper.UserMapperTest" />
-      <option name="METHOD_NAME" value="testGetUserById" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.RoleMapperTest.testGetRoleById2" />
-        <item itemvalue="JUnit.RoleMapperTest.testGetRoleById" />
-        <item itemvalue="JUnit.UserMapperTest.testGetUserById" />
-        <item itemvalue="JUnit.UserMapperTest.testGetUserAndRoleById" />
-        <item itemvalue="JUnit.UserMapperTest.testGetRoleById" />
+        <item itemvalue="JUnit.CupMapperTest.testSelectByPrimaryKey" />
+        <item itemvalue="JUnit.RoleMapperTest" />
+        <item itemvalue="JUnit.RoleMapperTest.testGetRoleById4" />
+        <item itemvalue="JUnit.UserMapperTest" />
+        <item itemvalue="JUnit.CountryMapperTest.testDelete" />
       </list>
     </recent_temporary>
   </component>
@@ -162,6 +168,10 @@
       <workItem from="1635665538949" duration="2637000" />
       <workItem from="1635674478834" duration="2237000" />
       <workItem from="1635728769230" duration="2308000" />
+      <workItem from="1635738546078" duration="5674000" />
+      <workItem from="1635767303150" duration="3240000" />
+      <workItem from="1635772150545" duration="4487000" />
+      <workItem from="1635776705154" duration="1171000" />
     </task>
     <servers />
   </component>

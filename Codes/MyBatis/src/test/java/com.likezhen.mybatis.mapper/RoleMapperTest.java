@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RoleMapperTest {
     private static SqlSessionFactory sqlSessionFactory;
@@ -37,6 +39,49 @@ public class RoleMapperTest {
             Role role2 = mapper.getRoleById(1);
 
             System.out.println(role1 == role2);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetRoleById2() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        try {
+
+            RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
+            Role role = mapper.dynamicSqlChoose(1);
+            System.out.println(role);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetRoleById3() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        ArrayList<Role> roles = new ArrayList<>();
+
+        try {
+
+            RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
+            roles = mapper.dynamicSqlForeach(Arrays.asList(1, 2, 3));
+            System.out.println(roles);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetRoleById4() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        try {
+
+            RoleMapper mapper = sqlSession.getMapper(RoleMapper.class);
+            Role role = mapper.dynamicSqlBind("管");
+            System.out.println(role);
         } finally {
             sqlSession.close();
         }

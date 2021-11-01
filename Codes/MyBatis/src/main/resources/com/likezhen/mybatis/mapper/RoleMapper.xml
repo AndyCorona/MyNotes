@@ -15,4 +15,55 @@
         from role
         where role_id = #{id}
     </select>
+
+    <select id="dynamicSql" resultMap="roleMap">
+        select * from role
+        <!--动态生成 SQL 语句-->
+        <if test="id != 5">
+            where 1=0
+        </if>
+        <if test="id == 5">
+            where role_id = #{id}
+        </if>
+    </select>
+
+    <select id="dynamicSqlChoose" resultMap="roleMap">
+        select * from role
+        <choose>
+            <when test="id == 5">
+                where role_id=#{id}
+            </when>
+            <otherwise>
+                where 1=0
+            </otherwise>
+        </choose>
+    </select>
+    <select id="dynamicSqlTrim" resultMap="roleMap">
+        select *
+        from role
+        where 1=1
+        <!--删除 or 后缀-->
+        <trim suffixOverrides="or">
+            <if test="id !=5">
+                and 1=0 or
+            </if>
+            <if test="id ==5">
+                and role_id =#{id} or
+            </if>
+        </trim>
+    </select>
+    <select id="dynamicSqlForeach" resultMap="roleMap">
+        select * from role where role_id in
+        <foreach collection="list" item="myItem" open="(" close=")" separator=",">
+            <!--从变量 myItem 中获取从集合中取出的元素-->
+            #{myItem}
+        </foreach>
+    </select>
+    <select id="dynamicSqlBind" resultMap="roleMap">
+        <!--获取传入的 roleName 参数值，左右加上 %-->
+        <bind name="myVar" value="'%' + roleName + '%'"/>
+        <!--获取 bind 标签定义的 myVar 值-->
+        select * from role where role_name like #{myVar}
+    </select>
+
 </mapper>
