@@ -4,13 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="jdbc/config.properties"></properties>
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <typeAliases>
+        <!--        &lt;!&ndash;为一个类型起别名&ndash;&gt;-->
+        <typeAlias type="com.likezhen.mybatis.model.Country" alias="Country"/>
+        <typeAlias type="com.likezhen.mybatis.model.User" alias="User"/>
+        <typeAlias type="com.likezhen.mybatis.model.Role" alias="Role"/>
 
-<!--    <typeAliases>-->
-<!--        &lt;!&ndash;为一个类型起别名&ndash;&gt;-->
-<!--        <typeAlias type="com.likezhen.mybatis.model.Country" alias="Country"/>-->
-<!--        &lt;!&ndash;为一个包及其子包下所有类型起别名&ndash;&gt;-->
-<!--        <package name="com.likezhen.mybatis"/>-->
-<!--    </typeAliases>-->
+        <!--        &lt;!&ndash;为一个包及其子包下所有类型起别名&ndash;&gt;-->
+        <!--        <package name="com.likezhen.mybatis"/>-->
+    </typeAliases>
 
     <environments default="development">
         <environment id="development">
@@ -24,7 +31,16 @@
         </environment>
     </environments>
 
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="SQL Server" value="sqlserver"/>
+        <property name="DB2" value="db2"/>
+        <property name="Oracle" value="oracle"/>
+    </databaseIdProvider>
+
     <mappers>
         <mapper resource="com/likezhen/mybatis/mapper/CountryMapper.xml"/>
+        <mapper resource="com/likezhen/mybatis/mapper/UserMapper.xml"/>
+        <mapper resource="com/likezhen/mybatis/mapper/RoleMapper.xml"/>
     </mappers>
 </configuration>

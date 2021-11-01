@@ -1,49 +1,49 @@
 package com.likezhen.mybatis.model;
 
 public class Country {
-    private Long id;
-    private String countryname;
-    private String countrycode;
+    private Integer id;
+    private String countryName;
+    private String countryCode;
 
     public Country() {
     }
 
-    public Country(Long id, String countryname, String countrycode) {
+    public Country(Integer id, String countryName, String countryCode) {
         this.id = id;
-        this.countryname = countryname;
-        this.countrycode = countrycode;
+        this.countryName = countryName;
+        this.countryCode = countryCode;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getCountryname() {
-        return countryname;
+    public String getCountryName() {
+        return countryName;
     }
 
-    public void setCountryname(String countryname) {
-        this.countryname = countryname;
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
-    public String getCountrycode() {
-        return countrycode;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setCountrycode(String countrycode) {
-        this.countrycode = countrycode;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     @Override
     public String toString() {
         return "Country{" +
                 "id=" + id +
-                ", countryname='" + countryname + '\'' +
-                ", countrycode='" + countrycode + '\'' +
+                ", countryName='" + countryName + '\'' +
+                ", countryCode='" + countryCode + '\'' +
                 '}';
     }
 }

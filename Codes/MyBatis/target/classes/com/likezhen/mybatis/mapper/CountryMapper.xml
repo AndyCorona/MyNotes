@@ -3,13 +3,67 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.likezhen.mybatis.mapper.CountryMapper">
-    <select id="selectAll" resultType="com.likezhen.mybatis.model.Country">
-        select id, countryname, countrycode
+
+    <resultMap id="map1" type="Country" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="countryname" property="countryName"/>
+        <result column="countrycode" property="countryCode"/>
+    </resultMap>
+
+
+<!--    <select id="selectAll" resultType="Country" parameterType="Country">-->
+<!--        select *-->
+<!--        from country-->
+<!--    </select>-->
+    <select id="selectAll" resultMap="map1" parameterType="Country">
+        select *
         from country
     </select>
-    <select id="selectOne" resultType="com.likezhen.mybatis.model.Country">
-        select id, countryname, countrycode
+
+    <insert id="insert" parameterType="Country">
+        insert into country(countryname, countrycode)
+        values (#{countryName}, #{countryCode})
+    </insert>
+
+    <insert id="insertGetId" parameterType="Country" useGeneratedKeys="true" keyProperty="id">
+        insert into country(countryname, countrycode)
+        values (#{countryName}, #{countryCode})
+    </insert>
+
+    <update id="update" parameterType="Country">
+        update country
+        set countryname= #{countryName},
+            countrycode=#{countryCode}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
         from country
-        where id = #{aaa}
+        where id = #{id};
+    </delete>
+    <select id="selectOneById" resultType="Country" parameterType="Integer">
+        select *
+        from country
+        where id = #{id}
     </select>
+    <!--    <select id="selectOneByMultiParams" resultType="Country">-->
+    <!--        select *-->
+    <!--        from country-->
+    <!--        where id = #{param1}-->
+    <!--          and countrycode = #{param2}-->
+    <!--    </select>-->
+    <!--        <select id="selectOneByMultiParams" resultType="Country">-->
+    <!--            select *-->
+    <!--            from country-->
+    <!--            where id = #{id}-->
+    <!--              and countrycode = #{countryCode}-->
+    <!--        </select>-->
+    <select id="selectOneByMultiParams" resultType="Country" parameterType="Country">
+        select *
+        from country
+        where id = #{id}
+          and countrycode = #{countryCode}
+    </select>
+
 </mapper>

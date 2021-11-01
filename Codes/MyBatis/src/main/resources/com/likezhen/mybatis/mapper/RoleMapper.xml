@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.likezhen.mybatis.mapper.RoleMapper">
+
+    <cache eviction="LRU" flushInterval="60000" readOnly="false" size="1024"></cache>
+    <resultMap id="roleMap" type="Role">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+    </resultMap>
+
+    <select id="getRoleById" resultMap="roleMap">
+        select *
+        from role
+        where role_id = #{id}
+    </select>
+</mapper>

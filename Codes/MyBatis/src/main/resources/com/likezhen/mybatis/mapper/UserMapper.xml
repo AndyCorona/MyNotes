@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.likezhen.mybatis.mapper.UserMapper">
+
+    <resultMap id="getUserByIdMap" type="User" autoMapping="true">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+    </resultMap>
+
+    <resultMap id="getRoleByIdMap" type="Role" autoMapping="true">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+    </resultMap>
+
+    <!--方式一-->
+    <resultMap id="getUserAndRoleByIdMap1" type="User" autoMapping="true">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="role_id" property="role.roleId"/>
+        <result column="role_name" property="role.roleName"/>
+    </resultMap>
+
+    <!--方式二-->
+    <resultMap id="getUserAndRoleByIdMap2" type="User" autoMapping="true" extends="getUserByIdMap">
+        <id column="role_id" property="role.roleId"/>
+        <result column="role_name" property="role.roleName"/>
+    </resultMap>
+
+    <!--方式三-->
+    <resultMap id="getUserAndRoleByIdMap3" type="User" autoMapping="true">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <association property="role">
+            <id column="role_id" property="roleId"/>
+            <result column="role_name" property="roleName"/>
+        </association>
+    </resultMap>
+
+    <!--方式四-->
+    <resultMap id="getUserAndRoleByIdMap4" type="User" autoMapping="true">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <association column="role_id" property="role" select="getRoleById"/>
+    </resultMap>
+
+    <sql id="mysql">
+        from
+        ${table}
+    </sql>
+
+    <!--    <select id="getUserById" resultMap="getUserByIdMap">-->
+    <!--        select *-->
+    <!--        from user-->
+    <!--        where user_id = #{id};-->
+    <!--    </select>-->
+
+
+    <select id="getUserById" resultMap="getUserByIdMap">
+        select *
+        <include refid="mysql">
+            <property name="table" value="user"/>
+        </include>
+        where user_id = #{id};
+    </select>
+
+    <select id="getRoleById" resultMap="getRoleByIdMap">
+        select *
+        from role
+        where role_id = #{id};
+    </select>
+
+
+    <select id="getUserAndRoleById" resultMap="getUserAndRoleByIdMap4">
+        select user_id, user_name, user.role_id, role_name
+        from user,
+             role
+        where user.role_id = role.role_id
+          and user_id = #{id};
+    </select>
+
+
+</mapper>

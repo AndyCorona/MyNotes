@@ -39,7 +39,7 @@ public class CountryMapperTest {
             //执行映射 SQL 语句
             List<Country> countryList = mapper.selectAll();
             for (Country country : countryList) {
-                System.out.println(country.getId() + country.getCountryname() + country.getCountrycode());
+                System.out.println(country.getId() + country.getCountryName() + country.getCountryCode());
             }
         } finally {
             //关闭 SqlSession
@@ -48,17 +48,98 @@ public class CountryMapperTest {
     }
 
     @Test
-    public void testSelectOne() {
-        //实例化 SqlSession
+    public void testInsert() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            //通过映射接口获取映射器
             CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
-            //执行映射 SQL 语句
-            Country country = mapper.selectOne(1);
+            Country country = new Country(null, "中国", "C");
+            mapper.insert(country);
+
+            //提交数据
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testInsertGetId() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            Country country = new Country(null, "中国", "CN");
+            mapper.insertGetId(country);
+            //获取自增主键值
+            System.out.println(country.getId());
+            //提交数据
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testUpdate() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            Country country = new Country(12, "中国", "CN");
+            mapper.update(country);
+
+            //提交数据
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testDelete() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            mapper.delete(14);
+
+            //提交数据
+            sqlSession.commit();
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+
+    @Test
+    public void testSelectOneById() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            Country country = mapper.selectOneById(2);
             System.out.println(country);
         } finally {
-            //关闭 SqlSession
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectOneByMultiParams1() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            Country country = mapper.selectOneByMultiParams(1, "CN");
+            System.out.println(country);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectOneByMultiParams2() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            CountryMapper mapper = sqlSession.getMapper(CountryMapper.class);
+            Country country = mapper.selectOneByMultiParams(1, "CN");
+            System.out.println(country);
+        } finally {
             sqlSession.close();
         }
     }
