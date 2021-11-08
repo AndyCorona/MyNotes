@@ -13,15 +13,15 @@
 
 #### **计划任务**
 
-- [x] Vue
-
-- [ ] Redis
-
-- [ ] 微服务
+- [x] Redis
 
 - [ ] MySQL 优化
 
+- [ ] 微服务
+
 - [ ] JVM
+
+- [ ] Vue
 
 - [ ] 计算机组成原理
 
@@ -62,8 +62,7 @@
 1. [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc)
 2. [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 3. [MyBatis](https://mybatis.org/mybatis-3/)
-4. [Vue3](https://v3.cn.vuejs.org/)
-5. [Element+](https://element-plus.gitee.io/zh-CN/)
+4. [Redis](https://redis.io/)
 
 持续更新中......
 
