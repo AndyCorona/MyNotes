@@ -1,5 +1,5 @@
 # MyNotes
-![gantt](gantt.png)
+![gantt](gantt.jpg)
 
 <b>自学，看书为主，视频为辅。</b>
 
