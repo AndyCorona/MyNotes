@@ -14,6 +14,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -46,13 +47,26 @@
       <recent name="string" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.temp">
-    <configuration name="LogSession" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="hash.LogSession" />
+  <component name="RunManager" selected="Application.Transaction">
+    <configuration name="Pipeline" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="transcation.Pipeline" />
       <module name="Jedis" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="hash.*" />
+          <option name="PATTERN" value="transcation.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Transaction" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="transcation.Transaction" />
+      <module name="Jedis" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="transcation.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -63,16 +77,6 @@
     <configuration name="temp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="temp" />
       <module name="Jedis" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestCounter.testCounter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Jedis" />
-      <option name="PACKAGE_NAME" value="string" />
-      <option name="MAIN_CLASS_NAME" value="string.TestCounter" />
-      <option name="METHOD_NAME" value="testCounter" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -111,11 +115,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Transaction" />
+        <item itemvalue="Application.Pipeline" />
         <item itemvalue="Application.temp" />
         <item itemvalue="JUnit.TestQuene.testQuene" />
         <item itemvalue="JUnit.TestLogSession.testLogSession" />
-        <item itemvalue="Application.LogSession" />
-        <item itemvalue="JUnit.TestCounter.testCounter" />
       </list>
     </recent_temporary>
   </component>
@@ -129,6 +133,8 @@
       <updated>1636721695345</updated>
       <workItem from="1636721696579" duration="13995000" />
       <workItem from="1636807929426" duration="2132000" />
+      <workItem from="1636856039832" duration="2615000" />
+      <workItem from="1636974590924" duration="2000" />
     </task>
     <servers />
   </component>

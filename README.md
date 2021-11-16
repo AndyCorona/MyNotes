@@ -1,5 +1,5 @@
 # MyNotes
-![gantt](gantt.png)
+![gantt](E:\BaiduNetdiskDownload\MyNotes\.assets\gantt.png)
 
 <b>自学，看书为主，视频为辅。</b>
 
@@ -8,18 +8,24 @@
 -   工作日
     11:30-2:00
     20:30-23:00 
--   周六 14:00-23:00 
--   周日 9:00-13:00, 18:00-23:00
+    
+-   周六 
+
+    14:00-17:00
+
+    19:00-23:00
+
+-   周日 
+
+    9:00-12:00
+
+    18:00-23:00
 
 #### **计划任务**
 
-- [x] Redis
+- [x] SSM CRUD
 
 - [ ] MySQL 优化
-
-- [ ] 微服务
-
-- [ ] JVM
 
 - [ ] Vue
 
@@ -35,9 +41,13 @@
 
 - [ ] 编译原理
 
+- [ ] 微服务
+
+- [ ] JVM
+
 #### **参考书目**
 
-1. [Java从小白到大牛](https://book.douban.com/subject/30582203/) ::thumbsup:
+1. [Java从小白到大牛](https://book.douban.com/subject/30582203/) :thumbsup:
 2. [MySQL必知必会](https://book.douban.com/subject/3354490/):thumbsup:
 3. [HTML5与CSS3基础教程（第8版）](https://book.douban.com/subject/25878992/):thumbsup:
 4. [JavaScript高级程序设计（第4版）](https://book.douban.com/subject/35175321/):thumbsup:
