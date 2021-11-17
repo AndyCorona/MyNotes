@@ -24,25 +24,16 @@
 #### **计划任务**
 
 - [x] SSM CRUD
-
+- [x] 计算机科学导论
 - [ ] MySQL 优化
-
 - [ ] Vue
-
 - [ ] 计算机组成原理
-
 - [ ] 操作系统
-
 - [ ] 计算机网络
-
 - [ ] 数据结构与算法
-
 - [ ] 数据库原理
-
 - [ ] 编译原理
-
 - [ ] 微服务
-
 - [ ] JVM
 
 #### **参考书目**
@@ -63,11 +54,13 @@
 14. [MyBatis技术内幕](https://book.douban.com/subject/27087564/)
 15. [Redis使用手册](https://book.douban.com/subject/34836750/):thumbsup:
 16. [Redis设计与实现](https://book.douban.com/subject/25900156/)
+17. [计算机科学导论](https://book.douban.com/subject/26726452/):thumbsup:
 
 #### **参考视频**
 
-1. [尚硅谷Java零基础入门教程](https://www.bilibili.com/video/BV1Kb411W75N?spm_id_from=333.999.0.0)
+1. [Java零基础入门教程](https://www.bilibili.com/video/BV1Kb411W75N?spm_id_from=333.999.0.0)
 2. [MySQL基础教程](https://www.bilibili.com/video/BV1xW411u7ax?spm_id_from=333.999.0.0)
+3. [斯坦福CS105 | 计算机科学导论](https://www.bilibili.com/video/BV1eh411W72E?from=search&seid=6651370212518184968&spm_id_from=333.337.0.0)
 
 #### **官方文档**
 
