@@ -1,4 +1,5 @@
 # MyNotes
+
 ![gantt](E:\BaiduNetdiskDownload\MyNotes\.assets\gantt.png)
 
 <b>自学，看书为主，视频为辅。</b>
@@ -23,9 +24,8 @@
 
 #### **计划任务**
 
-- [x] SSM CRUD
 - [x] 计算机科学导论
-- [ ] MySQL 优化
+- [x] MySQL 优化
 - [ ] Vue
 - [ ] 计算机组成原理
 - [ ] 操作系统
@@ -68,6 +68,8 @@
 2. [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 3. [MyBatis](https://mybatis.org/mybatis-3/)
 4. [Redis](https://redis.io/)
+5. [Boostrap](https://v5.bootcss.com/)
+6. [MySQL#Chapter 8 Optimization](https://dev.mysql.com/doc/refman/8.0/en/optimization.html)
 
 持续更新中......
 
