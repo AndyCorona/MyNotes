@@ -24,10 +24,10 @@
 
 #### **计划任务**
 
-- [x] 计算机科学导论
+- [x] C 语言
 - [x] MySQL 优化
-- [ ] Vue
 - [ ] 计算机组成原理
+- [ ] Vue
 - [ ] 操作系统
 - [ ] 计算机网络
 - [ ] 数据结构与算法
@@ -38,23 +38,24 @@
 
 #### **参考书目**
 
-1. [Java从小白到大牛](https://book.douban.com/subject/30582203/) :thumbsup:
-2. [MySQL必知必会](https://book.douban.com/subject/3354490/):thumbsup:
-3. [HTML5与CSS3基础教程（第8版）](https://book.douban.com/subject/25878992/):thumbsup:
-4. [JavaScript高级程序设计（第4版）](https://book.douban.com/subject/35175321/):thumbsup:
-5. [研磨设计模式](https://book.douban.com/subject/5343318/):thumbsup:
+1. [Java从小白到大牛](https://book.douban.com/subject/30582203/) 
+2. [MySQL必知必会](https://book.douban.com/subject/3354490/)
+3. [HTML5与CSS3基础教程（第8版）](https://book.douban.com/subject/25878992/)
+4. [JavaScript高级程序设计（第4版）](https://book.douban.com/subject/35175321/)
+5. [研磨设计模式](https://book.douban.com/subject/5343318/)
 6. [connector-j-8.0-en.a4](https://dev.mysql.com/doc/connector-j/8.0/en/)
 7. [maven_the_reference_guide](https://lemus.webs.upv.es/wordpress/wp-content/uploads/2018/03/maven_the_reference_guide.pdf)
-8. [maven 实战](https://book.douban.com/subject/5345682/):thumbsup:
-9. [Pro Git](https://git-scm.com/book/en/v2):thumbsup:
-10. [Tomcat与Java Web开发技术详解（第3版）](https://book.douban.com/subject/34780582/):thumbsup:
+8. [maven 实战](https://book.douban.com/subject/5345682/)
+9. [Pro Git](https://git-scm.com/book/en/v2)
+10. [Tomcat与Java Web开发技术详解（第3版）](https://book.douban.com/subject/34780582/)
 11. [Spring实战（第4版）](https://book.douban.com/subject/26767354/)
 12. [Spring MVC学习指南（第2版）](https://book.douban.com/subject/30188611/)
-13. [MyBatis从入门到精通](https://book.douban.com/subject/27074809/):thumbsup:
+13. [MyBatis从入门到精通](https://book.douban.com/subject/27074809/)
 14. [MyBatis技术内幕](https://book.douban.com/subject/27087564/)
-15. [Redis使用手册](https://book.douban.com/subject/34836750/):thumbsup:
+15. [Redis使用手册](https://book.douban.com/subject/34836750/)
 16. [Redis设计与实现](https://book.douban.com/subject/25900156/)
-17. [计算机科学导论](https://book.douban.com/subject/26726452/):thumbsup:
+17. [计算机科学导论](https://book.douban.com/subject/26726452/)
+18. [C程序设计语言（第2版）](https://book.douban.com/subject/1139336/)
 
 #### **参考视频**
 
