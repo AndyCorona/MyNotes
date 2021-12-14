@@ -1,9 +1,0 @@
-{
-  "name": "andy",
-  "age": 28,
-  "school": {
-    "name": "xxschool",
-    "location": "shanghai",
-    "student": [1,2,"a","b"]
-  }
-}
