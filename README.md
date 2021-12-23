@@ -1,7 +1,4 @@
 # MyNotes
-
-![gantt](E:\BaiduNetdiskDownload\MyNotes\.assets\gantt.png)
-
 <b>自学，看书为主，视频为辅。</b>
 
 学习时间安排：
@@ -24,17 +21,18 @@
 
 #### **计划任务**
 
-- [x] C 语言
-- [x] MySQL 优化
-- [ ] 计算机组成原理
-- [ ] Vue
+学习路线图参见 [Project](https://github.com/users/AndyCorona/projects/1)
+
+- [x] 计算机组成原理
 - [ ] 操作系统
 - [ ] 计算机网络
-- [ ] 数据结构与算法
+- [ ] 数据结构
+- [ ] 算法
 - [ ] 数据库原理
 - [ ] 编译原理
-- [ ] 微服务
+- [ ] MySQL 优化
 - [ ] JVM
+- [ ] 微服务
 
 #### **参考书目**
 
@@ -43,34 +41,29 @@
 3. [HTML5与CSS3基础教程（第8版）](https://book.douban.com/subject/25878992/)
 4. [JavaScript高级程序设计（第4版）](https://book.douban.com/subject/35175321/)
 5. [研磨设计模式](https://book.douban.com/subject/5343318/)
-6. [connector-j-8.0-en.a4](https://dev.mysql.com/doc/connector-j/8.0/en/)
-7. [maven_the_reference_guide](https://lemus.webs.upv.es/wordpress/wp-content/uploads/2018/03/maven_the_reference_guide.pdf)
-8. [maven 实战](https://book.douban.com/subject/5345682/)
-9. [Pro Git](https://git-scm.com/book/en/v2)
-10. [Tomcat与Java Web开发技术详解（第3版）](https://book.douban.com/subject/34780582/)
-11. [Spring实战（第4版）](https://book.douban.com/subject/26767354/)
-12. [Spring MVC学习指南（第2版）](https://book.douban.com/subject/30188611/)
-13. [MyBatis从入门到精通](https://book.douban.com/subject/27074809/)
-14. [MyBatis技术内幕](https://book.douban.com/subject/27087564/)
-15. [Redis使用手册](https://book.douban.com/subject/34836750/)
-16. [Redis设计与实现](https://book.douban.com/subject/25900156/)
-17. [计算机科学导论](https://book.douban.com/subject/26726452/)
-18. [C程序设计语言（第2版）](https://book.douban.com/subject/1139336/)
+6. [maven 实战](https://book.douban.com/subject/5345682/)
+7. [Pro Git](https://git-scm.com/book/en/v2)
+8. [Tomcat与Java Web开发技术详解（第3版）](https://book.douban.com/subject/34780582/)
+9. [Spring实战（第4版）](https://book.douban.com/subject/26767354/)
+10. [Spring MVC学习指南（第2版）](https://book.douban.com/subject/30188611/)
+11. [MyBatis从入门到精通](https://book.douban.com/subject/27074809/)
+12. [Redis使用手册](https://book.douban.com/subject/34836750/)
+13. [计算机科学导论](https://book.douban.com/subject/26726452/)
+18. [C Primer Plus（第6版）](https://book.douban.com/subject/26792521/)
+18. [深入理解计算机系统（原书第3版）](https://book.douban.com/subject/26912767/)
 
 #### **参考视频**
 
-1. [Java零基础入门教程](https://www.bilibili.com/video/BV1Kb411W75N?spm_id_from=333.999.0.0)
-2. [MySQL基础教程](https://www.bilibili.com/video/BV1xW411u7ax?spm_id_from=333.999.0.0)
-3. [斯坦福CS105 | 计算机科学导论](https://www.bilibili.com/video/BV1eh411W72E?from=search&seid=6651370212518184968&spm_id_from=333.337.0.0)
+1. [斯坦福CS105 | 计算机科学导论](https://www.bilibili.com/video/BV1eh411W72E?from=search&seid=6651370212518184968&spm_id_from=333.337.0.0)
+2. [2015 CMU CSAPP 深入理解计算机系统](https://www.bilibili.com/video/BV1iW411d7hd?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click)
 
 #### **官方文档**
 
-1. [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc)
-2. [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
-3. [MyBatis](https://mybatis.org/mybatis-3/)
-4. [Redis](https://redis.io/)
-5. [Boostrap](https://v5.bootcss.com/)
-6. [MySQL#Chapter 8 Optimization](https://dev.mysql.com/doc/refman/8.0/en/optimization.html)
-
-持续更新中......
-
+1. [MySQL 8.0 Reference Manual](https://dev.mysql.com/doc/refman/8.0/en/)
+2. [MySQL Connector/J 8.0 Developer Guide](https://dev.mysql.com/doc/connector-j/8.0/en/)
+3. [Spring Web MVC](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc)
+4. [Maven: The Complete Reference](https://lemus.webs.upv.es/wordpress/wp-content/uploads/2018/03/maven_the_reference_guide.pdf)
+5. [Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
+6. [MyBatis](https://mybatis.org/mybatis-3/)
+7. [Redis](https://redis.io/)
+8. [Boostrap](https://v5.bootcss.com/)
