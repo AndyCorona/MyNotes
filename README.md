@@ -24,14 +24,14 @@
 学习路线图参见 [Project](https://github.com/users/AndyCorona/projects/1)
 
 - [x] 计算机组成原理
-- [ ] 操作系统
+- [x] 操作系统
 - [ ] 计算机网络
 - [ ] 数据结构
 - [ ] 算法
 - [ ] 数据库原理
-- [ ] 编译原理
 - [ ] MySQL 优化
 - [ ] JVM
+- [ ] 编译原理
 - [ ] 微服务
 
 #### **参考书目**
@@ -51,11 +51,13 @@
 13. [计算机科学导论](https://book.douban.com/subject/26726452/)
 18. [C Primer Plus（第6版）](https://book.douban.com/subject/26792521/)
 18. [深入理解计算机系统（原书第3版）](https://book.douban.com/subject/26912767/)
+18. [现代操作系统](https://book.douban.com/subject/27096665/)
 
 #### **参考视频**
 
 1. [斯坦福CS105 | 计算机科学导论](https://www.bilibili.com/video/BV1eh411W72E?from=search&seid=6651370212518184968&spm_id_from=333.337.0.0)
 2. [2015 CMU CSAPP 深入理解计算机系统](https://www.bilibili.com/video/BV1iW411d7hd?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click)
+2. [清华大学 操作系统原理](https://www.bilibili.com/video/BV1uW411f72n?p=54)
 
 #### **官方文档**
 
