@@ -33,7 +33,12 @@ BeanFactory是Spring容器的顶层接口，Spring为BeanFactory提供了多种�
 
 **参考答案**
 
-IoC（Inversion of Control）是控制反转的意思，这是一种面向对象编程的设计思想。在不采用这种思想的情况下，我们需要自己维护对象与对象之间的依赖关系，很容易造成对象之间的耦合度过高，在一个大型的项目中这十分的不利于代码的维护。IoC则可以解决这种问题，它可以帮我们维护对象与对象之间的依赖关系，降低对象之间的耦合度。
+将原本在程序中⼿动创建对象的控制权，交由Spring框架来管理。
+IoC 容器是 Spring⽤来实现 IoC 的载体， IoC 容器实际上就是个Map（key，value），Map 中存放的是各种对象
+将对象之间的相互依赖关系交给 IoC 容器来管理，并由 IoC 容器完成对象的注⼊。
+IoC 容器就像是⼀个⼯⼚⼀样，当我们需要创建⼀个对象的时候，只需要配置好配置⽂件/注解即
+可，完全不⽤考虑对象是如何被创建出来的。
+IoC 的实现原理就是工厂模式加反射机制
 
 说到IoC就不得不说DI（Dependency Injection），DI是依赖注入的意思，它是IoC实现的实现方式，就是说IoC是通过DI来实现的。由于IoC这个词汇比较抽象而DI却更直观，所以很多时候我们就用DI来代替它，在很多时候我们简单地将IoC和DI划等号，这是一种习惯。而实现依赖注入的关键是IoC容器，它的本质就是一个工厂。
 
@@ -47,11 +52,7 @@ IoC（Inversion of Control）是控制反转的意思，这是一种面向对象
 
    通过setter方法，可以更改相应的对象属性。所以，当前对象只要为其依赖对象所对应的属性添加setter方法，就可以通过setter方法将相应的依赖对象设置到被注入对象中。setter方法注入虽不像构造方法注入那样，让对象构造完成后即可使用，但相对来说更宽松一些， 可以在对象构造完成后再注入。
 
-3. 接口注入
-
-   相对于前两种注入方式来说，接口注入没有那么简单明了。被注入对象如果想要IoC Service Provider为其注入依赖对象，就必须实现某个接口。这个接口提供一个方法，用来为其注入依赖对象。IoC Service Provider最终通过这些接口来了解应该为被注入对象注入什么依赖对象。相对于前两种依赖注入方式，接口注入比较死板和烦琐。
-
-总体来说，构造方法注入和setter方法注入因为其侵入性较弱，且易于理解和使用，所以是现在使用最多的注入方式。而接口注入因为侵入性较强，近年来已经不流行了。
+总体来说，构造方法注入和setter方法注入因为其侵入性较弱，且易于理解和使用，所以是现在使用最多的注入方式。
 
 #### 2.5 Spring是如何管理Bean的？
 
@@ -129,7 +130,44 @@ populateBean: 创建完了以后，要填充属性
 addSingleton: 填充完了以后，再添加到容器进行使用
 4，具体说明
 
-A创建过程中需要B，于是A将自己放到三级缓存里面，去实例化B，B实例化的时候发现需要A，于是B先查一级缓存，没有，再查二级缓存，还是没有，再查三级缓存，找到了A然后把三级缓存里面的这个A放到二级缓存里面，并删除三级缓存里面的A，B顺利初始化完毕，将自己放到一级缓存里面（**此时B里面的A依然是创建中状态**）然后回来接着创建A，此时B已经创建结束，直接从一级缓存里面拿到B，然后完成创建，并将A放到一级缓存中。
+A创建过程中需要B，于是A将自己放到三级缓存里面，去实例化B，B实例化的时候发现需要A，于是B先查一级缓存，没有，再查二级缓存，还是没有，再查三级缓存，找到了A然后把三级缓存里面的这个A放到二级缓存里面，并删除三级缓存里面的A，B顺利初始化完毕，将自己放到一级缓存里面（**此时B里面的A依然是创建中状态**）然后回来接着创建A，此时B已经创建结束，直接从一级缓存里面拿到B，然后完成创建，并将A放到一级缓存中。\
+
+#### 2. 10 Spring IOC 容器加载过程？
+
+总体分为三部分：
+
+-   1、初始化Spring容器，注册内置的BeanPostProcessor的BeanDefinition到容器中
+-   2、将配置类的BeanDefinition注册到容器中
+-   3、调用refresh()方法刷新容器
+
+```java'
+// 初始化容器
+public AnnotationConfigApplicationContext(Class<?>... annotatedClasses) {
+    // 第一步：注册 Spring 内置后置处理器的 BeanDefinition 到容器
+    this();
+    // 第二部：注册配置类 BeanDefinition 到容器
+    register(annotatedClasses);
+    // 第三步：加载或者刷新容器中的Bean
+    refresh();
+}
+```
+
+一、spring容器的初始化时，通过this()调用了无参构造函数，主要做了以下三个事情：
+
+（1）实例化BeanFactory【DefaultListableBeanFactory】工厂，用于生成Bean对象
+（2）实例化BeanDefinitionReader注解配置读取器，用于对特定注解（如@Service、@Repository）的类进行读取转化成  BeanDefinition 对象，（BeanDefinition 是 Spring 中极其重要的一个概念，它存储了 bean 对象的所有特征信息，如是否单例，是否懒加载，factoryBeanName 等）
+（3）实例化ClassPathBeanDefinitionScanner路径扫描器，用于对指定的包目录进行扫描查找 bean 对象
+
+二、解析用户传入的 Spring 配置类，解析成一个 BeanDefinition 然后注册到容器中
+
+三、refresh 容器刷新。Spring 中的每一个容器都会调用 refresh() 方法进行刷新完成初始化。refresh()可划分为12个步骤，下面介绍一些重要的
+
+obtainFreshBeanFactory()：获取在容器初始化时创建的BeanFactory
+invokeBeanFactoryPostProcessors(beanFactory)：在BeanFactory标准初始化之后执行BeanFactoryPostProcessor的方法，即BeanFactory的后置处理器
+registerBeanPostProcessors(beanFactory):向容器中注册Bean的后置处理器BeanPostProcessor，它的主要作用是干预Spring初始化bean的流程，从而完成代理、自动注入、循环依赖等功能
+initMessageSource()：初始化MessageSource组件，主要用于做国际化功能，消息绑定与消息解析
+onRefresh()：留给子容器、子类重写这个方法，在容器刷新的时候可以自定义逻辑
+finishBeanFactoryInitialization(beanFactory)：初始化所有剩下的单实例bean，核心方法是preInstantiateSingletons()，会调用getBean()方法创建对象；
 
 #### 2.9 @Autowired和@Resource注解有什么区别？
 
@@ -187,13 +225,20 @@ Spring AOP为IoC的使用提供了更多的便利，一方面，应用可以直�
 
 **参考答案**
 
-JDK动态代理
+JDK代理使用的是反射机制生成一个实现代理接口的匿名类，在调用具体方法前调用InvokeHandler来处理。
+CGLIB代理使用字节码处理框架ASM，对代理对象类的class文件加载进来，通过修改字节码生成子类。
+JDK创建代理对象效率较高，执行效率较低；
+CGLIB创建代理对象效率较低，执行效率高。
+JDK动态代理机制是委托机制，只能对实现接口的类生成代理，通过反射动态实现接口类；
+CGLIB则使用的继承机制，针对类实现代理，被代理类和代理类是继承关系，所以代理类是可以赋值给被代理类的，因为是继承机制，不能代理final修饰的类。
+JDK代理是不需要依赖第三方的库，只要JDK环境就可以进行代理，需要满足以下要求：
+ 1.实现InvocationHandler接口，重写invoke()
+ 2.使用Proxy.newProxyInstance()产生代理对象
+ 3.被代理的对象必须要实现接口
 
-这是Java提供的动态代理技术，可以在运行时创建接口的代理实例。Spring AOP默认采用这种方式，在接口的代理实例中织入代码。
-
-CGLib动态代理
-
-采用底层的字节码技术，在运行时创建子类代理的实例。当目标对象不存在接口时，Spring AOP就会采用这种方式，在子类实例中织入代码。
+CGLib 必须依赖于CGLib的类库,需要满足以下要求：
+ 1.实现MethodInterceptor接口，重写intercept()
+ 2.使用Enhancer对象.create()产生代理对象
 
 #### 2.15 既然有没有接口都可以用CGLIB，为什么Spring还要使用JDK动态代理？
 
@@ -340,6 +385,16 @@ Spring Boot 1.3.0中有一个新的注解@AutoConfigureOrder，用于确定配�
 @Component是一个元注解，意思是可以注解其他类注解，如@Controller @Service @Repository。带此注解的类被看作组件，当使用基于注解的配置和类路径扫描的时候，这些类就会被实例化。其他类级别的注解也可以被认定为是一种特殊类型的组件，比如@Controller 控制器（注入服务）、@Service服务（注入dao）、@Repository dao（实现dao访问）。@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注，作用就相当于 XML配置，<bean id="" class=""/>。
 
 ### 2.21 SpringBoot 自动化配置原理
+
+starter 是 springboot 提供的开箱即用的组件，这些组件本身不提供主动注册 Bean 的功能，而是向应用中**引入依赖**，后续 springboot 应用启动，触发自动装配的时候，发现starter 引入的相关依赖，就会将对应功能的 bean 装配进 IOC 容器中。
+
+-   ① Spring Boot 在启动时会去classpath中寻找所有 jar 包 的 resources/META-INF/spring.factories 文件
+
+-   ② 根据 spring.factories 配置加载 AutoConfigure 类
+
+-   ③ 根据 @Conditional 注解的条件，进行自动配置并将 Bean 注入 Spring Context
+
+**补充**
 @SpringBootConfiguration 就是 @Configuration，代表当前类是一个配置类
 @ComponentScan() 开启包扫描
 @EnableAutoConfiguration 允许自动配置
