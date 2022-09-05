@@ -1,0 +1,6 @@
+# ninja log v5
+0	529	6840598436493736	CMakeFiles/essential_c__.dir/02.cpp.obj	5f377395618d94bf
+1166	1459	6840715760871963	essential_c__.exe	9ef04a7cca42f2a8
+2	579	6840853686577593	build.ninja	d17085a47cd0fe70
+4	622	6840607659591240	CMakeFiles/essential_c__.dir/03.cpp.obj	df503d332417a204
+3	1165	6840715757988837	CMakeFiles/essential_c__.dir/04.cpp.obj	feca472f0d12f0a5

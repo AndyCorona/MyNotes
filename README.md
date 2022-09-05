@@ -6,6 +6,8 @@
 学习路线图 -> [Project](https://github.com/users/AndyCorona/projects/1)
 
 - [x] 算法 (leetcode)
+- [x] essential-c++
+- [x] FFmpeg 音视频开发基础与实战
 - [ ] 多线程进阶
 - [ ] 编译原理
 
@@ -29,8 +31,10 @@
 16. [现代操作系统](https://book.douban.com/subject/27096665/)
 17. [深入理解Java虚拟机](https://book.douban.com/subject/6522893/)
 18. [Java并发编程的艺术](https://book.douban.com/subject/26591326/)
+19. [FFmpeg 音视频开发基础与实战](https://book.douban.com/subject/35731313/)
+20. [Essential C++](https://book.douban.com/subject/24868427/)
 
-#### **参考音视频**
+#### **参考视频**
 
 1. [斯坦福CS105 | 计算机科学导论](https://www.bilibili.com/video/BV1eh411W72E?from=search&seid=6651370212518184968&spm_id_from=333.337.0.0)
 2. [2015 CMU CSAPP 深入理解计算机系统](https://www.bilibili.com/video/BV1iW411d7hd?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click)
@@ -38,12 +42,13 @@
 4. [哈尔滨工业大学 计算机网络](https://www.bilibili.com/video/BV1oE411s7z9?p=37&spm_id_from=pageDriver)
 5. [极客时间-Redis 核心技术与实战](https://time.geekbang.org/column/intro/100056701)
 6. [极客时间-MySQL 实战 45 讲](https://time.geekbang.org/column/intro/100020801)
-6. [极客时间-安全攻防技能 30 讲](https://time.geekbang.org/column/intro/100041701)
-7. [极客时间-软件工程之美](https://time.geekbang.org/column/intro/100023701)
-8. [极客时间-深入浅出分布式技术原理](https://time.geekbang.org/column/intro/100104701)
-9. [极客时间-分布式技术原理与算法解析](https://time.geekbang.org/column/intro/100036401)
-10.[极客时间-Linux 性能优化实战](https://time.geekbang.org/column/intro/100020901)
-11.[极客时间-Linux 性能优化实战](https://time.geekbang.org/column/intro/100023901)
+7. [极客时间-安全攻防技能 30 讲](https://time.geekbang.org/column/intro/100041701)
+8. [极客时间-软件工程之美](https://time.geekbang.org/column/intro/100023701)
+9. [极客时间-深入浅出分布式技术原理](https://time.geekbang.org/column/intro/100104701)
+10. [极客时间-分布式技术原理与算法解析](https://time.geekbang.org/column/intro/100036401)
+11. [极客时间-Linux 性能优化实战](https://time.geekbang.org/column/intro/100020901)
+12. [极客时间-Linux 性能优化实战](https://time.geekbang.org/column/intro/100023901)
+13. [编程必备基础-音视频小白系统入门课](https://coding.imooc.com/class/415.html)
 
 #### **官方文档**
 
