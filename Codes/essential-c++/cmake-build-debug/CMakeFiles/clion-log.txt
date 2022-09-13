@@ -1,4 +1,4 @@
-"D:\IntelliJ IDEA\CLion\CLion 2022.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/IntelliJ IDEA/CLion/CLion 2022.2.1/bin/ninja/win/ninja.exe" -G Ninja -S E:\BaiduNetdiskDownload\CLion\essential-c++ -B E:\BaiduNetdiskDownload\CLion\essential-c++\cmake-build-debug
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/ninja -G Ninja -S /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++ -B /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/cmake-build-debug
 -- Configuring done
 -- Generating done
--- Build files have been written to: E:/BaiduNetdiskDownload/CLion/essential-c++/cmake-build-debug
+-- Build files have been written to: /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/cmake-build-debug
