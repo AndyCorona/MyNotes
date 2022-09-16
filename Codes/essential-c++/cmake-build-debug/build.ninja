@@ -46,11 +46,11 @@ cmake_ninja_workdir = /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8E
 
 build cmake_object_order_depends_target_essential_c__: phony || CMakeFiles/essential_c__.dir
 
-build CMakeFiles/essential_c__.dir/runoob/36.cpp.o: CXX_COMPILER__essential_c___Debug /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/runoob/36.cpp || cmake_object_order_depends_target_essential_c__
-  DEP_FILE = CMakeFiles/essential_c__.dir/runoob/36.cpp.o.d
+build CMakeFiles/essential_c__.dir/C++primerplus/textbookdemo/instr3.cpp.o: CXX_COMPILER__essential_c___Debug /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/C++primerplus/textbookdemo/instr3.cpp || cmake_object_order_depends_target_essential_c__
+  DEP_FILE = CMakeFiles/essential_c__.dir/C++primerplus/textbookdemo/instr3.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
   OBJECT_DIR = CMakeFiles/essential_c__.dir
-  OBJECT_FILE_DIR = CMakeFiles/essential_c__.dir/runoob
+  OBJECT_FILE_DIR = CMakeFiles/essential_c__.dir/C++primerplus/textbookdemo
 
 
 # =============================================================================
@@ -60,7 +60,7 @@ build CMakeFiles/essential_c__.dir/runoob/36.cpp.o: CXX_COMPILER__essential_c___
 #############################################
 # Link the executable essential_c__
 
-build essential_c__: CXX_EXECUTABLE_LINKER__essential_c___Debug CMakeFiles/essential_c__.dir/runoob/36.cpp.o
+build essential_c__: CXX_EXECUTABLE_LINKER__essential_c___Debug CMakeFiles/essential_c__.dir/C++primerplus/textbookdemo/instr3.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/essential_c__.dir
   POST_BUILD = :
