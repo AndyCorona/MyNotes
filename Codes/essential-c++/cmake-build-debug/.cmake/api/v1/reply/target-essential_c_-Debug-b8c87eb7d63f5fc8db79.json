@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "essential_c__"
+			"path" : "essential_c_"
 		}
 	],
 	"backtrace" : 1,
@@ -56,7 +56,7 @@
 			]
 		}
 	],
-	"id" : "essential_c__::@6890427a1f51a3e7e1df",
+	"id" : "essential_c_::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -72,8 +72,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "essential_c__",
-	"nameOnDisk" : "essential_c__",
+	"name" : "essential_c_",
+	"nameOnDisk" : "essential_c_",
 	"paths" : 
 	{
 		"build" : ".",

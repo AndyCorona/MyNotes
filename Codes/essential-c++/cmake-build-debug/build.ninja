@@ -38,35 +38,35 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/cmake-build-debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target essential_c__
+# Object build statements for EXECUTABLE target essential_c_
 
 
 #############################################
-# Order-only phony target for essential_c__
+# Order-only phony target for essential_c_
 
-build cmake_object_order_depends_target_essential_c__: phony || CMakeFiles/essential_c__.dir
+build cmake_object_order_depends_target_essential_c_: phony || CMakeFiles/essential_c_.dir
 
-build CMakeFiles/essential_c__.dir/C++primerplus/temp.cpp.o: CXX_COMPILER__essential_c___Debug /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/C++primerplus/temp.cpp || cmake_object_order_depends_target_essential_c__
-  DEP_FILE = CMakeFiles/essential_c__.dir/C++primerplus/temp.cpp.o.d
+build CMakeFiles/essential_c_.dir/C++primerplus/temp.cpp.o: CXX_COMPILER__essential_c__Debug /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/C++primerplus/temp.cpp || cmake_object_order_depends_target_essential_c_
+  DEP_FILE = CMakeFiles/essential_c_.dir/C++primerplus/temp.cpp.o.d
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++11
-  OBJECT_DIR = CMakeFiles/essential_c__.dir
-  OBJECT_FILE_DIR = CMakeFiles/essential_c__.dir/C++primerplus
+  OBJECT_DIR = CMakeFiles/essential_c_.dir
+  OBJECT_FILE_DIR = CMakeFiles/essential_c_.dir/C++primerplus
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target essential_c__
+# Link build statements for EXECUTABLE target essential_c_
 
 
 #############################################
-# Link the executable essential_c__
+# Link the executable essential_c_
 
-build essential_c__: CXX_EXECUTABLE_LINKER__essential_c___Debug CMakeFiles/essential_c__.dir/C++primerplus/temp.cpp.o
+build essential_c_: CXX_EXECUTABLE_LINKER__essential_c__Debug CMakeFiles/essential_c_.dir/C++primerplus/temp.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
-  OBJECT_DIR = CMakeFiles/essential_c__.dir
+  OBJECT_DIR = CMakeFiles/essential_c_.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = essential_c__
-  TARGET_PDB = essential_c__.dbg
+  TARGET_FILE = essential_c_
+  TARGET_PDB = essential_c_.dbg
 
 
 #############################################
@@ -102,7 +102,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /Users/andycorona/Library/Containers/0AFCBEAE-938E-4F76-8EEB-133760E2F079/Data/Documents/data/CLion/essential-c++/cmake-build-debug
 
-build all: phony essential_c__
+build all: phony essential_c_
 
 # =============================================================================
 # Built-in targets
